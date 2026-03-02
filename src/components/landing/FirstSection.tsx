@@ -657,67 +657,96 @@ const HeroDemoPanel = () => {
     >
       {/* Ambient glow */}
       <div className="absolute -inset-6 rounded-[2.5rem] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(56,126,137,0.10) 0%, rgba(59,130,246,0.06) 50%, transparent 75%)', filter: 'blur(24px)' }} />
+        style={{ background: 'radial-gradient(ellipse at 40% 60%, rgba(56,126,137,0.12) 0%, rgba(20,49,81,0.06) 50%, transparent 75%)', filter: 'blur(28px)' }} />
 
       <div className="relative rounded-3xl overflow-hidden border"
-        style={{ background: '#ffffff', borderColor: '#e8edf2', boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.09), 0 30px 60px rgba(20,49,81,0.08)' }}>
+        style={{ background: '#ffffff', borderColor: '#dde3ea', boxShadow: '0 4px 6px rgba(0,0,0,0.03), 0 16px 48px rgba(0,0,0,0.10), 0 32px 72px rgba(20,49,81,0.10)' }}>
 
-        {/* ── Top chrome bar ── */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 40%, #f0f4fd 100%)', borderColor: '#e8ddef' }}>
+        {/* ── Top chrome bar (pink gradient only here) ── */}
+        <div className="flex items-center justify-between px-5 py-3 border-b" style={{ background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 40%, #f0f4fd 100%)', borderColor: '#e6d8ec' }}>
+          {/* Traffic lights */}
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ background: '#143151', opacity: 0.25 }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#387E89', opacity: 0.4 }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#143151', opacity: 0.6 }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: '#f87171' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: '#fbbf24' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: '#34d399' }} />
           </div>
+          {/* Title */}
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#387E89' }} />
-            <span className="text-[11px] font-semibold tracking-wide" style={{ color: '#143151', opacity: 0.45 }}>S10.AI · Interactive Demo</span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#387E89] opacity-60" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#387E89]" />
+            </span>
+            <span className="text-[11.5px] font-bold tracking-wide" style={{ color: '#143151' }}>S10.AI · Interactive Demo</span>
           </div>
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border" style={{ color: '#387E89', background: '#387E89' + '10', borderColor: '#387E89' + '25' }}>Live</span>
+          {/* Live badge */}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: '#387E8915', border: '1px solid #387E8935' }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#387E89] animate-pulse" />
+            <span className="text-[10px] font-bold" style={{ color: '#387E89' }}>LIVE</span>
+          </div>
         </div>
 
-        {/* ── Tab pills bar ── */}
-        <div className="px-4 pt-3 pb-0 border-b" style={{ background: '#fafbfc', borderColor: '#edf0f4' }}>
-          <div className="flex gap-1 overflow-x-auto pb-3" style={{ scrollbarWidth: 'none' }}>
+        {/* ── Tab bar — icon + label layout ── */}
+        <div className="px-4 pt-3.5 pb-0 border-b" style={{ background: '#f8fafc', borderColor: '#eaeff4' }}>
+          <div className="flex gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
             {tabItems.map((t, i) => {
               const isActive = activeTab === i;
               return (
-                <motion.button key={t.id} onClick={() => setActiveTab(i)}
-                  whileTap={{ scale: 0.96 }}
-                  className={`relative flex-shrink-0 px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all duration-200 ${isActive ? 'text-white shadow-sm' : 'hover:bg-white'}`}
-                  style={isActive ? { background: `linear-gradient(135deg, ${t.color}ee, ${t.color})`, boxShadow: `0 2px 10px ${t.color}30` } : { color: '#143151', opacity: 0.45 }}>
-                  {t.shortLabel}
+                <motion.button
+                  key={t.id}
+                  onClick={() => setActiveTab(i)}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative flex-shrink-0 flex flex-col items-center gap-0.5 px-4 pb-3 pt-1.5 transition-all duration-200 focus:outline-none"
+                  style={{ color: isActive ? t.color : '#94a3b8' }}
+                >
+                  <span className={`text-[11.5px] font-bold whitespace-nowrap transition-colors duration-200`}>
+                    {t.shortLabel}
+                  </span>
+                  {/* Active underline */}
+                  <motion.div
+                    className="absolute bottom-0 left-1 right-1 h-0.5 rounded-full"
+                    animate={{ opacity: isActive ? 1 : 0, scaleX: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ background: `linear-gradient(90deg, ${t.color}60, ${t.color})`, transformOrigin: 'center' }}
+                  />
                 </motion.button>
               );
             })}
           </div>
         </div>
 
-        {/* ── Tab context strip ── */}
+        {/* ── Context strip (subtitle + badge) ── */}
         <AnimatePresence mode="wait">
-          <motion.div key={tab.id + '-meta'}
-            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}
-            className="flex items-center justify-between px-5 py-2.5 border-b" style={{ borderColor: '#edf0f4' }}>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-6 rounded-full" style={{ background: `linear-gradient(180deg, ${tab.color}70, ${tab.color})` }} />
+          <motion.div
+            key={tab.id + '-meta'}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex items-center justify-between px-5 py-2.5 border-b"
+            style={{ background: '#ffffff', borderColor: '#eaeff4' }}
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: `linear-gradient(180deg, ${tab.color}50, ${tab.color})` }} />
               <div>
-                <p className="text-[12px] font-black leading-none" style={{ color: '#143151' }}>{tab.label}</p>
-                <p className="text-[10px] mt-0.5 leading-none" style={{ color: '#387E89', opacity: 0.7 }}>{tab.subtitle}</p>
+                <p className="text-[12.5px] font-black leading-none" style={{ color: '#143151' }}>{tab.label}</p>
+                <p className="text-[10.5px] mt-0.5 leading-none" style={{ color: '#387E89' }}>{tab.subtitle}</p>
               </div>
             </div>
             <span className="text-[9.5px] font-black px-2.5 py-1 rounded-full flex-shrink-0"
-              style={{ background: tab.color + '10', color: tab.color, border: `1.5px solid ${tab.color}25` }}>
+              style={{ background: tab.color + '12', color: tab.color, border: `1.5px solid ${tab.color}30` }}>
               {tab.badge}
             </span>
           </motion.div>
         </AnimatePresence>
 
         {/* ── Demo content ── */}
-        <div className="px-5 py-4">
+        <div className="px-5 py-4" style={{ background: '#ffffff' }}>
           <AnimatePresence mode="wait">
-            <motion.div key={tab.id}
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
+            <motion.div
+              key={tab.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+            >
               <tab.Demo />
             </motion.div>
           </AnimatePresence>
