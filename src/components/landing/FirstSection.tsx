@@ -330,7 +330,7 @@ const accordionItems = [
     subtitle: 'Advanced speech recognition and real-time coding capture clinician–patient conversations accurately, ensuring compliant, audit-ready documentation.',
     badge: 'Save 2+ hrs. Ensure reimbursement.',
     icon: FileText,
-    iconBg: 'bg-blue-100',
+    iconBg: '#EFF6FF',
     iconColor: '#3b82f6',
     Demo: ScribeDemo,
   },
@@ -340,7 +340,7 @@ const accordionItems = [
     subtitle: 'Handles inbound & outbound calls, appointment scheduling, prescription refills, and patient care — 24/7.',
     badge: 'Zero hold times. Always available.',
     icon: Phone,
-    iconBg: 'bg-teal-100',
+    iconBg: '#F0FAFA',
     iconColor: '#387E89',
     Demo: ReceptionistDemo,
   },
@@ -350,8 +350,8 @@ const accordionItems = [
     subtitle: 'Purpose-built agents that automate every repetitive task in your clinic — from prior auth to billing.',
     badge: 'Cut admin workload by 40%.',
     icon: Bot,
-    iconBg: 'bg-purple-100',
-    iconColor: '#8b5cf6',
+    iconBg: '#F5F3FF',
+    iconColor: '#7c3aed',
     Demo: CustomAgentsDemo,
   },
   {
@@ -359,8 +359,8 @@ const accordionItems = [
     label: 'EHR Integrations',
     subtitle: 'Connects with Epic, Cerner, Athenahealth, and 7,000+ apps instantly — no disruption to your workflow.',
     badge: 'Works with every EHR.',
-    icon: Plug,
-    iconBg: 'bg-green-100',
+    icon: Database,
+    iconBg: '#F0FDF4',
     iconColor: '#059669',
     Demo: IntegrationsDemo,
   },
@@ -373,69 +373,96 @@ const HeroDemoPanel = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.4 }}
       className="lg:col-span-5 relative order-2"
     >
-      <div className="absolute -inset-8 bg-gradient-to-r from-[#387E89]/10 via-[#5192AE]/15 to-[#143151]/10 rounded-[2rem] blur-2xl opacity-70" />
-      <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200/60 shadow-2xl overflow-hidden">
+      {/* Soft glow behind card */}
+      <div className="absolute -inset-6 bg-gradient-to-br from-[#387E89]/8 via-[#5192AE]/10 to-[#143151]/8 rounded-[2.5rem] blur-3xl" />
 
-        {/* Header */}
-        <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-gray-100">
-          <div>
-            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-0.5">One AI Platform. Every Task Automated.</p>
-          </div>
-          <span className="bg-pink-100 text-pink-600 text-[10px] font-bold px-2.5 py-1 rounded-full">Clinician-First</span>
+      <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+
+        {/* ── Header ── */}
+        <div className="px-6 pt-5 pb-4 flex items-center justify-between">
+          <p className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase leading-none">
+            One AI Platform. Every Task Automated.
+          </p>
+          <span className="bg-pink-50 text-pink-500 border border-pink-200 text-[10px] font-bold px-3 py-1 rounded-full tracking-wide">
+            Clinician-First
+          </span>
         </div>
 
-        {/* Accordion Items */}
-        <div className="divide-y divide-gray-100">
+        {/* thin separator */}
+        <div className="h-px bg-gray-100 mx-4" />
+
+        {/* ── Accordion Items ── */}
+        <div className="py-1">
           {accordionItems.map((item, i) => {
             const Icon = item.icon;
             const isOpen = openIndex === i;
             return (
-              <div key={item.id}>
-                {/* Row */}
+              <div key={item.id} className={`mx-3 my-1 rounded-xl overflow-hidden transition-all duration-200 ${isOpen ? 'bg-gray-50/80 border border-gray-200/60' : 'border border-transparent'}`}>
+                {/* Row trigger */}
                 <button
                   onClick={() => toggle(i)}
-                  className={`w-full flex items-center gap-3 px-5 py-4 text-left transition-all duration-200 ${isOpen ? 'bg-[#f0f8fa]' : 'hover:bg-gray-50/80'}`}
+                  className="w-full flex items-center gap-3.5 px-4 py-3.5 text-left group"
                 >
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${item.iconBg}`}>
-                    <Icon className="w-4 h-4" style={{ color: item.iconColor }} />
+                  {/* Icon pill */}
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
+                    style={{ background: item.iconBg }}
+                  >
+                    <Icon className="w-[18px] h-[18px]" style={{ color: item.iconColor }} />
                   </div>
-                  <span className={`text-sm font-semibold flex-1 text-left transition-colors ${isOpen ? 'text-[#143151]' : 'text-gray-700'}`}>
+
+                  {/* Label */}
+                  <span className={`text-[13.5px] font-semibold flex-1 leading-snug transition-colors duration-150 ${isOpen ? 'text-[#143151]' : 'text-gray-700 group-hover:text-[#143151]'}`}>
                     {item.label}
                   </span>
+
+                  {/* Chevron */}
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.22, ease: 'easeInOut' }}
+                    className="flex-shrink-0"
                   >
-                    <ArrowRight className="w-4 h-4 text-gray-400 rotate-90" />
+                    <svg className={`w-4 h-4 transition-colors ${isOpen ? 'text-[#387E89]' : 'text-gray-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
                   </motion.div>
                 </button>
 
-                {/* Expanded content */}
+                {/* Expanded body */}
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      key="content"
+                      key="body"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.28, ease: 'easeInOut' }}
+                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-4 pt-1 space-y-3">
-                        {/* Description */}
-                        <p className="text-xs text-gray-500 leading-relaxed">{item.subtitle}</p>
-                        {/* Badge */}
-                        <div className="flex items-center gap-2 bg-[#EEF6F7] rounded-lg px-3 py-2">
+                      <div className="px-4 pb-4 space-y-3">
+                        {/* Divider */}
+                        <div className="h-px bg-gray-200/70" />
+
+                        {/* Description text */}
+                        <p className="text-[12.5px] text-gray-500 leading-relaxed">
+                          {item.subtitle}
+                        </p>
+
+                        {/* Benefit badge */}
+                        <div className="inline-flex items-center gap-2 bg-[#EBF5F6] rounded-lg px-3 py-2">
                           <CheckCircle className="w-3.5 h-3.5 text-[#387E89] flex-shrink-0" />
-                          <span className="text-xs font-semibold text-[#143151]">{item.badge}</span>
+                          <span className="text-[11.5px] font-semibold text-[#143151]">{item.badge}</span>
                         </div>
-                        {/* Demo content */}
-                        <item.Demo />
+
+                        {/* ── Demo Component ── */}
+                        <div className="mt-1">
+                          <item.Demo />
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -445,13 +472,18 @@ const HeroDemoPanel = () => {
           })}
         </div>
 
-        {/* Dot indicators */}
-        <div className="flex items-center justify-center gap-2 py-4 border-t border-gray-100">
+        {/* ── Dot navigation ── */}
+        <div className="flex items-center justify-center gap-2 py-4 border-t border-gray-100 mt-1">
           {accordionItems.map((_, i) => (
             <button
               key={i}
               onClick={() => toggle(i)}
-              className={`rounded-full transition-all duration-300 ${openIndex === i ? 'w-6 h-2 bg-[#143151]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'}`}
+              aria-label={`Select demo ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                openIndex === i
+                  ? 'w-7 h-2 bg-[#143151]'
+                  : 'w-2 h-2 bg-gray-200 hover:bg-gray-400'
+              }`}
             />
           ))}
         </div>
