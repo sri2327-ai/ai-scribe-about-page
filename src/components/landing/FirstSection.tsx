@@ -964,7 +964,7 @@ const StepProgressBar = ({ isActive, duration = 6000, color }: { isActive: boole
   );
 };
 
-const HeroDemoPanel = () => {
+export const HeroDemoPanel = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const autoPlayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
