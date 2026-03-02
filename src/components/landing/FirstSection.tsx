@@ -651,16 +651,52 @@ const IntegrationsDemo = () => {
 
 
 // ─── Main Demo Panel ──────────────────────────────────────────────────────────
-const tabItems = [
-  { id: 'scribe', label: 'AI Scribe',  shortLabel: 'Scribe',  subtitle: 'Live transcription → auto SOAP note',   badge: '2+ hrs saved/day',  color: '#3b82f6', Demo: ScribeDemo },
-  { id: 'bravo',  label: 'BRAVO',      shortLabel: 'BRAVO',   subtitle: 'AI handles every inbound call 24/7',     badge: '24/7 availability', color: '#387E89', Demo: ReceptionistDemo },
-  { id: 'agents', label: 'AI Agents',  shortLabel: 'Agents',  subtitle: '5 autonomous agents run your clinic',    badge: '40% less admin',    color: '#8b5cf6', Demo: CustomAgentsDemo },
-  { id: 'ehr',    label: 'Integrations',shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption', badge: 'Plug & play',   color: '#059669', Demo: IntegrationsDemo },
+const navItems = [
+  {
+    id: 'scribe',
+    label: 'AI Scribe',
+    tag: '2h saved/day',
+    desc: 'Auto-generates SOAP notes live',
+    accent: '#2563eb',
+    accentLight: '#eff6ff',
+    icon: '🎙️',
+    Demo: ScribeDemo,
+  },
+  {
+    id: 'bravo',
+    label: 'BRAVO',
+    tag: '24/7 coverage',
+    desc: 'Handles every inbound call',
+    accent: '#0891b2',
+    accentLight: '#ecfeff',
+    icon: '📞',
+    Demo: ReceptionistDemo,
+  },
+  {
+    id: 'agents',
+    label: 'AI Agents',
+    tag: '40% less admin',
+    desc: '5 autonomous clinical agents',
+    accent: '#7c3aed',
+    accentLight: '#f5f3ff',
+    icon: '🤖',
+    Demo: CustomAgentsDemo,
+  },
+  {
+    id: 'ehr',
+    label: 'Integrations',
+    tag: 'Plug & play',
+    desc: 'Any EHR + 7,000+ apps',
+    accent: '#059669',
+    accentLight: '#f0fdf4',
+    icon: '🔗',
+    Demo: IntegrationsDemo,
+  },
 ];
 
 const HeroDemoPanel = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const tab = tabItems[activeTab];
+  const [active, setActive] = useState(0);
+  const item = navItems[active];
 
   return (
     <motion.div
@@ -669,72 +705,115 @@ const HeroDemoPanel = () => {
       transition={{ duration: 0.7, delay: 0.4 }}
       className="lg:col-span-5 relative order-2"
     >
-      {/* Ambient glow */}
-      <div className="absolute -inset-6 rounded-[2.5rem] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(56,126,137,0.10) 0%, rgba(59,130,246,0.06) 50%, transparent 75%)', filter: 'blur(24px)' }} />
+      {/* Soft ambient glow */}
+      <div className="absolute -inset-4 rounded-[2.5rem] pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at 55% 55%, ${item.accent}14 0%, transparent 70%)`, filter: 'blur(32px)', transition: 'background 0.4s' }} />
 
-      <div className="relative rounded-3xl overflow-hidden border"
-        style={{ background: '#ffffff', borderColor: '#e8edf2', boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.09), 0 30px 60px rgba(20,49,81,0.08)' }}>
+      {/* Shell */}
+      <div className="relative rounded-2xl overflow-hidden border border-gray-200/70"
+        style={{ background: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.08), 0 24px 56px rgba(20,49,81,0.07)' }}>
 
-        {/* ── Top chrome bar ── */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ background: 'linear-gradient(180deg,#fcfcfd,#f8fafc)', borderColor: '#edf0f4' }}>
+        {/* ── Top bar ── */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100"
+          style={{ background: 'linear-gradient(180deg,#fdfdfe,#f8fafc)' }}>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f57] shadow-sm" />
-            <div className="w-3 h-3 rounded-full bg-[#febc2e] shadow-sm" />
-            <div className="w-3 h-3 rounded-full bg-[#28c840] shadow-sm" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] font-semibold text-gray-400 tracking-wide">S10.AI · Interactive Demo</span>
+          <div className="flex items-center gap-1.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+            </span>
+            <span className="text-[10px] font-semibold text-gray-400 tracking-wide">S10.AI · Live Demo</span>
           </div>
-          <span className="text-[10px] font-bold text-[#387E89] bg-[#387E89]/8 px-2.5 py-1 rounded-full border border-[#387E89]/20">Live</span>
+          <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">Live</span>
         </div>
 
-        {/* ── Tab pills bar ── */}
-        <div className="px-4 pt-3 pb-0 border-b" style={{ background: '#fafbfc', borderColor: '#edf0f4' }}>
-          <div className="flex gap-1 overflow-x-auto pb-3" style={{ scrollbarWidth: 'none' }}>
-            {tabItems.map((t, i) => {
-              const isActive = activeTab === i;
+        {/* ── Body: sidebar + content ── */}
+        <div className="flex" style={{ minHeight: 420 }}>
+
+          {/* Left sidebar nav */}
+          <div className="flex-shrink-0 w-[110px] border-r border-gray-100 py-3 flex flex-col gap-1 px-2"
+            style={{ background: '#fafbfc' }}>
+            {navItems.map((n, i) => {
+              const isActive = active === i;
               return (
-                <motion.button key={t.id} onClick={() => setActiveTab(i)}
-                  whileTap={{ scale: 0.96 }}
-                  className={`relative flex-shrink-0 px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all duration-200 ${isActive ? 'text-white shadow-sm' : 'text-gray-400 hover:text-gray-600 bg-transparent'}`}
-                  style={isActive ? { background: `linear-gradient(135deg, ${t.color}dd, ${t.color})`, boxShadow: `0 2px 8px ${t.color}35` } : {}}>
-                  {t.shortLabel}
-                </motion.button>
+                <button
+                  key={n.id}
+                  onClick={() => setActive(i)}
+                  className="relative w-full rounded-xl px-2 py-3 text-left transition-all duration-200 group outline-none"
+                  style={{
+                    background: isActive ? '#fff' : 'transparent',
+                    boxShadow: isActive ? `0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px ${n.accent}22` : 'none',
+                  }}>
+                  {/* Active accent strip */}
+                  {isActive && (
+                    <motion.div layoutId="sidebar-accent"
+                      className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full"
+                      style={{ background: n.accent }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
+                  )}
+                  <span className="block text-base leading-none mb-1 ml-1">{n.icon}</span>
+                  <span className={`block text-[10.5px] font-bold leading-tight ml-1 ${isActive ? 'text-gray-800' : 'text-gray-400 group-hover:text-gray-600'}`}
+                    style={isActive ? { color: n.accent } : {}}>
+                    {n.label}
+                  </span>
+                  {isActive && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="block mt-1 ml-1 text-[8.5px] font-semibold px-1.5 py-0.5 rounded-full w-fit"
+                      style={{ background: `${n.accent}14`, color: n.accent }}>
+                      {n.tag}
+                    </motion.span>
+                  )}
+                </button>
               );
             })}
-          </div>
-        </div>
 
-        {/* ── Tab context strip ── */}
-        <AnimatePresence mode="wait">
-          <motion.div key={tab.id + '-meta'}
-            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}
-            className="flex items-center justify-between px-5 py-2.5 border-b" style={{ borderColor: '#f1f5f9' }}>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-6 rounded-full" style={{ background: `linear-gradient(180deg, ${tab.color}80, ${tab.color})` }} />
-              <div>
-                <p className="text-[12px] font-black text-gray-800 leading-none">{tab.label}</p>
-                <p className="text-[10px] text-gray-400 mt-0.5 leading-none">{tab.subtitle}</p>
+            {/* Bottom meta */}
+            <div className="mt-auto pt-3 px-1 border-t border-gray-100">
+              <p className="text-[8px] font-semibold text-gray-300 leading-snug">HIPAA<br />Compliant</p>
+              <div className="flex gap-0.5 mt-1">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="h-1 rounded-full flex-1" style={{ background: item.accent, opacity: 0.3 + i * 0.25 }} />
+                ))}
               </div>
             </div>
-            <span className="text-[9.5px] font-black px-2.5 py-1 rounded-full flex-shrink-0"
-              style={{ background: `${tab.color}12`, color: tab.color, border: `1.5px solid ${tab.color}30` }}>
-              {tab.badge}
-            </span>
-          </motion.div>
-        </AnimatePresence>
+          </div>
 
-        {/* ── Demo content ── */}
-        <div className="px-5 py-4">
-          <AnimatePresence mode="wait">
-            <motion.div key={tab.id}
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
-              <tab.Demo />
-            </motion.div>
-          </AnimatePresence>
+          {/* Right content area */}
+          <div className="flex-1 min-w-0 flex flex-col">
+            {/* Section header */}
+            <AnimatePresence mode="wait">
+              <motion.div key={item.id + '-hdr'}
+                initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.18 }}
+                className="flex items-center justify-between px-4 py-3 border-b border-gray-50">
+                <div>
+                  <p className="text-[12px] font-black text-gray-800 leading-none">{item.label}</p>
+                  <p className="text-[9.5px] text-gray-400 mt-0.5">{item.desc}</p>
+                </div>
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+                  style={{ background: `${item.accent}12`, color: item.accent, border: `1px solid ${item.accent}25` }}>
+                  {item.tag}
+                </span>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Demo content */}
+            <div className="flex-1 px-4 py-3 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div key={item.id}
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
+                  <item.Demo />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
