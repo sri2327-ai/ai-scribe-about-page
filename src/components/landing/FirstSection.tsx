@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play } from "lucide-react";
+import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -708,17 +708,72 @@ const IntegrationsDemo = () => {
 };
 
 
-// ─── Main Demo Panel ──────────────────────────────────────────────────────────
-const tabItems = [
-  { id: 'scribe', label: 'AI Scribe',     shortLabel: 'Scribe',       subtitle: 'Live transcription → auto SOAP note',   badge: '2+ hrs saved/day',  color: S10.teal,  pal: palette.teal,   Demo: ScribeDemo },
-  { id: 'bravo',  label: 'BRAVO',         shortLabel: 'BRAVO',        subtitle: 'AI handles every inbound call 24/7',    badge: '24/7 availability', color: S10.navy,  pal: palette.violet, Demo: ReceptionistDemo },
-  { id: 'agents', label: 'AI Agents',     shortLabel: 'Agents',       subtitle: '5 autonomous agents run your clinic',   badge: '40% less admin',    color: S10.mid,   pal: palette.blue,   Demo: CustomAgentsDemo },
-  { id: 'ehr',    label: 'Integrations',  shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption', badge: 'Plug & play',       color: S10.teal,  pal: palette.emerald,Demo: IntegrationsDemo },
+// ─── Demo step definitions (Bravo-style vertical stepper) ────────────────────
+
+const demoSteps = [
+  {
+    id: 'scribe',
+    icon: FileText,
+    title: 'AI Medical Scribe',
+    description: 'Live transcription → auto SOAP note in seconds',
+    badge: '2+ hrs saved/day',
+    color: S10.navy,
+    Demo: ScribeDemo,
+  },
+  {
+    id: 'bravo',
+    icon: PhoneIcon,
+    title: 'BRAVO AI Receptionist',
+    description: 'Handles every inbound call 24/7, books & confirms',
+    badge: '24/7 availability',
+    color: S10.teal,
+    Demo: ReceptionistDemo,
+  },
+  {
+    id: 'agents',
+    icon: Users,
+    title: 'Custom AI Agents',
+    description: '5 autonomous agents run your entire clinic',
+    badge: '40% less admin',
+    color: S10.mid,
+    Demo: CustomAgentsDemo,
+  },
+  {
+    id: 'ehr',
+    icon: LinkIcon,
+    title: 'EHR Integrations',
+    description: 'Any EHR + 7,000 apps — zero disruption',
+    badge: 'Plug & play',
+    color: S10.navy,
+    Demo: IntegrationsDemo,
+  },
 ];
 
 const HeroDemoPanel = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const tab = tabItems[activeTab];
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const autoPlayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Auto-advance — exactly like BravoWorkflowAnimation
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    if (autoPlayRef.current) clearTimeout(autoPlayRef.current);
+    autoPlayRef.current = setTimeout(() => {
+      setCurrentStep(prev => (prev >= demoSteps.length - 1 ? 0 : prev + 1));
+    }, 6000);
+    return () => { if (autoPlayRef.current) clearTimeout(autoPlayRef.current); };
+  }, [isAutoPlaying, currentStep]);
+
+  useEffect(() => () => { if (autoPlayRef.current) clearTimeout(autoPlayRef.current); }, []);
+
+  const handleStepClick = (index: number) => {
+    if (autoPlayRef.current) clearTimeout(autoPlayRef.current);
+    setIsAutoPlaying(false);
+    setCurrentStep(index);
+    // Resume after 15 s of inactivity
+    const t = setTimeout(() => setIsAutoPlaying(true), 15000);
+    return () => clearTimeout(t);
+  };
 
   return (
     <motion.div
@@ -729,21 +784,19 @@ const HeroDemoPanel = () => {
     >
       {/* Ambient glow */}
       <div className="absolute -inset-6 rounded-[2.5rem] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 40% 60%, rgba(56,126,137,0.12) 0%, rgba(20,49,81,0.06) 50%, transparent 75%)', filter: 'blur(28px)' }} />
+        style={{ background: `radial-gradient(ellipse at 40% 60%, ${S10.teal}20 0%, ${S10.navy}0a 50%, transparent 75%)`, filter: 'blur(28px)' }} />
 
-      <div className="relative rounded-3xl overflow-hidden border"
-        style={{ background: '#ffffff', borderColor: `${S10.mid}30`, boxShadow: `0 4px 6px rgba(0,0,0,0.03), 0 16px 48px rgba(20,49,81,0.12), 0 32px 72px rgba(20,49,81,0.08)` }}>
+      <div className="relative rounded-3xl overflow-hidden border bg-white"
+        style={{ borderColor: `${S10.mid}25`, boxShadow: `0 4px 6px rgba(0,0,0,0.03), 0 16px 48px rgba(20,49,81,0.10), 0 32px 72px rgba(20,49,81,0.07)` }}>
 
-        {/* ── Top chrome bar — Bravo-style navy/teal gradient ── */}
+        {/* ── Chrome bar — exact Bravo navy→teal gradient ── */}
         <div className="flex items-center justify-between px-5 py-3 border-b"
-          style={{ background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)`, borderColor: `${S10.teal}` }}>
-          {/* Traffic lights */}
+          style={{ background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)`, borderColor: S10.teal }}>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.3)' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.5)' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.7)' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.25)' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.45)' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.65)' }} />
           </div>
-          {/* Title */}
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60" />
@@ -751,79 +804,121 @@ const HeroDemoPanel = () => {
             </span>
             <span className="text-[11.5px] font-bold tracking-wide text-white">S10.AI · Interactive Demo</span>
           </div>
-          {/* Live badge */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)' }}>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)' }}>
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
             <span className="text-[10px] font-bold text-white">LIVE</span>
           </div>
         </div>
 
-        {/* ── Tab bar — Bravo-style clean white with navy active ── */}
-        <div className="px-4 pt-3.5 pb-0 border-b" style={{ background: '#ffffff', borderColor: `${S10.mid}20` }}>
-          <div className="flex gap-0 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
-            {tabItems.map((t, i) => {
-              const isActive = activeTab === i;
-              return (
-                <motion.button
-                  key={t.id}
-                  onClick={() => setActiveTab(i)}
-                  whileTap={{ scale: 0.97 }}
-                  className="relative flex-shrink-0 flex flex-col items-center gap-0.5 px-4 pb-3 pt-2 transition-all duration-200 focus:outline-none"
-                  style={{ color: isActive ? S10.navy : '#9ca3af' }}
+        {/* ── Vertical stepper — identical UX to BravoWorkflowAnimation ── */}
+        <div className="px-6 py-5">
+          {demoSteps.map((step, index) => {
+            const Icon = step.icon;
+            const isActive = currentStep === index;
+
+            return (
+              <motion.div
+                key={step.id}
+                animate={{
+                  opacity: isActive ? 1 : 0.45,
+                  x: isActive ? 0 : -4,
+                }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="relative overflow-hidden"
+                onClick={() => handleStepClick(index)}
+              >
+                <motion.div
+                  className="flex flex-col gap-4 cursor-pointer"
+                  whileHover={{ scale: 1.01, transition: { duration: 0.25 } }}
                 >
-                  <span className="text-[11.5px] font-bold whitespace-nowrap transition-colors duration-200">
-                    {t.shortLabel}
-                  </span>
-                  {/* Active underline — navy gradient like Bravo timeline */}
+                  {/* Row: icon + title + description */}
+                  <div className="flex items-center gap-4">
+                    {/* Icon circle — exactly like Bravo */}
+                    <motion.div
+                      className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: `${step.color}12` }}
+                      whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+                    >
+                      <Icon className="w-6 h-6" style={{ color: step.color }} />
+                    </motion.div>
+                    <div>
+                      <h3 className="text-[15px] font-semibold" style={{ color: '#111827' }}>
+                        {step.title}
+                      </h3>
+                      <p className="text-[12.5px]" style={{ color: '#6b7280' }}>
+                        {step.description}
+                      </p>
+                    </div>
+                    {/* Badge — shown when active */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="ml-auto text-[9.5px] font-bold px-2.5 py-1 rounded-full flex-shrink-0"
+                          style={{ background: `${step.color}12`, color: step.color, border: `1px solid ${step.color}30` }}
+                        >
+                          {step.badge}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Expanding demo content — ml-16 exactly like Bravo */}
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 16, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: 'auto' }}
+                        exit={{ opacity: 0, y: -16, height: 0 }}
+                        transition={{ duration: 0.35 }}
+                        className="ml-16 mb-2"
+                      >
+                        <div className="rounded-xl border overflow-hidden"
+                          style={{ borderColor: `${step.color}20`, boxShadow: `0 2px 12px ${step.color}12` }}>
+                          <step.Demo />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* Connecting vertical line — exactly like Bravo */}
+                {index < demoSteps.length - 1 && (
                   <motion.div
-                    className="absolute bottom-0 left-2 right-2 h-[2.5px] rounded-full"
-                    animate={{ opacity: isActive ? 1 : 0, scaleX: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.25 }}
-                    style={{ background: `linear-gradient(90deg, ${S10.teal}, ${S10.navy})`, transformOrigin: 'center' }}
+                    className="absolute left-6 top-12 w-px"
+                    style={{
+                      height: 'calc(100% + 1.25rem)',
+                      background: `linear-gradient(to bottom, ${S10.teal}50 60%, transparent)`,
+                    }}
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: isActive ? 1 : 0.5 }}
+                    transition={{ duration: 0.5 }}
                   />
-                </motion.button>
-              );
-            })}
-          </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* ── Context strip (subtitle + badge) ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab.id + '-meta'}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="flex items-center justify-between px-5 py-2.5 border-b"
-            style={{ background: `${S10.navy}08`, borderColor: `${S10.mid}20` }}
-          >
-            <div className="flex items-center gap-2.5">
-              {/* Bravo-style vertical color bar */}
-              <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: `linear-gradient(180deg, ${S10.teal}, ${S10.navy})` }} />
-              <div>
-                <p className="text-[12.5px] font-black leading-none" style={{ color: S10.navy }}>{tab.label}</p>
-                <p className="text-[10.5px] mt-0.5 leading-none" style={{ color: S10.teal }}>{tab.subtitle}</p>
-              </div>
-            </div>
-            <span className="text-[9.5px] font-bold px-2.5 py-1 rounded-full flex-shrink-0"
-              style={{ background: '#ffffff', color: S10.teal, border: `1.5px solid ${S10.teal}40` }}>
-              {tab.badge}
-            </span>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* ── Demo content ── */}
-        <div className="px-5 py-4" style={{ background: '#ffffff' }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={tab.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.2 }}
-            >
-              <tab.Demo />
-            </motion.div>
-          </AnimatePresence>
+        {/* Auto-play progress dots */}
+        <div className="flex items-center justify-center gap-2 pb-4">
+          {demoSteps.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handleStepClick(i)}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width: currentStep === i ? 20 : 6,
+                height: 6,
+                background: currentStep === i
+                  ? `linear-gradient(90deg, ${S10.teal}, ${S10.navy})`
+                  : `${S10.mid}30`,
+              }}
+            />
+          ))}
         </div>
       </div>
     </motion.div>
