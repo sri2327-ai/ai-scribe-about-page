@@ -10,6 +10,7 @@ import {
   ScribeDemo,
   ReceptionistDemo,
   CustomAgentsDemo,
+  IntegrationsDemo,
 } from '@/components/landing/FirstSection';
 
 // ─── Brand ───────────────────────────────────────────────────────────────────
@@ -86,6 +87,16 @@ const productTabs = [
     description: 'Prior auth, referrals, billing, and more — 5 autonomous agents running your entire clinic.',
     color: S10.mid,
     Demo: CustomAgentsDemo,
+  },
+  {
+    id: 'integrations',
+    icon: LinkIcon,
+    label: 'Integrations',
+    fullLabel: 'EHR & App Integrations',
+    badge: '7,000+ apps',
+    description: 'Tap any EHR to sync instantly — bidirectional HL7 FHIR, SMART API, and 7,000+ app connections.',
+    color: S10.light,
+    Demo: IntegrationsDemo,
   },
 ];
 
