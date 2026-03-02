@@ -660,10 +660,10 @@ const HeroDemoPanel = () => {
         style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(56,126,137,0.10) 0%, rgba(59,130,246,0.06) 50%, transparent 75%)', filter: 'blur(24px)' }} />
 
       <div className="relative rounded-3xl overflow-hidden border"
-        style={{ background: '#ffffff', borderColor: '#e8edf2', boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.09), 0 30px 60px rgba(20,49,81,0.08)' }}>
+        style={{ background: 'linear-gradient(145deg, #fdf6fb 0%, #f8f0f8 30%, #f0f4fd 65%, #eef6fb 100%)', borderColor: '#e8ddef', boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(180,140,200,0.10), 0 30px 60px rgba(20,49,81,0.08)' }}>
 
         {/* ── Top chrome bar ── */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ background: 'linear-gradient(180deg,#fcfcfd,#f8fafc)', borderColor: '#edf0f4' }}>
+        <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ background: 'linear-gradient(180deg,#fdf6fb,#f8f0f8)', borderColor: '#e8ddef' }}>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-full" style={{ background: '#143151', opacity: 0.25 }} />
             <div className="w-3 h-3 rounded-full" style={{ background: '#387E89', opacity: 0.4 }} />
@@ -677,7 +677,7 @@ const HeroDemoPanel = () => {
         </div>
 
         {/* ── Tab pills bar ── */}
-        <div className="px-4 pt-3 pb-0 border-b" style={{ background: '#fafbfc', borderColor: '#edf0f4' }}>
+        <div className="px-4 pt-3 pb-0 border-b" style={{ background: '#f8f0f8', borderColor: '#e8ddef' }}>
           <div className="flex gap-1 overflow-x-auto pb-3" style={{ scrollbarWidth: 'none' }}>
             {tabItems.map((t, i) => {
               const isActive = activeTab === i;
@@ -787,7 +787,7 @@ export const FirstSection = () => {
   };
   
   return <section id="ai-solutions-overview" aria-labelledby="hero-heading" className="min-h-screen relative overflow-hidden" ref={sectionRef} style={{
-    background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 20%, #f0f4fd 50%, #eef6fb 80%, #f4f8fd 100%)'
+    background: 'linear-gradient(135deg, #fafbfc 0%, #f8fafc 25%, #f1f8ff 50%, #ecf7f7 75%, #f0fdf4 100%)'
   }}>
       {/* Enhanced SEO-friendly content for search engines - Comprehensive coverage */}
       <div className="sr-only">
