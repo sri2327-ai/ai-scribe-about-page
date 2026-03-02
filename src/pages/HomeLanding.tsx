@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Clock, Database, Shield, Users, Star, ArrowRight, Check,
-  FileText, MessageSquare, Bot, Link as LinkIcon, ChevronDown
+  FileText, Phone, Bot, Link as LinkIcon,
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import {
+  ScribeDemo,
+  ReceptionistDemo,
+  CustomAgentsDemo,
+} from '@/components/landing/FirstSection';
 
-// ─── Brand ────────────────────────────────────────────────────────────────────
+// ─── Brand ───────────────────────────────────────────────────────────────────
 const S10 = { navy: '#143151', teal: '#387E89', mid: '#5192AE', light: '#A5CCF3' };
 
-// ─── Trust Badge ──────────────────────────────────────────────────────────────
+// ─── Trust Badge ─────────────────────────────────────────────────────────────
 const TrustBadge = () => (
   <motion.div
     initial={{ opacity: 0, y: -8 }}
@@ -37,7 +42,7 @@ const TrustBadge = () => (
   </motion.div>
 );
 
-// ─── Feature Pill ─────────────────────────────────────────────────────────────
+// ─── Feature Pill ────────────────────────────────────────────────────────────
 const FeaturePill = ({ icon, text, delay }: { icon: React.ReactNode; text: string; delay: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 6 }}
@@ -50,152 +55,166 @@ const FeaturePill = ({ icon, text, delay }: { icon: React.ReactNode; text: strin
   </motion.div>
 );
 
-// ─── Right Panel: Feature Accordion ──────────────────────────────────────────
-const features = [
+// ─── Product tabs config ──────────────────────────────────────────────────────
+const productTabs = [
   {
-    id: 0,
+    id: 'scribe',
     icon: FileText,
-    title: 'AI Medical Scribe & AI Coding',
-    description: 'Live transcription generates structured SOAP notes in seconds. Auto-codes visits and pushes directly to your EHR.',
-    highlight: '2+ hrs saved/day',
-    highlightIcon: '⏱',
+    label: 'AI Scribe',
+    fullLabel: 'C.R.U.S.H — AI Medical Scribe',
+    badge: '2+ hrs saved/day',
+    description: 'Live transcription → structured SOAP notes in seconds, auto-coded & pushed to your EHR.',
+    color: S10.navy,
+    Demo: ScribeDemo,
   },
   {
-    id: 1,
-    icon: MessageSquare,
-    title: 'AI Phone & Chat Agent',
-    description: 'Handles every inbound call 24/7 — books appointments, confirms details, and answers patient questions autonomously.',
-    highlight: '100% calls answered',
-    highlightIcon: '📞',
+    id: 'bravo',
+    icon: Phone,
+    label: 'AI Receptionist',
+    fullLabel: 'B.R.A.V.O — AI Phone Agent',
+    badge: '24/7 availability',
+    description: 'Handles every inbound call autonomously — books appointments, confirms details, answers patient questions.',
+    color: S10.teal,
+    Demo: ReceptionistDemo,
   },
   {
-    id: 2,
+    id: 'agents',
     icon: Bot,
-    title: 'Custom AI Agents',
-    description: '5 autonomous agents run your entire clinic — prior auth, referrals, billing, and more. Fully customizable to your workflow.',
-    highlight: '5 agents deployed',
-    highlightIcon: '🤖',
-  },
-  {
-    id: 3,
-    icon: LinkIcon,
-    title: 'EHR Integrations',
-    description: 'Works with any EHR system and connects to 7,000+ apps. Zero disruption to your existing workflows.',
-    highlight: 'Seamless connectivity',
-    highlightIcon: '✓',
+    label: 'Custom Agents',
+    fullLabel: 'Custom AI Agents',
+    badge: '5 agents deployed',
+    description: 'Prior auth, referrals, billing, and more — 5 autonomous agents running your entire clinic.',
+    color: S10.mid,
+    Demo: CustomAgentsDemo,
   },
 ];
 
-const FeaturePanel = () => {
-  const [active, setActive] = useState(3); // default EHR open, matching reference
-  const [dots] = useState([0, 1, 2, 3]);
+// ─── Demo Panel ───────────────────────────────────────────────────────────────
+const ProductDemoPanel = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const tab = productTabs[activeTab];
+  const Demo = tab.Demo;
 
   return (
     <motion.div
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.7, delay: 0.2 }}
-      className="w-full h-full"
+      className="w-full"
     >
-      {/* Card */}
+      {/* Ambient glow */}
       <div
-        className="rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden"
-        style={{ boxShadow: '0 4px 40px rgba(20,49,81,0.08)' }}
+        className="absolute -inset-6 rounded-[3rem] pointer-events-none -z-10"
+        style={{ background: `radial-gradient(ellipse at 50% 50%, ${S10.teal}14 0%, transparent 70%)`, filter: 'blur(28px)' }}
+      />
+
+      <div
+        className="rounded-2xl overflow-hidden bg-white"
+        style={{ border: `1px solid ${S10.mid}22`, boxShadow: `0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(20,49,81,0.09), 0 28px 64px rgba(20,49,81,0.05)` }}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100"
-          style={{ background: 'linear-gradient(135deg, #f8fbff 0%, #f0f7f8 100%)' }}
+        {/* Chrome header */}
+        <div
+          className="flex items-center justify-between px-5 py-3.5"
+          style={{ background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)` }}
         >
-          <span className="text-[15px] font-bold text-gray-800">One AI Platform. Every Task Automated.</span>
-          <span
-            className="text-[11px] font-semibold px-3 py-1 rounded-full"
-            style={{ background: `${S10.light}30`, color: S10.teal, border: `1px solid ${S10.light}` }}
-          >
-            Clinician-First
-          </span>
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-white/20" />
+            <div className="w-3 h-3 rounded-full bg-white/40" />
+            <div className="w-3 h-3 rounded-full bg-white/60" />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/70" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+            </span>
+            <span className="text-[12px] font-semibold tracking-wide text-white">S10.AI · Live Demo</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 border border-white/25">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            <span className="text-[10px] font-bold text-white">LIVE</span>
+          </div>
         </div>
 
-        {/* Feature list */}
-        <div className="divide-y divide-gray-100">
-          {features.map((f) => {
-            const Icon = f.icon;
-            const isOpen = active === f.id;
+        {/* Tab switcher */}
+        <div
+          className="flex border-b"
+          style={{ borderColor: `${S10.navy}10`, background: `${S10.navy}03` }}
+        >
+          {productTabs.map((t, i) => {
+            const Icon = t.icon;
+            const isActive = activeTab === i;
             return (
-              <div key={f.id}>
-                <button
-                  className="w-full flex items-center gap-4 px-6 py-4 text-left hover:bg-gray-50/70 transition-colors"
-                  onClick={() => setActive(isOpen ? -1 : f.id)}
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(i)}
+                className="flex-1 flex flex-col items-center gap-1 px-2 py-3 text-center transition-all relative"
+                style={{
+                  background: isActive ? 'white' : 'transparent',
+                  borderBottom: isActive ? `2px solid ${t.color}` : '2px solid transparent',
+                }}
+              >
+                <Icon
+                  className="w-4 h-4"
+                  style={{ color: isActive ? t.color : '#9ca3af' }}
+                />
+                <span
+                  className="text-[11px] font-semibold leading-tight"
+                  style={{ color: isActive ? t.color : '#9ca3af' }}
                 >
-                  {/* Icon */}
-                  <div
-                    className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center"
-                    style={{
-                      background: isOpen ? `${S10.teal}15` : '#f3f4f6',
-                      border: isOpen ? `1.5px solid ${S10.teal}40` : '1.5px solid transparent',
-                      transition: 'all 0.25s',
-                    }}
+                  {t.label}
+                </span>
+                {isActive && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-[8.5px] font-bold px-1.5 py-0.5 rounded-full"
+                    style={{ background: `${t.color}12`, color: t.color, border: `1px solid ${t.color}22` }}
                   >
-                    <Icon className="w-4 h-4" style={{ color: isOpen ? S10.teal : '#6b7280' }} />
-                  </div>
-
-                  <span
-                    className="flex-1 text-[14px] font-semibold"
-                    style={{ color: isOpen ? S10.navy : '#374151' }}
-                  >
-                    {f.title}
-                  </span>
-
-                  <ChevronDown
-                    className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
-                    style={{
-                      color: isOpen ? S10.teal : '#9ca3af',
-                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                    }}
-                  />
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="body"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.28, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-5 pt-1" style={{ paddingLeft: '4.5rem' }}>
-                        <p className="text-[13px] text-gray-500 leading-relaxed mb-3">{f.description}</p>
-                        <div
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold"
-                          style={{ background: `${S10.teal}12`, color: S10.teal }}
-                        >
-                          <span>{f.highlightIcon}</span>
-                          {f.highlight}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                    {t.badge}
+                  </motion.span>
+                )}
+              </button>
             );
           })}
         </div>
 
-        {/* Pagination dots */}
-        <div className="flex items-center justify-center gap-2 py-4 border-t border-gray-100">
-          {dots.map((d) => (
-            <button
-              key={d}
-              onClick={() => setActive(d)}
-              className="rounded-full transition-all duration-300"
-              style={{
-                width: active === d ? 24 : 8,
-                height: 8,
-                background: active === d ? S10.navy : '#d1d5db',
-              }}
-            />
-          ))}
+        {/* Active tab: description strip */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab + '-desc'}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex items-center gap-3 px-5 py-3 border-b"
+            style={{ borderColor: `${S10.navy}08`, background: `${tab.color}06` }}
+          >
+            <div
+              className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{ background: `${tab.color}15`, border: `1px solid ${tab.color}25` }}
+            >
+              <tab.icon className="w-3.5 h-3.5" style={{ color: tab.color }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] font-bold leading-none" style={{ color: tab.color }}>{tab.fullLabel}</p>
+              <p className="text-[10px] text-gray-400 mt-0.5 leading-snug">{tab.description}</p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Demo content */}
+        <div className="px-5 py-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.25 }}
+            >
+              <Demo />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>
@@ -212,7 +231,6 @@ const HomeLanding = () => {
 
       {/* Hero */}
       <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-        {/* Very faint background tint */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -222,27 +240,24 @@ const HomeLanding = () => {
         />
 
         <div className="container mx-auto px-6 md:px-10 lg:px-16 max-w-7xl relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
             {/* ── Left ── */}
-            <div className="flex flex-col gap-7">
-
-              {/* Combined trust badge */}
+            <div className="flex flex-col gap-7 lg:pt-4">
               <TrustBadge />
 
-              {/* Headline */}
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[2.8rem] sm:text-5xl md:text-[3.6rem] lg:text-[4rem] font-black leading-[1.06] tracking-[-0.02em] text-gray-900"
+                className="text-[2.6rem] sm:text-5xl md:text-[3.4rem] lg:text-[3.8rem] font-black leading-[1.06] tracking-[-0.02em] text-gray-900"
               >
                 Less Admin.<br />
                 Less Documentation.<br />
                 More Time for Care.
               </motion.h1>
 
-              {/* Feature pills: 2×2 grid */}
+              {/* Feature pills 2×2 */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -255,7 +270,7 @@ const HomeLanding = () => {
                 <FeaturePill icon={<Users className="w-[15px] h-[15px]" />} text="Real Human Support, 24/7" delay={0.43} />
               </motion.div>
 
-              {/* CTA button */}
+              {/* CTA */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -266,9 +281,7 @@ const HomeLanding = () => {
                   className="inline-flex items-center gap-3 px-7 py-4 rounded-full text-[15px] font-bold text-white shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}
                 >
-                  <span
-                    className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20"
-                  >
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20">
                     <ArrowRight className="w-4 h-4" />
                   </span>
                   Request A Demo
@@ -295,9 +308,9 @@ const HomeLanding = () => {
               </motion.div>
             </div>
 
-            {/* ── Right: Feature Panel ── */}
-            <div className="w-full">
-              <FeaturePanel />
+            {/* ── Right: Product Demo Panel ── */}
+            <div className="w-full relative">
+              <ProductDemoPanel />
             </div>
           </div>
         </div>
