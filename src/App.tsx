@@ -29,6 +29,7 @@ import ResourceLibrary from "@/pages/ResourceLibrary";
 import AIAccuracy from "@/pages/AIAccuracy";
 import PracticeEfficiencyGrader from "@/pages/PracticeEfficiencyGrader";
 import ROICalculatorPage from "@/pages/ROICalculator";
+import HomeLanding from "@/pages/HomeLanding";
 
 function App() {
   console.log("Rendering App component");
@@ -59,6 +60,7 @@ function App() {
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
       <Route path="/roi-calculator" element={<ROICalculatorPage />} />
+      <Route path="/home-landing" element={<HomeLanding />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
