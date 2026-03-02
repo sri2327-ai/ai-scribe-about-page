@@ -66,15 +66,14 @@ const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "
 // ─── Scribe Demo ─────────────────────────────────────────────────────────────
 const scribeConversation = [
   { speaker: 'clinician' as const, text: 'Good morning! What brings you in today?' },
-  { speaker: 'patient' as const, text: "I've had a persistent headache for about three days and some neck stiffness." },
-  { speaker: 'clinician' as const, text: 'Any fever, nausea, or sensitivity to light?' },
-  { speaker: 'patient' as const, text: 'Yes, bright lights are really bothering me.' },
-  { speaker: 'clinician' as const, text: "Okay, I'm going to order a CT scan and some bloodwork to rule out anything serious." },
+  { speaker: 'patient' as const, text: "Persistent headache for three days and neck stiffness." },
+  { speaker: 'clinician' as const, text: 'Any sensitivity to light or fever?' },
+  { speaker: 'patient' as const, text: 'Yes, bright lights really bother me.' },
+  { speaker: 'clinician' as const, text: "Ordering a CT scan and bloodwork to rule out anything serious." },
 ];
-
 const generatedNote = [
   'CC: Headache × 3 days, neck stiffness',
-  'HPI: Photophobia present. No vomiting reported.',
+  'HPI: Photophobia present. Afebrile.',
   'Plan: CT Head, CBC, CMP ordered.',
   'Disposition: Follow-up in 48 hrs.',
 ];
@@ -85,6 +84,7 @@ const ScribeDemo = () => {
   const [noteLines, setNoteLines] = useState<string[]>([]);
   const [ehrSynced, setEhrSynced] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const chatRef = useRef<HTMLDivElement>(null);
 
   const clearAll = () => timers.current.forEach(clearTimeout);
 
@@ -94,83 +94,66 @@ const ScribeDemo = () => {
     setVisibleLines([]);
     setNoteLines([]);
     setEhrSynced(false);
-
-    // Auto-play conversation
     scribeConversation.forEach((_, i) => {
-      timers.current.push(setTimeout(() => setVisibleLines(p => [...p, i]), i * 1500));
+      timers.current.push(setTimeout(() => setVisibleLines(p => [...p, i]), i * 1400));
     });
-
-    // Transition to generating
-    const noteStart = scribeConversation.length * 1500 + 500;
-    timers.current.push(setTimeout(() => setPhase('generating'), noteStart - 400));
-
+    const noteStart = scribeConversation.length * 1400 + 400;
+    timers.current.push(setTimeout(() => setPhase('generating'), noteStart - 300));
     generatedNote.forEach((line, i) => {
-      timers.current.push(setTimeout(() => setNoteLines(p => [...p, line]), noteStart + i * 700));
+      timers.current.push(setTimeout(() => setNoteLines(p => [...p, line]), noteStart + i * 600));
     });
-
-    const doneAt = noteStart + generatedNote.length * 700 + 600;
-    timers.current.push(setTimeout(() => setPhase('done'), doneAt));
+    timers.current.push(setTimeout(() => setPhase('done'), noteStart + generatedNote.length * 600 + 500));
   }, []);
 
-  const pushToEHR = useCallback(() => {
-    setEhrSynced(true);
-  }, []);
+  useEffect(() => {
+    if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  }, [visibleLines]);
 
-  const reset = useCallback(() => {
-    clearAll();
-    setPhase('idle');
-    setVisibleLines([]);
-    setNoteLines([]);
-    setEhrSynced(false);
-  }, []);
-
+  const reset = useCallback(() => { clearAll(); setPhase('idle'); setVisibleLines([]); setNoteLines([]); setEhrSynced(false); }, []);
   useEffect(() => () => clearAll(), []);
 
   return (
-    <div className="space-y-3">
-      {/* Status bar */}
-      <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: phase === 'recording' ? 'rgba(56,126,137,0.07)' : phase === 'generating' ? 'rgba(59,130,246,0.07)' : phase === 'done' ? 'rgba(34,197,94,0.07)' : '#f9fafb' }}>
-        {phase === 'recording' && (
-          <>
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
-            <span className="text-xs font-semibold text-gray-700">Recording encounter…</span>
-            <WaveformBars isActive bars={20} color="#387E89" />
-          </>
-        )}
-        {phase === 'generating' && (
-          <>
-            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
-              <Zap className="w-3.5 h-3.5 text-blue-500" />
-            </motion.div>
-            <span className="text-xs font-semibold text-blue-600">AI generating note…</span>
-          </>
-        )}
-        {phase === 'done' && (
-          <>
-            <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-            <span className="text-xs font-semibold text-green-700">Note ready</span>
-          </>
-        )}
-        {phase === 'idle' && (
-          <span className="text-xs text-gray-400">Click "Start Encounter" to begin</span>
-        )}
-      </div>
+    <div className="space-y-2.5">
+      {/* Live conversation */}
+      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923 0%, #1a2e3d 100%)' }}>
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
+          <div className="flex items-center gap-2">
+            {phase === 'recording' && <span className="flex h-2 w-2"><span className="animate-ping absolute h-2 w-2 rounded-full bg-red-400 opacity-75" /><span className="relative rounded-full h-2 w-2 bg-red-500" /></span>}
+            {phase !== 'recording' && <span className="h-2 w-2 rounded-full bg-white/20" />}
+            <span className="text-[11px] font-semibold text-white/60 tracking-wide">
+              {phase === 'idle' ? 'Ready' : phase === 'recording' ? 'Recording encounter' : phase === 'generating' ? 'Generating note…' : 'Complete'}
+            </span>
+          </div>
+          {phase === 'recording' && <WaveformBars isActive bars={18} color="#60d8e8" />}
+          {phase === 'generating' && (
+            <div className="flex gap-1">
+              {[0,1,2].map(i => (
+                <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-blue-400"
+                  animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.15 }} />
+              ))}
+            </div>
+          )}
+        </div>
 
-      {/* Conversation transcript */}
-      {visibleLines.length > 0 && (
-        <div className="space-y-1.5 max-h-[140px] overflow-y-auto pr-1">
+        {/* Chat messages */}
+        <div ref={chatRef} className="px-4 py-3 space-y-2 h-[130px] overflow-y-auto">
+          {visibleLines.length === 0 && phase === 'idle' && (
+            <div className="h-full flex items-center justify-center">
+              <p className="text-[11px] text-white/25 text-center">Press Start Encounter to begin live transcription</p>
+            </div>
+          )}
           {scribeConversation.map((line, i) => (
             <AnimatePresence key={i}>
               {visibleLines.includes(i) && (
-                <motion.div
-                  initial={{ opacity: 0, x: line.speaker === 'clinician' ? -8 : 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className={`flex gap-1.5 ${line.speaker === 'patient' ? 'justify-end' : ''}`}
-                >
-                  <div className={`text-xs px-3 py-1.5 rounded-2xl max-w-[82%] ${line.speaker === 'clinician' ? 'bg-gray-100 text-gray-700' : 'text-white'}`}
-                    style={line.speaker === 'patient' ? { background: 'linear-gradient(135deg, #143151, #387E89)' } : {}}>
-                    <span className="block text-[9px] font-bold mb-0.5 opacity-60">{line.speaker === 'clinician' ? '👨‍⚕️ Dr. Chen' : '🧑 Patient'}</span>
+                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}
+                  className={`flex gap-2 ${line.speaker === 'patient' ? 'justify-end' : ''}`}>
+                  <div className={`text-[11px] leading-relaxed px-3 py-1.5 rounded-2xl max-w-[85%] ${
+                    line.speaker === 'clinician'
+                      ? 'bg-white/8 text-white/80 rounded-tl-sm'
+                      : 'text-white rounded-tr-sm'
+                  }`} style={line.speaker === 'patient' ? { background: 'linear-gradient(135deg, #387E89cc, #5192AEcc)' } : {}}>
+                    <span className="block text-[9px] font-bold mb-0.5 opacity-50">{line.speaker === 'clinician' ? 'Dr. Chen' : 'Patient'}</span>
                     {line.text}
                   </div>
                 </motion.div>
@@ -178,18 +161,20 @@ const ScribeDemo = () => {
             </AnimatePresence>
           ))}
         </div>
-      )}
+      </div>
 
       {/* AI Note */}
       {noteLines.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-blue-100 overflow-hidden">
-          <div className="bg-blue-50 px-3 py-1.5 flex items-center gap-1.5">
-            <FileText className="w-3 h-3 text-blue-500" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">AI-Generated SOAP Note</span>
+        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+          className="rounded-xl overflow-hidden border border-blue-100/60">
+          <div className="flex items-center justify-between px-3 py-1.5" style={{ background: 'linear-gradient(90deg, #eff6ff, #f0f9ff)' }}>
+            <span className="text-[9px] font-black uppercase tracking-widest text-blue-500">AI SOAP Note</span>
+            <span className="text-[9px] text-blue-400 font-medium">Auto-generated</span>
           </div>
-          <div className="px-3 py-2 space-y-0.5 bg-white">
+          <div className="px-3 py-2 bg-white space-y-0.5">
             {noteLines.map((l, i) => (
-              <motion.p key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="text-xs text-gray-700 font-mono leading-relaxed">{l}</motion.p>
+              <motion.p key={i} initial={{ opacity: 0, x: -4 }} animate={{ opacity: 1, x: 0 }}
+                className="text-[11px] text-gray-700 font-mono">{l}</motion.p>
             ))}
           </div>
         </motion.div>
@@ -197,48 +182,38 @@ const ScribeDemo = () => {
 
       {/* EHR synced */}
       {ehrSynced && (
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-xl p-2.5">
-          <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
+          className="flex items-center gap-2.5 rounded-xl p-2.5"
+          style={{ background: 'linear-gradient(90deg, #f0fdf4, #dcfce7)', border: '1px solid #bbf7d0' }}>
+          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+            <CheckCircle className="w-3.5 h-3.5 text-white" />
+          </div>
           <div>
-            <span className="text-xs font-bold text-green-700">Note pushed to EHR ✓</span>
-            <p className="text-[10px] text-green-600">Synced to Epic • 0.3s</p>
+            <p className="text-[11px] font-bold text-green-800">Pushed to Epic EHR</p>
+            <p className="text-[9px] text-green-600">Synced in 0.3s · Chart updated</p>
           </div>
         </motion.div>
       )}
 
-      {/* Action buttons */}
-      <div className="flex gap-2">
-        {phase === 'idle' || phase === 'done' ? (
+      {/* Buttons */}
+      <div className="flex gap-2 pt-0.5">
+        {(phase === 'idle' || phase === 'done') ? (
           <>
-            <button
-              onClick={startEncounter}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95"
-              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
-            >
-              <Mic className="w-3.5 h-3.5" />
-              Start Encounter
+            <button onClick={startEncounter}
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98]"
+              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+              {phase === 'done' ? 'New Encounter' : 'Start Encounter'}
             </button>
             {phase === 'done' && !ehrSynced && (
-              <button
-                onClick={pushToEHR}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border-2 border-[#387E89] text-[#387E89] transition-all hover:bg-[#387E89]/5 active:scale-95"
-              >
-                <Database className="w-3.5 h-3.5" />
-                Auto EHR
-              </button>
-            )}
-            {phase === 'done' && (
-              <button onClick={reset} className="px-3 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-gray-600 border border-gray-200 hover:border-gray-300 transition-all">
-                Reset
+              <button onClick={() => setEhrSynced(true)}
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:opacity-90 active:scale-[0.98] border-2 border-[#387E89] text-[#387E89]">
+                Push to EHR
               </button>
             )}
           </>
         ) : (
-          <button
-            onClick={reset}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-gray-500 border border-gray-200 hover:border-gray-300 transition-all"
-          >
-            <Square className="w-3 h-3" />
+          <button onClick={reset}
+            className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-gray-500 border border-gray-200 hover:border-gray-300 transition-all">
             Stop
           </button>
         )}
@@ -247,135 +222,120 @@ const ScribeDemo = () => {
   );
 };
 
-// ─── BRAVO Receptionist Demo ─────────────────────────────────────────────────
+// ─── BRAVO Demo ───────────────────────────────────────────────────────────────
 const bravoConversation = [
-  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:00', text: "Good morning! You've reached Greenfield Medical. This is BRAVO. How can I help you today?" },
-  { speaker: 'caller' as const, name: 'Sarah M.', time: '0:05', text: "Hi, I'd like to schedule an appointment and also get a refill for my blood pressure medication." },
-  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:11', text: "Of course, Sarah! Dr. Patel has Thursday at 10:30 AM or Friday at 2 PM available. Which works best?" },
-  { speaker: 'caller' as const, name: 'Sarah M.', time: '0:18', text: "Thursday at 10:30 sounds perfect." },
-  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:22', text: "Done! Appointment confirmed for Thursday at 10:30 AM. I've also sent your refill request to Walgreens on 5th Ave. You'll get a text confirmation shortly." },
-  { speaker: 'caller' as const, name: 'Sarah M.', time: '0:31', text: "That's amazing, thank you so much!" },
-  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:35', text: "My pleasure! Is there anything else I can help you with today?" },
+  { speaker: 'bravo' as const, name: 'BRAVO', time: '0:00', text: "Good morning, Greenfield Medical. How can I help you today?" },
+  { speaker: 'caller' as const, name: 'Sarah', time: '0:05', text: "Hi, I'd like to book an appointment and refill my blood pressure meds." },
+  { speaker: 'bravo' as const, name: 'BRAVO', time: '0:11', text: "Of course! Dr. Patel has Thursday at 10:30 AM or Friday at 2 PM. Which works?" },
+  { speaker: 'caller' as const, name: 'Sarah', time: '0:17', text: "Thursday at 10:30 is perfect." },
+  { speaker: 'bravo' as const, name: 'BRAVO', time: '0:21', text: "Booked! Refill request also sent to Walgreens. You'll get a text confirmation." },
+  { speaker: 'caller' as const, name: 'Sarah', time: '0:28', text: "That's amazing, thank you!" },
+  { speaker: 'bravo' as const, name: 'BRAVO', time: '0:31', text: "My pleasure, Sarah. Have a wonderful day!" },
 ];
 
 const ReceptionistDemo = () => {
   const [phase, setPhase] = useState<'idle' | 'calling' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
-  const [currentSpeaker, setCurrentSpeaker] = useState<'bravo' | 'caller' | null>(null);
+  const [activeSpeaker, setActiveSpeaker] = useState<'bravo' | 'caller' | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const isCancelledRef = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const stopAll = useCallback(() => {
-    isCancelledRef.current = true;
-    window.speechSynthesis.cancel();
-    timers.current.forEach(clearTimeout);
-    setPhase('idle');
-    setVisibleLines([]);
-    setCurrentSpeaker(null);
-  }, []);
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [visibleLines]);
 
   useEffect(() => () => { window.speechSynthesis.cancel(); timers.current.forEach(clearTimeout); }, []);
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [visibleLines]);
-
-  const speakLineSequential = useCallback((index: number) => {
+  const speakLine = useCallback((index: number) => {
     if (isCancelledRef.current || index >= bravoConversation.length) {
-      setPhase('done');
-      setCurrentSpeaker(null);
-      return;
+      setPhase('done'); setActiveSpeaker(null); return;
     }
     const line = bravoConversation[index];
-    setCurrentSpeaker(line.speaker);
+    setActiveSpeaker(line.speaker);
     setVisibleLines(p => [...p, index]);
-
-    const utterance = new SpeechSynthesisUtterance(line.text);
-    utterance.rate = line.speaker === 'bravo' ? 1.05 : 0.9;
-    utterance.pitch = line.speaker === 'bravo' ? 1.15 : 0.85;
-    utterance.volume = 1;
-
+    const u = new SpeechSynthesisUtterance(line.text);
+    u.rate = line.speaker === 'bravo' ? 1.05 : 0.9;
+    u.pitch = line.speaker === 'bravo' ? 1.15 : 0.85;
     const voices = window.speechSynthesis.getVoices();
     if (voices.length > 0) {
-      if (line.speaker === 'bravo') {
-        const v = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.includes('Female') || v.name.includes('Karen'));
-        if (v) utterance.voice = v;
-      } else {
-        const v = voices.find(v => v.name.includes('Daniel') || v.name.includes('Male') || v.name.includes('Google UK English Male') || v.name.includes('Alex'));
-        if (v) utterance.voice = v;
-      }
+      const bv = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.includes('Female'));
+      const cv = voices.find(v => v.name.includes('Daniel') || v.name.includes('Male') || v.name.includes('Alex'));
+      u.voice = line.speaker === 'bravo' ? (bv || voices[0]) : (cv || voices[1] || voices[0]);
     }
-
-    utterance.onend = () => {
-      if (!isCancelledRef.current) {
-        setTimeout(() => speakLineSequential(index + 1), 400);
-      }
-    };
-    utterance.onerror = () => {
-      if (!isCancelledRef.current) speakLineSequential(index + 1);
-    };
-    window.speechSynthesis.speak(utterance);
+    u.onend = () => { if (!isCancelledRef.current) setTimeout(() => speakLine(index + 1), 350); };
+    u.onerror = () => { if (!isCancelledRef.current) speakLine(index + 1); };
+    window.speechSynthesis.speak(u);
   }, []);
 
   const startCall = useCallback(() => {
     isCancelledRef.current = false;
     timers.current.forEach(clearTimeout);
-    setPhase('calling');
-    setVisibleLines([]);
-    setCurrentSpeaker(null);
+    setPhase('calling'); setVisibleLines([]); setActiveSpeaker(null);
+    timers.current.push(setTimeout(() => speakLine(0), 500));
+  }, [speakLine]);
 
-    // Small delay before first line
-    timers.current.push(setTimeout(() => speakLineSequential(0), 600));
-  }, [speakLineSequential]);
+  const endCall = useCallback(() => {
+    isCancelledRef.current = true;
+    window.speechSynthesis.cancel();
+    setPhase('idle'); setVisibleLines([]); setActiveSpeaker(null);
+  }, []);
 
   return (
-    <div className="space-y-3">
-      {/* Call UI header */}
-      <div className="rounded-xl overflow-hidden border border-gray-200">
-        <div className="flex items-center gap-3 px-3 py-2.5" style={{ background: 'linear-gradient(135deg, #143151 0%, #1e4976 100%)' }}>
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-            <Phone className="w-4 h-4 text-white" />
+    <div className="space-y-2.5">
+      {/* Phone UI */}
+      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923, #1a2e3d)' }}>
+        {/* Caller header */}
+        <div className="px-4 pt-3 pb-2.5 border-b border-white/5">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white"
+                style={{ background: 'linear-gradient(135deg, #387E89, #5192AE)' }}>B</div>
+              {phase === 'calling' && (
+                <motion.div className="absolute inset-0 rounded-full border-2 border-[#387E89]"
+                  animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }} />
+              )}
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-white">BRAVO AI Receptionist</p>
+              <p className="text-[10px] text-white/40">
+                {phase === 'idle' ? 'Ready · 24/7 · All calls handled' :
+                 phase === 'calling' ? 'In call with Sarah M.' : 'Call complete · All tasks done ✓'}
+              </p>
+            </div>
+            {phase === 'calling' && activeSpeaker && (
+              <WaveformBars isActive bars={14} color={activeSpeaker === 'bravo' ? '#60d8e8' : '#a78bfa'} />
+            )}
           </div>
-          <div className="flex-1">
-            <p className="text-xs font-bold text-white">BRAVO AI Receptionist</p>
-            <p className="text-[10px] text-white/60">
-              {phase === 'idle' ? 'Ready to answer calls' : phase === 'calling' ? (
-                <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse inline-block" />Live call in progress</span>
-              ) : 'Call completed ✓'}
-            </p>
-          </div>
-          {phase === 'calling' && (
-            <WaveformBars isActive={currentSpeaker !== null} bars={16} color="#60d8e8" />
-          )}
         </div>
 
         {/* Transcript */}
-        <div ref={scrollRef} className="bg-gray-50 p-3 space-y-2 max-h-[180px] overflow-y-auto">
+        <div ref={scrollRef} className="px-4 py-3 space-y-2 h-[150px] overflow-y-auto">
           {visibleLines.length === 0 && (
-            <p className="text-[11px] text-gray-400 text-center py-4">Press "Start Call" to hear a live demo</p>
+            <div className="h-full flex items-center justify-center">
+              <p className="text-[11px] text-white/25 text-center">Press Start Call to hear BRAVO in action</p>
+            </div>
           )}
           {bravoConversation.map((line, i) => (
             <AnimatePresence key={i}>
               {visibleLines.includes(i) && (
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className={`flex gap-2 ${line.speaker === 'caller' ? 'justify-end' : ''}`}
-                >
+                <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
+                  className={`flex gap-2 ${line.speaker === 'caller' ? 'justify-end' : ''}`}>
                   {line.speaker === 'bravo' && (
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-white text-[10px] font-bold" style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>B</div>
+                    <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[9px] font-bold text-white"
+                      style={{ background: 'linear-gradient(135deg, #387E89, #5192AE)' }}>B</div>
                   )}
-                  <div className={`max-w-[80%] rounded-2xl px-3 py-2 ${line.speaker === 'bravo' ? 'bg-white border border-gray-200' : 'text-white'} ${currentSpeaker === line.speaker && visibleLines[visibleLines.length - 1] === i ? 'ring-2 ring-[#387E89]/40' : ''}`}
-                    style={line.speaker === 'caller' ? { background: 'linear-gradient(135deg, #387E89, #5192AE)' } : {}}>
-                    <p className={`text-[9px] font-bold mb-0.5 ${line.speaker === 'bravo' ? 'text-[#387E89]' : 'text-white/70'}`}>{line.name} · {line.time}</p>
-                    <p className={`text-xs leading-relaxed ${line.speaker === 'bravo' ? 'text-gray-700' : 'text-white'}`}>{line.text}</p>
+                  <div className={`max-w-[82%] rounded-2xl px-3 py-1.5 ${
+                    activeSpeaker === line.speaker && visibleLines[visibleLines.length - 1] === i
+                      ? 'ring-1 ring-white/20' : ''
+                  } ${line.speaker === 'bravo' ? 'bg-white/8 rounded-tl-sm' : 'rounded-tr-sm'}`}
+                    style={line.speaker === 'caller' ? { background: 'linear-gradient(135deg, #4f46e5aa, #7c3aedaa)' } : {}}>
+                    <p className="text-[9px] font-bold mb-0.5 opacity-50 text-white">{line.name} · {line.time}</p>
+                    <p className="text-[11px] leading-relaxed text-white/85">{line.text}</p>
                   </div>
                   {line.speaker === 'caller' && (
-                    <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] font-bold text-gray-600">S</div>
+                    <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[9px] font-bold text-white bg-white/15">S</div>
                   )}
                 </motion.div>
               )}
@@ -384,32 +344,30 @@ const ReceptionistDemo = () => {
         </div>
       </div>
 
-      {/* Outcome chips */}
+      {/* Outcomes */}
       {phase === 'done' && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5">
-          {['✓ Appt booked: Thu 10:30AM', '✓ Rx refill sent', '✓ SMS confirmation'].map((t, i) => (
-            <span key={i} className="text-[10px] font-semibold bg-green-50 text-green-700 border border-green-200 rounded-full px-2.5 py-1">{t}</span>
+          {['Appt booked · Thu 10:30', 'Rx refill sent', 'SMS sent'].map((t, i) => (
+            <span key={i} className="text-[10px] font-semibold px-2.5 py-1 rounded-full"
+              style={{ background: 'linear-gradient(90deg, #f0fdf4, #dcfce7)', color: '#15803d', border: '1px solid #bbf7d0' }}>
+              ✓ {t}
+            </span>
           ))}
         </motion.div>
       )}
 
-      {/* Controls */}
+      {/* CTA */}
       <div className="flex gap-2">
         {phase !== 'calling' ? (
-          <button
-            onClick={startCall}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95"
-            style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
-          >
-            <Phone className="w-3.5 h-3.5" />
+          <button onClick={startCall}
+            className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98]"
+            style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
             {phase === 'done' ? 'Replay Call' : 'Start Call'}
           </button>
         ) : (
-          <button
-            onClick={stopAll}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-all active:scale-95"
-          >
-            <Square className="w-3.5 h-3.5" />
+          <button onClick={endCall}
+            className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.98]"
+            style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5' }}>
             End Call
           </button>
         )}
@@ -419,263 +377,239 @@ const ReceptionistDemo = () => {
 };
 
 // ─── Custom AI Agents Demo ────────────────────────────────────────────────────
-const agentNodes = [
-  { id: 'scribe', label: 'AI Scribe', color: '#3b82f6', bg: '#EFF6FF', x: 50, y: 10, desc: 'Auto-documents visits' },
-  { id: 'receptionist', label: 'Receptionist', color: '#387E89', bg: '#F0FAFA', x: 85, y: 40, desc: 'Handles all calls' },
-  { id: 'billing', label: 'AI Billing', color: '#059669', bg: '#F0FDF4', x: 70, y: 80, desc: 'Suggests CPT codes' },
-  { id: 'prior', label: 'Prior Auth', color: '#7c3aed', bg: '#F5F3FF', x: 15, y: 75, desc: 'Handles auth requests' },
-  { id: 'labs', label: 'Lab Routing', color: '#ea580c', bg: '#FFF7ED', x: 5, y: 35, desc: 'Routes results' },
+const agents = [
+  { id: 'scribe',    label: 'AI Scribe',       task: 'Documenting visit…',   done: 'Note generated',     color: '#3b82f6', pct: 87 },
+  { id: 'billing',   label: 'AI Billing',       task: 'Coding encounter…',    done: 'CPT 99213 suggested', color: '#8b5cf6', pct: 62 },
+  { id: 'prior',     label: 'Prior Auth',        task: 'Submitting request…',  done: 'Auth approved',       color: '#ec4899', pct: 100 },
+  { id: 'labs',      label: 'Lab Routing',       task: 'Routing results…',     done: 'Sent to Dr. Chen',    color: '#f59e0b', pct: 45 },
+  { id: 'recall',    label: 'Patient Recall',    task: 'Scheduling outreach…', done: '24 patients contacted', color: '#10b981', pct: 78 },
 ];
 
 const CustomAgentsDemo = () => {
-  const [activeNode, setActiveNode] = useState<string | null>('receptionist');
-  const [pulseNodes, setPulseNodes] = useState<string[]>([]);
+  const [progresses, setProgresses] = useState<Record<string, number>>(
+    Object.fromEntries(agents.map(a => [a.id, 0]))
+  );
+  const [running, setRunning] = useState(false);
+  const [done, setDone] = useState(false);
+  const timers = useRef<ReturnType<typeof setInterval>[]>([]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const ids = agentNodes.map(n => n.id);
-      const randomId = ids[Math.floor(Math.random() * ids.length)];
-      setPulseNodes([randomId]);
-      setTimeout(() => setPulseNodes([]), 800);
-    }, 2000);
-    return () => clearInterval(interval);
+  const runAgents = useCallback(() => {
+    setDone(false);
+    setRunning(true);
+    setProgresses(Object.fromEntries(agents.map(a => [a.id, 0])));
+    timers.current.forEach(clearInterval);
+
+    agents.forEach((agent, idx) => {
+      const delay = idx * 250;
+      let current = 0;
+      setTimeout(() => {
+        const iv = setInterval(() => {
+          current += Math.random() * 8 + 3;
+          if (current >= agent.pct) {
+            current = agent.pct;
+            clearInterval(iv);
+            setProgresses(p => ({ ...p, [agent.id]: agent.pct }));
+            if (idx === agents.length - 1) {
+              setTimeout(() => { setRunning(false); setDone(true); }, 400);
+            }
+          } else {
+            setProgresses(p => ({ ...p, [agent.id]: Math.round(current) }));
+          }
+        }, 80);
+        timers.current.push(iv);
+      }, delay);
+    });
   }, []);
 
-  const active = agentNodes.find(n => n.id === activeNode);
+  useEffect(() => () => timers.current.forEach(clearInterval), []);
 
   return (
-    <div className="space-y-3">
-      <div className="relative rounded-xl overflow-hidden border border-gray-100" style={{ background: '#f8fafc', height: 200 }}>
-        {/* Central hub */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#143151]/20 flex items-center justify-center shadow-md z-10">
-          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-            <Stethoscope className="w-4 h-4 text-white" />
-          </div>
+    <div className="space-y-2.5">
+      {/* Dark container */}
+      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923, #1a2e3d)' }}>
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
+          <span className="text-[11px] font-semibold text-white/50 tracking-wide">
+            {running ? 'Agents running…' : done ? '5 tasks completed' : '5 agents ready to deploy'}
+          </span>
+          {running && (
+            <div className="flex gap-1">
+              {[0,1,2].map(i => (
+                <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                  animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }} />
+              ))}
+            </div>
+          )}
+          {done && <span className="text-[10px] font-bold text-emerald-400">All done ✓</span>}
         </div>
-        {/* Connection lines SVG */}
-        <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
-          {agentNodes.map(node => (
-            <line
-              key={node.id}
-              x1="50%" y1="50%"
-              x2={`${node.x}%`} y2={`${node.y + 5}%`}
-              stroke={activeNode === node.id ? node.color : '#e2e8f0'}
-              strokeWidth={activeNode === node.id ? 2 : 1}
-              strokeDasharray={activeNode === node.id ? "4 3" : "3 4"}
-              className="transition-all duration-300"
-            />
-          ))}
-        </svg>
-        {/* Agent nodes */}
-        {agentNodes.map(node => (
-          <button
-            key={node.id}
-            onClick={() => setActiveNode(node.id)}
-            className="absolute flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border-2 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
-            style={{
-              left: `${node.x}%`,
-              top: `${node.y}%`,
-              transform: 'translate(-50%, -50%)',
-              background: activeNode === node.id ? node.bg : 'white',
-              borderColor: activeNode === node.id ? node.color : '#e2e8f0',
-              zIndex: 10,
-              boxShadow: pulseNodes.includes(node.id) ? `0 0 0 4px ${node.color}33` : undefined,
-            }}
-          >
-            <div className="w-4 h-4 rounded-full flex-shrink-0" style={{ background: `radial-gradient(circle at 35% 35%, ${node.color}cc, ${node.color})` }} />
-            <span className="text-[10px] font-bold whitespace-nowrap" style={{ color: node.color }}>{node.label}</span>
-            {pulseNodes.includes(node.id) && (
-              <motion.span
-                initial={{ scale: 0.8, opacity: 1 }}
-                animate={{ scale: 1.4, opacity: 0 }}
-                transition={{ duration: 0.6 }}
-                className="absolute inset-0 rounded-full"
-                style={{ background: node.color, opacity: 0.2 }}
-              />
-            )}
-          </button>
-        ))}
+
+        <div className="px-4 py-3 space-y-3">
+          {agents.map(agent => {
+            const pct = progresses[agent.id];
+            const isDone = pct >= agent.pct && (running || done);
+            return (
+              <div key={agent.id}>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: agent.color }} />
+                    <span className="text-[11px] font-semibold text-white/80">{agent.label}</span>
+                  </div>
+                  <span className="text-[10px] font-medium" style={{ color: isDone ? agent.color : 'rgba(255,255,255,0.3)' }}>
+                    {(running || done) ? (isDone ? agent.done : agent.task) : 'Standby'}
+                  </span>
+                </div>
+                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: `linear-gradient(90deg, ${agent.color}88, ${agent.color})` }}
+                    initial={{ width: '0%' }}
+                    animate={{ width: `${pct}%` }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Active node detail */}
-      {active && (
-        <motion.div key={active.id} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 rounded-xl p-3 border" style={{ background: active.bg, borderColor: `${active.color}33` }}>
-          <div className="w-8 h-8 rounded-full flex-shrink-0" style={{ background: `radial-gradient(circle at 35% 35%, ${active.color}cc, ${active.color})` }} />
-          <div className="flex-1">
-            <p className="text-xs font-bold" style={{ color: active.color }}>{active.label}</p>
-            <p className="text-[11px] text-gray-500">{active.desc}</p>
-          </div>
-          <span className="text-[10px] font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Active</span>
+      {/* Stats row */}
+      {done && (
+        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-3 gap-2">
+          {[['40%', 'Admin saved'], ['0.3s', 'Avg task time'], ['5', 'Agents active']].map(([val, label], i) => (
+            <div key={i} className="rounded-xl p-2.5 text-center" style={{ background: 'linear-gradient(145deg, #f8fafc, #f1f5f9)', border: '1px solid #e2e8f0' }}>
+              <p className="text-base font-black text-gray-900">{val}</p>
+              <p className="text-[9px] text-gray-500 font-medium leading-tight">{label}</p>
+            </div>
+          ))}
         </motion.div>
       )}
+
+      <button onClick={running ? undefined : runAgents} disabled={running}
+        className="w-full py-2.5 rounded-xl text-xs font-bold text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
+        style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+        {running ? 'Running…' : done ? 'Run Again' : 'Deploy All Agents'}
+      </button>
     </div>
   );
 };
 
 // ─── Integrations Demo ────────────────────────────────────────────────────────
-const ehrSystems = [
-  { name: 'Epic', abbr: 'E', color: '#e11d48', category: 'EHR' },
-  { name: 'Cerner', abbr: 'C', color: '#2563eb', category: 'EHR' },
-  { name: 'Athena', abbr: 'A', color: '#7c3aed', category: 'EHR' },
-  { name: 'DrChrono', abbr: 'D', color: '#0891b2', category: 'PMS' },
+const ehrList = [
+  { name: 'Epic',        color: '#dc2626', initial: 'E' },
+  { name: 'Cerner',      color: '#2563eb', initial: 'C' },
+  { name: 'Athena',      color: '#7c3aed', initial: 'A' },
+  { name: 'eClinicals',  color: '#0891b2', initial: 'eC' },
+  { name: 'DrChrono',    color: '#db2777', initial: 'DC' },
+  { name: 'Kareo',       color: '#059669', initial: 'K' },
 ];
-const otherApps = [
-  { name: 'Zoom', abbr: 'Z', color: '#1d4ed8', category: 'Telehealth' },
-  { name: 'Kareo', abbr: 'K', color: '#059669', category: 'Billing' },
-  { name: 'Doximity', abbr: 'Dx', color: '#0ea5e9', category: 'Comms' },
-  { name: 'G Cal', abbr: 'G', color: '#ea580c', category: 'Calendar' },
-  { name: 'Twilio', abbr: 'T', color: '#e11d48', category: 'SMS' },
-  { name: 'Stripe', abbr: 'S', color: '#5b21b6', category: 'Payments' },
+const appGrid = [
+  { name: 'Zoom',     color: '#1d4ed8', initial: 'Zm' },
+  { name: 'Doximity', color: '#0ea5e9', initial: 'Dx' },
+  { name: 'Twilio',   color: '#e11d48', initial: 'Tw' },
+  { name: 'Stripe',   color: '#5b21b6', initial: 'St' },
+  { name: 'G Suite',  color: '#ea580c', initial: 'GS' },
+  { name: 'Slack',    color: '#7c3aed', initial: 'Sl' },
+  { name: 'AWS',      color: '#f59e0b', initial: 'AW' },
+  { name: 'Salesforce', color: '#0ea5e9', initial: 'SF' },
 ];
 
 const IntegrationsDemo = () => {
-  const [activeEHR, setActiveEHR] = useState<number>(0);
+  const [activeEHR, setActiveEHR] = useState<number | null>(null);
   const [syncing, setSyncing] = useState(false);
-  const [synced, setSynced] = useState(false);
+  const [syncedEHR, setSyncedEHR] = useState<number | null>(null);
 
-  const triggerSync = () => {
+  const handleSync = (idx: number) => {
+    if (syncing) return;
+    setActiveEHR(idx);
     setSyncing(true);
-    setSynced(false);
-    setTimeout(() => { setSyncing(false); setSynced(true); }, 1800);
+    setSyncedEHR(null);
+    setTimeout(() => { setSyncing(false); setSyncedEHR(idx); }, 1600);
   };
 
   return (
-    <div className="space-y-3">
-      {/* Central hub visual */}
-      <div className="rounded-xl border border-gray-100 p-3" style={{ background: '#f8fafc' }}>
-        <div className="flex items-center justify-center gap-0">
-          {/* Left apps */}
-          <div className="flex flex-col gap-1.5 mr-3">
-            {otherApps.slice(0, 3).map((app, i) => (
-              <div key={i} className="flex items-center gap-1.5 bg-white rounded-lg px-2 py-1 border border-gray-100 shadow-sm">
-                <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0" style={{ background: app.color }}>{app.abbr}</div>
-                <div>
-                  <p className="text-[10px] font-semibold text-gray-700">{app.name}</p>
-                  <p className="text-[8px] text-gray-400">{app.category}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="space-y-2.5">
+      {/* Dark header */}
+      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923, #1a2e3d)' }}>
+        <div className="px-4 py-2.5 border-b border-white/5">
+          <p className="text-[11px] font-semibold text-white/50 tracking-wide">Select an EHR to test sync</p>
+        </div>
 
-          {/* Connection lines + hub */}
-          <div className="flex items-center">
-            <div className="w-8 h-px bg-gradient-to-r from-gray-200 to-[#387E89]/40" />
-            <div className="relative">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-                <div className="text-center">
-                  <p className="text-white text-[8px] font-black leading-none">S10</p>
-                  <p className="text-white/70 text-[7px]">.AI</p>
+        {/* EHR grid */}
+        <div className="p-3 grid grid-cols-3 gap-2">
+          {ehrList.map((ehr, i) => {
+            const isActive = activeEHR === i;
+            const isSynced = syncedEHR === i;
+            return (
+              <button key={i} onClick={() => handleSync(i)}
+                className="relative flex flex-col items-center gap-1.5 p-2.5 rounded-xl transition-all hover:scale-105 active:scale-95"
+                style={{
+                  background: isActive ? `${ehr.color}22` : 'rgba(255,255,255,0.04)',
+                  border: `1.5px solid ${isActive ? ehr.color + '60' : 'rgba(255,255,255,0.06)'}`,
+                }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] font-black"
+                  style={{ background: `linear-gradient(135deg, ${ehr.color}cc, ${ehr.color})` }}>
+                  {ehr.initial}
                 </div>
-              </div>
-              {syncing && (
-                <motion.div className="absolute inset-0 rounded-2xl" animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }} transition={{ repeat: Infinity, duration: 1 }} style={{ background: '#387E89', borderRadius: '1rem' }} />
-              )}
-              {synced && (
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-3 h-3 text-white" />
-                </motion.div>
-              )}
-            </div>
-            <div className="w-8 h-px bg-gradient-to-r from-[#387E89]/40 to-gray-200" />
-          </div>
-
-          {/* Right: EHR selection */}
-          <div className="flex flex-col gap-1.5 ml-3">
-            {ehrSystems.map((ehr, i) => (
-              <button
-                key={i}
-                onClick={() => { setActiveEHR(i); setSynced(false); }}
-                className={`flex items-center gap-1.5 rounded-lg px-2 py-1 border transition-all text-left ${activeEHR === i ? 'border-2 shadow-sm' : 'bg-white border-gray-100 shadow-sm'}`}
-                style={activeEHR === i ? { background: `${ehr.color}10`, borderColor: ehr.color } : {}}
-              >
-                <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0" style={{ background: ehr.color }}>{ehr.abbr}</div>
-                <div>
-                  <p className="text-[10px] font-semibold text-gray-700">{ehr.name}</p>
-                  <p className="text-[8px] text-gray-400">{ehr.category}</p>
-                </div>
+                <span className="text-[10px] font-semibold text-white/70">{ehr.name}</span>
+                {isSynced && (
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
+                    className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center">
+                    <span className="text-white text-[8px] font-black">✓</span>
+                  </motion.div>
+                )}
+                {syncing && isActive && (
+                  <motion.div className="absolute inset-0 rounded-xl border-2" style={{ borderColor: ehr.color }}
+                    animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 0.8 }} />
+                )}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* More apps row */}
-      <div className="flex items-center gap-1.5">
-        <span className="text-[10px] text-gray-400">Also connects:</span>
-        <div className="flex gap-1">
-          {otherApps.slice(3).map((app, i) => (
-            <div key={i} className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[9px] font-bold shadow-sm" style={{ background: app.color }} title={app.name}>{app.abbr}</div>
+      {/* Sync result */}
+      {syncedEHR !== null && (
+        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-2.5 rounded-xl p-2.5"
+          style={{ background: 'linear-gradient(90deg, #f0fdf4, #dcfce7)', border: '1px solid #bbf7d0' }}>
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[11px] font-black flex-shrink-0"
+            style={{ background: ehrList[syncedEHR].color }}>
+            {ehrList[syncedEHR].initial}
+          </div>
+          <div className="flex-1">
+            <p className="text-[11px] font-bold text-green-800">Connected to {ehrList[syncedEHR].name}</p>
+            <p className="text-[9px] text-green-600">Notes sync · Orders sync · Charts sync · Real-time</p>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Other apps */}
+      <div>
+        <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-2">Also connects with 7,000+ apps</p>
+        <div className="flex flex-wrap gap-1.5">
+          {appGrid.map((app, i) => (
+            <div key={i} className="flex items-center gap-1 bg-white border border-gray-100 rounded-lg px-2 py-1 shadow-sm">
+              <div className="w-4 h-4 rounded-md flex items-center justify-center text-white text-[8px] font-black flex-shrink-0"
+                style={{ background: app.color }}>{app.initial}</div>
+              <span className="text-[10px] font-medium text-gray-600">{app.name}</span>
+            </div>
           ))}
         </div>
-        <span className="text-[10px] text-gray-400 ml-1">+ 7,000 more</span>
       </div>
-
-      {/* Sync button */}
-      <button
-        onClick={triggerSync}
-        disabled={syncing}
-        className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-70"
-        style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
-      >
-        {syncing ? (
-          <><motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}><Link2 className="w-3.5 h-3.5" /></motion.div>Syncing with {ehrSystems[activeEHR].name}…</>
-        ) : synced ? (
-          <><CheckCircle className="w-3.5 h-3.5" />Synced with {ehrSystems[activeEHR].name} ✓</>
-        ) : (
-          <><Link2 className="w-3.5 h-3.5" />Test Sync with {ehrSystems[activeEHR].name}</>
-        )}
-      </button>
     </div>
   );
 };
 
 // ─── Main Demo Panel ──────────────────────────────────────────────────────────
 const tabItems = [
-  {
-    id: 'scribe',
-    label: 'AI Medical Scribe',
-    shortLabel: 'Scribe',
-    subtitle: 'Auto-documentation from conversations',
-    badge: 'Save 2+ hrs/day',
-    icon: FileText,
-    color: '#3b82f6',
-    Demo: ScribeDemo,
-  },
-  {
-    id: 'receptionist',
-    label: 'AI Phone Agent',
-    shortLabel: 'BRAVO',
-    subtitle: 'Live call handling, scheduling & refills',
-    badge: '24/7 availability',
-    icon: Phone,
-    color: '#387E89',
-    Demo: ReceptionistDemo,
-  },
-  {
-    id: 'agents',
-    label: 'Custom AI Agents',
-    shortLabel: 'Agents',
-    subtitle: 'Automate every admin task',
-    badge: '40% less admin',
-    icon: Bot,
-    color: '#7c3aed',
-    Demo: CustomAgentsDemo,
-  },
-  {
-    id: 'integrations',
-    label: 'EHR Integrations',
-    shortLabel: 'EHR',
-    subtitle: 'Works with Epic, Cerner, Athena & 7k+ apps',
-    badge: 'Zero disruption',
-    icon: Database,
-    color: '#059669',
-    Demo: IntegrationsDemo,
-  },
+  { id: 'scribe', label: 'AI Scribe', shortLabel: 'Scribe', subtitle: 'Live transcription → auto SOAP note', badge: '2+ hrs saved/day', color: '#3b82f6', Demo: ScribeDemo },
+  { id: 'bravo',  label: 'BRAVO',    shortLabel: 'BRAVO',  subtitle: 'AI handles every inbound call',       badge: '24/7 availability', color: '#387E89', Demo: ReceptionistDemo },
+  { id: 'agents', label: 'Agents',   shortLabel: 'Agents', subtitle: '5 agents automating your clinic',     badge: '40% less admin',   color: '#8b5cf6', Demo: CustomAgentsDemo },
+  { id: 'ehr',    label: 'EHR',      shortLabel: 'EHR',    subtitle: 'Plug-and-play with any EHR + 7k apps', badge: 'Zero disruption',  color: '#059669', Demo: IntegrationsDemo },
 ];
 
 const HeroDemoPanel = () => {
   const [activeTab, setActiveTab] = useState(0);
-
   const tab = tabItems[activeTab];
 
   return (
@@ -685,49 +619,51 @@ const HeroDemoPanel = () => {
       transition={{ duration: 0.7, delay: 0.4 }}
       className="lg:col-span-5 relative order-2"
     >
-      {/* Soft glow behind card */}
-      <div className="absolute -inset-6 bg-gradient-to-br from-[#387E89]/8 via-[#5192AE]/10 to-[#143151]/8 rounded-[2.5rem] blur-3xl pointer-events-none" />
+      <div className="absolute -inset-4 rounded-[2rem] blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(56,126,137,0.12) 0%, transparent 70%)' }} />
 
-      <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
-        {/* ── Header badge ── */}
-        <div className="px-5 pt-4 pb-3 flex items-center justify-between border-b border-gray-100">
-          <p className="text-[11px] font-bold text-gray-400 tracking-widest uppercase">One AI Platform. Every Task Automated.</p>
-          <span className="bg-pink-50 text-pink-500 border border-pink-200 text-[10px] font-bold px-2.5 py-1 rounded-full">Clinician-First</span>
+      <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-gray-200/60"
+        style={{ background: '#ffffff' }}>
+
+        {/* ── Top bar ── */}
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100">
+          <div className="flex items-center gap-2">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+            <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+            <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+          </div>
+          <span className="text-[11px] font-bold text-gray-400 tracking-wider uppercase">S10.AI · Live Demo</span>
+          <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">Clinician-First</span>
         </div>
 
         {/* ── Tab bar ── */}
-        <div className="flex border-b border-gray-100 bg-gray-50/70">
+        <div className="grid grid-cols-4 border-b border-gray-100">
           {tabItems.map((t, i) => {
-            const Icon = t.icon;
             const isActive = activeTab === i;
             return (
-              <button
-                key={t.id}
-                onClick={() => setActiveTab(i)}
-                className={`flex-1 flex flex-col items-center gap-0.5 py-3 px-1 transition-all relative text-center ${isActive ? 'bg-white' : 'hover:bg-white/60'}`}
-              >
-                <Icon className="w-4 h-4" style={{ color: isActive ? t.color : '#9ca3af' }} />
-                <span className={`text-[10px] font-bold leading-none ${isActive ? 'text-gray-800' : 'text-gray-400'}`}>{t.shortLabel}</span>
+              <button key={t.id} onClick={() => setActiveTab(i)}
+                className={`relative py-3 transition-all ${isActive ? 'bg-white' : 'bg-gray-50/80 hover:bg-gray-50'}`}>
+                <span className={`text-[11px] font-bold ${isActive ? 'text-gray-900' : 'text-gray-400'}`}>{t.shortLabel}</span>
                 {isActive && (
-                  <motion.div layoutId="tab-underline" className="absolute bottom-0 left-0 right-0 h-0.5 rounded-t" style={{ background: t.color }} />
+                  <motion.div layoutId="active-tab-bar"
+                    className="absolute bottom-0 left-3 right-3 h-0.5 rounded-t-full"
+                    style={{ background: `linear-gradient(90deg, ${t.color}88, ${t.color})` }} />
                 )}
               </button>
             );
           })}
         </div>
 
-        {/* ── Active tab meta ── */}
-        <div className="px-5 pt-4 pb-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-sm font-bold text-gray-900">{tab.label}</h3>
-              <p className="text-[11px] text-gray-500 mt-0.5">{tab.subtitle}</p>
-            </div>
-            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border flex-shrink-0 ml-2"
-              style={{ background: `${tab.color}12`, color: tab.color, borderColor: `${tab.color}30` }}>
-              {tab.badge}
-            </span>
+        {/* ── Tab meta ── */}
+        <div className="flex items-start justify-between px-5 pt-4 pb-3">
+          <div>
+            <h3 className="text-[13px] font-black text-gray-900 leading-tight">{tab.label}</h3>
+            <p className="text-[11px] text-gray-400 mt-0.5">{tab.subtitle}</p>
           </div>
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border flex-shrink-0 ml-3 mt-0.5"
+            style={{ background: `${tab.color}0f`, color: tab.color, borderColor: `${tab.color}30` }}>
+            {tab.badge}
+          </span>
         </div>
 
         <div className="h-px bg-gray-100 mx-5" />
@@ -735,13 +671,9 @@ const HeroDemoPanel = () => {
         {/* ── Demo content ── */}
         <div className="px-5 py-4">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={tab.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.22 }}
-            >
+            <motion.div key={tab.id}
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
               <tab.Demo />
             </motion.div>
           </AnimatePresence>
