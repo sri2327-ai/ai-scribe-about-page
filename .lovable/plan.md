@@ -1,35 +1,62 @@
 
-# Segregate Popular Features by Product
+## Cinematic Product Story Slider — Option 4
 
-## What Changes
-The "Popular Features" column in the Solutions dropdown menu currently shows all 12 features in a single flat list. This update will organize them into two clearly labeled groups:
+### What's changing
 
-**AI Medical Scribe (CRUSH)**
-- Transcribe & Dictate
-- Contextual Reasoning
-- Templates
-- Customisation
-- Pre-Charting
-- Coding
-- Workflows: Prescriptions & Lab Orders
-- Universal EHR Integration
+The current `ProductDemoPanel` uses a top-tab switcher with a description strip below it, which feels cluttered. We'll replace it with a single wide cinematic card that slides horizontally between the 4 product stories with:
 
-**AI Phone Agent (BRAVO)**
-- Calls
-- Chat
-- Email
-- Universal App Integrations
+- Left/right arrow navigation
+- Dot indicators at the bottom
+- Auto-advance every 6 seconds (pauses on hover or manual interaction)
+- Smooth horizontal slide-in/out transitions via `framer-motion`
 
-## How It Will Look
-Each group will have a small subheading label (e.g., "AI Medical Scribe" and "AI Phone Agent") styled as a subtle category divider within the existing scrollable Popular Features column. The feature items themselves remain unchanged.
+---
 
-## Technical Details
+### Layout of the new card
 
-**File:** `src/components/landing/AnimatedHeader.tsx`
+```text
+┌────────────────────────────────────────────────┐
+│  ← gradient header bar (product color accent)  │
+│    [icon] PRODUCT NAME        [badge pill] LIVE │
+├────────────────────────────────────────────────┤
+│                                                │
+│         <Demo Component — full width>          │
+│                                                │
+├────────────────────────────────────────────────┤
+│  [◀]   ● ○ ○ ○   [▶]    6s progress bar       │
+└────────────────────────────────────────────────┘
+```
 
-1. Restructure the `popularFeatures` data (lines 170-231) into two separate arrays: `scribeFeatures` and `phoneAgentFeatures` (or add a `category` field to each item).
+- The header bar uses a subtle left-border color accent per product (navy / teal / mid / light) instead of a heavy tab row
+- Demo fills the card body with generous padding — no description strip eating vertical space
+- Bottom controls: left arrow, 4 dot indicators (filled = active, hollow = inactive), right arrow, and a thin progress bar showing time until auto-advance
 
-2. Update the Popular Features column rendering (lines 589-618) to display two sections with sub-headers:
-   - A "AI Medical Scribe" label followed by scribe-related features
-   - A "AI Phone Agent" label followed by phone-agent-related features
-   - Each label styled as a small, bold, uppercase text with a subtle bottom border, matching the existing design language
+---
+
+### Technical implementation
+
+**File edited: `src/pages/HomeLanding.tsx`**
+
+1. Import `useEffect`, `useRef` alongside existing imports
+2. Replace `ProductDemoPanel` component entirely with `CinematicDemoSlider`:
+   - `activeIdx` state (0–3)
+   - `direction` state (`'left' | 'right'`) drives which way the slide enters/exits
+   - `paused` state — set to `true` on hover or manual nav click, resets after 10s idle
+   - `useEffect` with `setInterval` for 6-second auto-advance (cleared when `paused`)
+   - `progress` state (0→100 over 6s) shown as a thin teal progress bar at the bottom
+   - `framer-motion` `AnimatePresence` with `custom={direction}` and `variants` for x-slide in/out (`x: ±60, opacity: 0` → `x: 0, opacity: 1`)
+3. Header of the card:
+   - Thin left-border strip in the active product's color
+   - Icon + product full label on the left
+   - Badge pill + pulsing LIVE dot on the right
+   - No tab row, no description strip below it
+4. Footer controls:
+   - Prev/Next arrow buttons (ghost, circular, hover lifts)
+   - 4 dot indicators — active dot widens into a small pill animated with `layoutId`
+   - Thin `progress` bar underneath the dots, resets on any navigation
+
+---
+
+### No changes to `FirstSection.tsx`
+
+All four demo components (`ScribeDemo`, `ReceptionistDemo`, `CustomAgentsDemo`, `IntegrationsDemo`) remain as-is and are just rendered in the new slider body.
