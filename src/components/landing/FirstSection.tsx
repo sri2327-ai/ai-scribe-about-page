@@ -760,7 +760,7 @@ const appList = [
   { name: 'G Suite',    icon: '📧', color: S10.navy },
 ];
 
-const IntegrationsDemo = () => {
+export const IntegrationsDemo = () => {
   const [syncing, setSyncing] = useState(false);
   const [syncedEHR, setSyncedEHR] = useState<number | null>(null);
   const [syncStep, setSyncStep] = useState(0);
