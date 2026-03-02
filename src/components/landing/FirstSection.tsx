@@ -63,6 +63,18 @@ const WaveformBars = ({ isActive, color = "#387E89", bars = 32 }: { isActive: bo
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
+// ─── Color palette (Bravo-inspired) ─────────────────────────────────────────
+const palette = {
+  blue:   { bg: '#eff6ff', border: '#bfdbfe', text: '#1d4ed8', icon: '#3b82f6' },
+  teal:   { bg: '#f0fdfa', border: '#99f6e4', text: '#0f766e', icon: '#14b8a6' },
+  violet: { bg: '#f5f3ff', border: '#ddd6fe', text: '#6d28d9', icon: '#8b5cf6' },
+  amber:  { bg: '#fffbeb', border: '#fde68a', text: '#b45309', icon: '#f59e0b' },
+  rose:   { bg: '#fff1f2', border: '#fecdd3', text: '#be123c', icon: '#f43f5e' },
+  emerald:{ bg: '#ecfdf5', border: '#a7f3d0', text: '#065f46', icon: '#10b981' },
+  sky:    { bg: '#f0f9ff', border: '#bae6fd', text: '#0369a1', icon: '#0ea5e9' },
+  indigo: { bg: '#eef2ff', border: '#c7d2fe', text: '#3730a3', icon: '#6366f1' },
+};
+
 // ─── Scribe Demo ─────────────────────────────────────────────────────────────
 const scribeConversation = [
   { speaker: 'clinician' as const, text: 'Good morning! What brings you in today?' },
@@ -116,53 +128,61 @@ const ScribeDemo = () => {
   const phaseLabel = phase === 'idle' ? 'Ready' : phase === 'recording' ? 'Recording' : phase === 'generating' ? 'Generating' : 'Complete';
   const accentColor = phase === 'idle' ? '#94a3b8' : '#387E89';
 
+  const noteTagColors = [palette.blue, palette.violet, palette.amber, palette.emerald];
+
   return (
     <div className="space-y-2.5">
       {/* Status strip */}
       <div className="flex items-center justify-between rounded-2xl px-4 py-2.5 border"
-        style={{ background: phase !== 'idle' ? 'linear-gradient(135deg,#f0f6fa,#e8f4f6)' : 'linear-gradient(135deg,#f8fafc,#f1f5f9)', borderColor: '#143151' + '18' }}>
+        style={{
+          background: phase === 'recording' ? palette.sky.bg : phase === 'generating' ? palette.violet.bg : phase === 'done' ? palette.emerald.bg : '#f8fafc',
+          borderColor: phase === 'recording' ? palette.sky.border : phase === 'generating' ? palette.violet.border : phase === 'done' ? palette.emerald.border : '#e2e8f0'
+        }}>
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2 w-2">
             {phase !== 'idle' && <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ backgroundColor: accentColor }} />}
             <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: accentColor }} />
           </span>
-          <span className="text-[11px] font-bold tracking-wide" style={{ color: '#143151' }}>{phaseLabel}</span>
-          {phase === 'recording' && <span className="text-[10px]" style={{ color: '#387E89' }}>Dr. Chen · Patient Visit</span>}
+          <span className="text-[11px] font-bold" style={{ color: '#143151' }}>{phaseLabel}</span>
+          {phase === 'recording' && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: palette.sky.bg, color: palette.sky.text, border: `1px solid ${palette.sky.border}` }}>
+              Dr. Chen · Patient Visit
+            </span>
+          )}
         </div>
-        {phase === 'recording' && <WaveformBars isActive bars={14} color="#387E89" />}
+        {phase === 'recording' && <WaveformBars isActive bars={14} color={palette.sky.icon} />}
         {phase === 'generating' && (
           <div className="flex items-center gap-1">
-            {[0,1,2].map(i => <motion.div key={i} className="w-1 h-1 rounded-full" style={{ backgroundColor: '#387E89' }} animate={{ scale: [0.8,1.4,0.8], opacity:[0.4,1,0.4] }} transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.2 }} />)}
-            <span className="text-[10px] ml-1 font-medium" style={{ color: '#387E89' }}>AI writing…</span>
+            {[0,1,2].map(i => <motion.div key={i} className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: palette.violet.icon }} animate={{ scale: [0.8,1.4,0.8], opacity:[0.4,1,0.4] }} transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.2 }} />)}
+            <span className="text-[10px] ml-1 font-semibold" style={{ color: palette.violet.text }}>AI writing…</span>
           </div>
         )}
-        {phase === 'done' && <span className="text-[10px] font-bold flex items-center gap-1" style={{ color: '#143151' }}>✓ Complete</span>}
+        {phase === 'done' && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: palette.emerald.bg, color: palette.emerald.text, border: `1px solid ${palette.emerald.border}` }}>✓ Complete</span>}
       </div>
 
       {/* Conversation feed */}
-      <div ref={chatRef} className="h-[116px] overflow-y-auto rounded-2xl bg-gray-50/60 border border-gray-100 px-3 py-2.5 space-y-2 scroll-smooth">
+      <div ref={chatRef} className="h-[116px] overflow-y-auto rounded-2xl border px-3 py-2.5 space-y-2 scroll-smooth" style={{ background: '#f9fafb', borderColor: '#e5e7eb' }}>
         {visibleLines.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-1.5 pointer-events-none select-none">
-            <div className="w-8 h-8 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center">
-              <span className="text-gray-300 text-xs font-bold">●</span>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: palette.sky.bg, border: `1.5px dashed ${palette.sky.border}` }}>
+              <span style={{ color: palette.sky.icon }} className="text-sm">🎙</span>
             </div>
-            <p className="text-[11px] text-gray-300 font-medium">Press Start Encounter</p>
+            <p className="text-[11px] font-medium" style={{ color: '#9ca3af' }}>Press Start Encounter</p>
           </div>
         )}
         {scribeConversation.map((line, i) => (
           visibleLines.includes(i) && (
             <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}
               className={`flex items-end gap-1.5 ${line.speaker === 'patient' ? 'flex-row-reverse' : ''}`}>
-              <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-[7px] font-black text-white shadow-sm"
-                style={{ background: line.speaker === 'clinician' ? '#143151' : '#387E89' }}>
+              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[7px] font-black text-white shadow-sm"
+                style={{ background: line.speaker === 'clinician' ? 'linear-gradient(135deg,#143151,#1e4976)' : `linear-gradient(135deg,${palette.teal.icon},#387E89)` }}>
                 {line.speaker === 'clinician' ? 'DR' : 'P'}
               </div>
-              <div className={`max-w-[78%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm ${
-                line.speaker === 'clinician' ? 'bg-white border rounded-bl-sm' : 'text-white rounded-br-sm'
-              }`} style={{
-                borderColor: line.speaker === 'clinician' ? '#e5e9ef' : 'transparent',
+              <div className={`max-w-[78%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm`} style={{
+                background: line.speaker === 'clinician' ? '#ffffff' : `linear-gradient(135deg, ${palette.teal.icon}, #387E89)`,
+                border: line.speaker === 'clinician' ? `1px solid ${palette.sky.border}` : 'none',
                 color: line.speaker === 'clinician' ? '#374151' : '#fff',
-                background: line.speaker === 'patient' ? 'linear-gradient(135deg, #143151, #387E89)' : undefined
+                borderRadius: line.speaker === 'clinician' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
               }}>
                 {line.text}
               </div>
@@ -174,21 +194,29 @@ const ScribeDemo = () => {
       {/* SOAP Note */}
       <AnimatePresence>
         {noteLines.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border overflow-hidden bg-white shadow-sm" style={{ borderColor: '#143151' + '15' }}>
-            <div className="flex items-center justify-between px-3.5 py-2 border-b" style={{ borderColor: '#f1f5f9', background: 'linear-gradient(135deg, #f8fafc, #f0f6fa)' }}>
-              <span className="text-[10px] font-black tracking-widest uppercase" style={{ color: '#143151' }}>SOAP Note</span>
-              <div className="flex items-center gap-1">
-                <motion.div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#387E89' }} animate={noteLines.length < generatedNote.length ? { scale: [1,1.3,1] } : {}} transition={{ repeat: Infinity, duration: 0.6 }} />
-                <span className="text-[9px] font-semibold" style={{ color: '#387E89' }}>{noteLines.length < generatedNote.length ? 'Writing…' : 'Done'}</span>
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border overflow-hidden bg-white shadow-sm" style={{ borderColor: palette.indigo.border }}>
+            <div className="flex items-center justify-between px-3.5 py-2 border-b" style={{ borderColor: palette.indigo.border, background: palette.indigo.bg }}>
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm">📋</span>
+                <span className="text-[10px] font-black tracking-widest uppercase" style={{ color: palette.indigo.text }}>SOAP Note</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <motion.div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: palette.violet.icon }} animate={noteLines.length < generatedNote.length ? { scale: [1,1.3,1] } : {}} transition={{ repeat: Infinity, duration: 0.6 }} />
+                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: noteLines.length < generatedNote.length ? palette.violet.bg : palette.emerald.bg, color: noteLines.length < generatedNote.length ? palette.violet.text : palette.emerald.text }}>
+                  {noteLines.length < generatedNote.length ? 'Writing…' : '✓ Done'}
+                </span>
               </div>
             </div>
-            <div className="px-3.5 py-2.5 grid grid-cols-1 gap-1.5">
-              {noteLines.map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="flex items-start gap-2.5">
-                  <span className="text-[9px] font-black uppercase tracking-wide flex-shrink-0 mt-0.5 px-1.5 py-0.5 rounded-md text-white" style={{ background: i % 2 === 0 ? '#143151' : '#387E89' }}>{item.label.substring(0,4)}</span>
-                  <span className="text-[10.5px] leading-snug" style={{ color: '#374151' }}>{item.value}</span>
-                </motion.div>
-              ))}
+            <div className="px-3.5 py-2.5 grid grid-cols-1 gap-2">
+              {noteLines.map((item, i) => {
+                const c = noteTagColors[i % noteTagColors.length];
+                return (
+                  <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="flex items-start gap-2.5">
+                    <span className="text-[9px] font-black uppercase tracking-wide flex-shrink-0 mt-0.5 px-1.5 py-0.5 rounded-md" style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}` }}>{item.label.substring(0,4)}</span>
+                    <span className="text-[10.5px] leading-snug" style={{ color: '#374151' }}>{item.value}</span>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         )}
@@ -199,11 +227,11 @@ const ScribeDemo = () => {
         {ehrSynced && (
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
             className="flex items-center gap-3 rounded-2xl p-3 border"
-            style={{ background: 'linear-gradient(135deg, #f0f6fa, #e8f3f5)', borderColor: '#387E89' + '30' }}>
-            <div className="w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm text-white text-xs font-black" style={{ background: '#143151' }}>✓</div>
+            style={{ background: palette.emerald.bg, borderColor: palette.emerald.border }}>
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm text-base" style={{ background: palette.emerald.bg, border: `1.5px solid ${palette.emerald.border}` }}>🏥</div>
             <div>
-              <p className="text-[11px] font-black" style={{ color: '#143151' }}>Pushed to Epic EHR</p>
-              <p className="text-[9.5px]" style={{ color: '#387E89' }}>Synced in 0.3s · Chart updated · Patient notified</p>
+              <p className="text-[11px] font-black" style={{ color: palette.emerald.text }}>Pushed to Epic EHR</p>
+              <p className="text-[9.5px]" style={{ color: '#374151' }}>Synced in 0.3s · Chart updated · Patient notified</p>
             </div>
           </motion.div>
         )}
@@ -220,14 +248,14 @@ const ScribeDemo = () => {
             {phase === 'done' && !ehrSynced && (
               <button onClick={() => setEhrSynced(true)}
                 className="flex-1 py-2.5 rounded-2xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98]"
-                style={{ background: 'linear-gradient(135deg, #e8f3f5, #d6edf1)', color: '#143151', border: '1.5px solid #387E89' + '40' }}>
+                style={{ background: palette.emerald.bg, color: palette.emerald.text, border: `1.5px solid ${palette.emerald.border}` }}>
                 Push to EHR ↗
               </button>
             )}
           </>
         ) : (
           <button onClick={reset}
-            className="flex-1 py-2.5 rounded-2xl text-xs font-semibold border bg-white transition-all" style={{ color: '#387E89', borderColor: '#387E89' + '40' }}>
+            className="flex-1 py-2.5 rounded-2xl text-xs font-semibold border bg-white transition-all" style={{ color: palette.sky.text, borderColor: palette.sky.border }}>
             Stop Recording
           </button>
         )}
@@ -296,39 +324,50 @@ const ReceptionistDemo = () => {
 
   const outcomes = ['Appt · Thu 10:30 AM', 'Rx refill → Walgreens', 'SMS confirmation sent'];
 
+  const outcomeChips = [
+    { text: 'Appt · Thu 10:30 AM', pal: palette.sky },
+    { text: 'Rx refill → Walgreens', pal: palette.amber },
+    { text: 'SMS confirmation sent', pal: palette.emerald },
+  ];
+
   return (
     <div className="space-y-2.5">
       {/* Call card */}
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: phase === 'calling' ? '#387E8945' : '#edf0f4', background: 'linear-gradient(135deg,#f8fafc,#f0f6fa)' }}>
+      <div className="rounded-2xl border overflow-hidden" style={{
+        borderColor: phase === 'calling' ? palette.teal.border : '#edf0f4',
+        background: phase === 'calling' ? palette.teal.bg : '#f8fafc'
+      }}>
         <div className="px-4 py-3 flex items-center gap-3">
-          {/* Avatar with pulse rings */}
           <div className="relative flex-shrink-0">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-base font-black text-white shadow-md"
-              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-              <span className="text-xs font-black tracking-widest">AI</span>
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-lg shadow-md"
+              style={{ background: phase === 'calling' ? `linear-gradient(135deg,${palette.teal.icon},#143151)` : 'linear-gradient(135deg,#143151,#387E89)' }}>
+              <span>🤖</span>
             </div>
             {phase === 'calling' && (
               <>
-                <motion.span className="absolute inset-0 rounded-2xl border-2 border-[#387E89]"
+                <motion.span className="absolute inset-0 rounded-2xl border-2" style={{ borderColor: palette.teal.icon }}
                   animate={{ scale: [1, 1.5], opacity: [0.6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }} />
-                <motion.span className="absolute inset-0 rounded-2xl border border-[#387E89]"
+                <motion.span className="absolute inset-0 rounded-2xl border" style={{ borderColor: palette.teal.icon }}
                   animate={{ scale: [1, 1.9], opacity: [0.3, 0] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.35 }} />
               </>
             )}
             {phase === 'done' && (
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-sm border-2 border-white text-white text-[8px] font-black" style={{ background: '#143151' }}>✓</div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-sm border-2 border-white text-white text-[8px] font-black" style={{ background: palette.emerald.icon }}>✓</div>
             )}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-[13px] font-black leading-none" style={{ color: '#143151' }}>BRAVO AI Receptionist</p>
-            <p className="text-[10.5px] mt-1 font-medium" style={{ color: '#387E89', opacity: phase === 'idle' ? 0.6 : 1 }}>
-              {phase === 'idle' ? '24/7 · All calls handled automatically' : phase === 'calling' ? 'Live call with Sarah M.' : 'Call complete · All tasks done'}
-            </p>
+            <div className="flex items-center gap-1.5 mt-1">
+              {phase === 'calling' && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: palette.rose.icon }} />}
+              <p className="text-[10.5px] font-medium" style={{ color: phase === 'calling' ? palette.rose.text : '#6b7280' }}>
+                {phase === 'idle' ? '24/7 · All calls handled automatically' : phase === 'calling' ? 'Live call with Sarah M.' : 'Call complete · All tasks done'}
+              </p>
+            </div>
           </div>
           {phase === 'calling' && activeSpeaker && (
             <div className="flex flex-col items-center gap-0.5">
-              <WaveformBars isActive bars={10} color="#387E89" />
-              <span className="text-[9px] font-bold" style={{ color: '#387E89' }}>
+              <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? palette.teal.icon : palette.violet.icon} />
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: activeSpeaker === 'bravo' ? palette.teal.bg : palette.violet.bg, color: activeSpeaker === 'bravo' ? palette.teal.text : palette.violet.text }}>
                 {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
               </span>
             </div>
@@ -337,31 +376,34 @@ const ReceptionistDemo = () => {
       </div>
 
       {/* Transcript */}
-      <div ref={scrollRef} className="h-[136px] overflow-y-auto rounded-2xl border px-3 py-2.5 space-y-2 scroll-smooth" style={{ background: '#f8fafc', borderColor: '#edf0f4' }}>
+      <div ref={scrollRef} className="h-[136px] overflow-y-auto rounded-2xl border px-3 py-2.5 space-y-2 scroll-smooth" style={{ background: '#f9fafb', borderColor: '#e5e7eb' }}>
         {visibleLines.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-1.5 select-none">
-            <div className="w-8 h-8 rounded-full border-2 border-dashed flex items-center justify-center" style={{ borderColor: '#d0dce8' }}>
-              <span className="text-xs font-bold" style={{ color: '#d0dce8' }}>●</span>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: palette.sky.bg, border: `1.5px dashed ${palette.sky.border}` }}>
+              <span className="text-sm">📞</span>
             </div>
-            <p className="text-[11px] font-medium" style={{ color: '#b0c4d4' }}>Press Start Call to hear BRAVO live</p>
+            <p className="text-[11px] font-medium" style={{ color: '#9ca3af' }}>Press Start Call to hear BRAVO live</p>
           </div>
         )}
         {bravoConversation.map((line, i) => (
           visibleLines.includes(i) && (
             <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
               className={`flex items-end gap-1.5 ${line.speaker === 'caller' ? 'flex-row-reverse' : ''}`}>
-              <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-[7px] font-black text-white shadow-sm"
-                style={{ background: line.speaker === 'bravo' ? '#143151' : '#387E89' }}>
+              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[8px] font-black shadow-sm"
+                style={{
+                  background: line.speaker === 'bravo' ? palette.teal.bg : palette.violet.bg,
+                  color: line.speaker === 'bravo' ? palette.teal.text : palette.violet.text,
+                  border: `1.5px solid ${line.speaker === 'bravo' ? palette.teal.border : palette.violet.border}`
+                }}>
                 {line.speaker === 'bravo' ? 'B' : 'S'}
               </div>
-              <div className={`max-w-[80%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm ${
-                line.speaker === 'bravo' ? 'bg-white rounded-bl-sm' : 'text-white rounded-br-sm'
-              }`} style={{
-                border: line.speaker === 'bravo' ? '1px solid #e8edf2' : 'none',
+              <div className="max-w-[80%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm" style={{
+                background: line.speaker === 'bravo' ? '#fff' : `linear-gradient(135deg,${palette.violet.icon},#8b5cf6)`,
+                border: line.speaker === 'bravo' ? `1px solid ${palette.teal.border}` : 'none',
                 color: line.speaker === 'bravo' ? '#374151' : '#fff',
-                background: line.speaker === 'caller' ? 'linear-gradient(135deg, #143151, #387E89)' : undefined
+                borderRadius: line.speaker === 'bravo' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
               }}>
-                <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? '#387E89' : 'rgba(255,255,255,0.7)' }}>{line.name}</span>
+                <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? palette.teal.text : 'rgba(255,255,255,0.75)' }}>{line.name}</span>
                 {line.text}
               </div>
             </motion.div>
@@ -373,11 +415,11 @@ const ReceptionistDemo = () => {
       <AnimatePresence>
         {phase === 'done' && (
           <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5">
-            {outcomes.map((t, i) => (
+            {outcomeChips.map(({ text, pal }, i) => (
               <motion.span key={i} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
                 className="text-[10px] font-bold px-2.5 py-1 rounded-full border"
-                style={{ background: '#e8f3f5', color: '#143151', borderColor: '#387E8945' }}>
-                ✓ {t}
+                style={{ background: pal.bg, color: pal.text, borderColor: pal.border }}>
+                ✓ {text}
               </motion.span>
             ))}
           </motion.div>
@@ -394,8 +436,8 @@ const ReceptionistDemo = () => {
         ) : (
           <button onClick={endCall}
             className="flex-1 py-2.5 rounded-2xl text-xs font-black transition-all active:scale-[0.98]"
-            style={{ background: '#e8f0f5', color: '#143151', border: '1.5px solid #143151' + '30' }}>
-            End Call
+            style={{ background: palette.rose.bg, color: palette.rose.text, border: `1.5px solid ${palette.rose.border}` }}>
+            ✕ End Call
           </button>
         )}
       </div>
@@ -447,27 +489,33 @@ const CustomAgentsDemo = () => {
 
   useEffect(() => () => timers.current.forEach(clearInterval), []);
 
+  // Per-agent color palette
+  const agentColors = [palette.sky, palette.violet, palette.emerald, palette.amber, palette.rose];
+
   return (
     <div className="space-y-2.5">
       {/* Summary header */}
       <div className="rounded-2xl border px-4 py-3 flex items-center justify-between"
-        style={{ background: done ? 'linear-gradient(135deg,#e8f3f5,#dceef2)' : running ? 'linear-gradient(135deg,#f0f6fa,#e8f1f5)' : 'linear-gradient(135deg,#f8fafc,#f1f5f9)', borderColor: done ? '#387E8945' : running ? '#143151' + '20' : '#e2e8f0' }}>
+        style={{
+          background: done ? palette.emerald.bg : running ? palette.sky.bg : '#f8fafc',
+          borderColor: done ? palette.emerald.border : running ? palette.sky.border : '#e2e8f0'
+        }}>
         <div>
           <p className="text-[12px] font-black" style={{ color: '#143151' }}>
-            {running ? 'Running 5 agents…' : done ? '5 tasks completed' : '5 agents on standby'}
+            {running ? '⚡ Running 5 agents…' : done ? '✅ 5 tasks completed' : '5 agents on standby'}
           </p>
-          <p className="text-[10px] mt-0.5" style={{ color: '#387E89', opacity: 0.7 }}>Autonomous clinical automation</p>
+          <p className="text-[10px] mt-0.5" style={{ color: '#6b7280' }}>Autonomous clinical automation</p>
         </div>
         {running && (
           <div className="flex gap-1">
-            {[0,1,2,3].map(i => (
-              <motion.div key={i} className="w-1 h-1 rounded-full" style={{ backgroundColor: '#387E89' }}
+            {agentColors.map((c, i) => (
+              <motion.div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: c.icon }}
                 animate={{ scale: [0.8,1.4,0.8], opacity: [0.4,1,0.4] }} transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.18 }} />
             ))}
           </div>
         )}
         {done && (
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow-sm text-white text-sm font-black" style={{ background: '#143151' }}>✓</div>
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow-sm text-lg" style={{ background: palette.emerald.bg, border: `1.5px solid ${palette.emerald.border}` }}>🎉</div>
         )}
       </div>
 
@@ -477,30 +525,36 @@ const CustomAgentsDemo = () => {
           const pct = progresses[agent.id];
           const isActive = running && pct > 0 && pct < agent.pct;
           const isDone = pct >= agent.pct && (running || done);
-          const barColor = idx % 2 === 0 ? '#143151' : '#387E89';
+          const c = agentColors[idx % agentColors.length];
           return (
             <div key={agent.id} className="rounded-2xl border px-3.5 py-2 transition-all duration-300"
               style={{
-                background: isDone ? (idx % 2 === 0 ? '#f0f6fa' : '#e8f3f5') : 'white',
-                borderColor: isDone || isActive ? barColor + '30' : '#f1f5f9',
+                background: isDone ? c.bg : 'white',
+                borderColor: isDone ? c.border : isActive ? c.border : '#f1f5f9',
               }}>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[11px] font-bold" style={{ color: '#143151' }}>{agent.label}</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: c.bg, border: `1px solid ${c.border}` }}>
+                    <div className="w-2 h-2 rounded-full" style={{ background: c.icon }} />
+                  </div>
+                  <span className="text-[11px] font-bold" style={{ color: '#143151' }}>{agent.label}</span>
+                </div>
                 <div className="flex items-center gap-1.5">
                   {(running || done) && (
-                    <span className="text-[10px] font-semibold" style={{ color: isDone ? barColor : '#94a3b8' }}>
+                    <span className="text-[9.5px] font-semibold px-1.5 py-0.5 rounded-full" style={{
+                      background: isDone ? c.bg : '#f1f5f9',
+                      color: isDone ? c.text : '#94a3b8',
+                      border: isDone ? `1px solid ${c.border}` : 'none'
+                    }}>
                       {isDone ? agent.done : isActive ? agent.task : 'Queued'}
                     </span>
                   )}
-                  <span className="text-[10px] font-black tabular-nums w-7 text-right" style={{ color: barColor, opacity: pct > 0 ? 1 : 0.3 }}>{pct}%</span>
+                  <span className="text-[10px] font-black tabular-nums w-7 text-right" style={{ color: c.icon, opacity: pct > 0 ? 1 : 0.3 }}>{pct}%</span>
                 </div>
               </div>
-              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: barColor + '18' }}>
-                <motion.div className="h-full rounded-full"
-                  style={{ background: `linear-gradient(90deg, ${barColor}80, ${barColor})` }}
-                  initial={{ width: '0%' }}
-                  animate={{ width: `${pct}%` }}
-                  transition={{ duration: 0.25 }} />
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: c.border }}>
+                <motion.div className="h-full rounded-full" style={{ background: `linear-gradient(90deg, ${c.icon}80, ${c.icon})` }}
+                  initial={{ width: '0%' }} animate={{ width: `${pct}%` }} transition={{ duration: 0.25 }} />
               </div>
             </div>
           );
@@ -511,11 +565,15 @@ const CustomAgentsDemo = () => {
       <AnimatePresence>
         {done && (
           <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-3 gap-2">
-            {[['40%', 'Admin saved'], ['0.3s', 'Avg task'], ['5/5', 'Completed']].map(([val, label], i) => (
+            {[
+              { val: '40%', label: 'Admin saved', c: palette.sky },
+              { val: '0.3s', label: 'Avg task', c: palette.violet },
+              { val: '5/5', label: 'Completed', c: palette.emerald },
+            ].map(({ val, label, c }, i) => (
               <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
-                className="rounded-2xl p-2.5 text-center border bg-white shadow-sm" style={{ borderColor: '#e2eaef' }}>
-                <p className="text-sm font-black" style={{ color: '#143151' }}>{val}</p>
-                <p className="text-[9px] font-medium mt-0.5" style={{ color: '#387E89' }}>{label}</p>
+                className="rounded-2xl p-2.5 text-center border shadow-sm" style={{ background: c.bg, borderColor: c.border }}>
+                <p className="text-sm font-black" style={{ color: c.text }}>{val}</p>
+                <p className="text-[9px] font-medium mt-0.5" style={{ color: '#6b7280' }}>{label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -525,7 +583,7 @@ const CustomAgentsDemo = () => {
       <button onClick={running ? undefined : runAgents} disabled={running}
         className="w-full py-2.5 rounded-2xl text-xs font-black text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
         style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-        {running ? 'Agents running…' : done ? '↺ Run Again' : '▶ Deploy All Agents'}
+        {running ? '⚡ Agents running…' : done ? '↺ Run Again' : '▶ Deploy All Agents'}
       </button>
     </div>
   );
@@ -555,43 +613,46 @@ const IntegrationsDemo = () => {
     setTimeout(() => { setSyncing(false); setSyncedEHR(idx); }, 1500);
   };
 
+  const ehrColors = [palette.blue, palette.sky, palette.teal, palette.violet, palette.indigo, palette.emerald];
+  const appColors = [palette.sky, palette.violet, palette.amber, palette.rose, palette.emerald, palette.indigo, palette.teal, palette.blue];
+
   return (
     <div className="space-y-3">
       {/* EHR grid */}
       <div>
         <div className="flex items-center justify-between mb-2">
           <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: '#143151', opacity: 0.5 }}>EHR Systems</span>
-          <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full border" style={{ color: '#387E89', borderColor: '#387E8930', background: '#f0f6fa' }}>Click to test sync</span>
+          <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full" style={{ color: palette.teal.text, background: palette.teal.bg, border: `1px solid ${palette.teal.border}` }}>Tap to test sync</span>
         </div>
         <div className="grid grid-cols-3 gap-1.5">
           {ehrList.map((ehr, i) => {
             const isActive = activeEHR === i;
             const isSynced = syncedEHR === i;
-            const accentColor = i % 2 === 0 ? '#143151' : '#387E89';
+            const c = ehrColors[i % ehrColors.length];
             return (
               <motion.button key={i} onClick={() => handleSync(i)}
-                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
                 className="relative flex flex-col gap-1.5 p-2.5 rounded-2xl border text-left transition-all duration-200"
                 style={{
-                  background: isSynced ? (i % 2 === 0 ? '#f0f6fa' : '#e8f3f5') : isActive ? '#f8fafc' : 'white',
-                  borderColor: isSynced || isActive ? accentColor + '40' : '#edf0f4',
+                  background: isSynced ? c.bg : isActive ? '#f8fafc' : 'white',
+                  borderColor: isSynced ? c.border : isActive ? c.border : '#edf0f4',
+                  boxShadow: isSynced ? `0 0 0 2px ${c.border}` : 'none',
                 }}>
-                {/* Color bar accent */}
-                <div className="w-full h-0.5 rounded-full mb-0.5" style={{ background: `linear-gradient(90deg, ${accentColor}50, ${accentColor})` }} />
-                <div className="flex items-center justify-between">
+                {/* Color top bar */}
+                <div className="w-full h-1 rounded-full" style={{ background: `linear-gradient(90deg, ${c.icon}40, ${c.icon})` }} />
+                <div className="flex items-center justify-between mt-0.5">
                   <span className="text-[11px] font-black" style={{ color: '#143151' }}>{ehr.name}</span>
                   {isSynced && (
-                    <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-4 h-4 rounded-full flex items-center justify-center shadow-sm text-white text-[8px] font-black" style={{ background: '#143151' }}>✓</motion.span>
+                    <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-4 h-4 rounded-full flex items-center justify-center text-white text-[8px] font-black shadow-sm" style={{ background: c.icon }}>✓</motion.span>
                   )}
                   {syncing && isActive && (
-                    <motion.div className="w-3 h-3 rounded-full border-2"
-                      style={{ borderColor: accentColor, borderTopColor: 'transparent' }}
+                    <motion.div className="w-3 h-3 rounded-full border-2" style={{ borderColor: c.icon, borderTopColor: 'transparent' }}
                       animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.7, ease: 'linear' }} />
                   )}
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-medium" style={{ color: '#387E89', opacity: 0.7 }}>{ehr.desc}</span>
-                  <span className="text-[8px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: accentColor + '12', color: accentColor }}>{ehr.category}</span>
+                  <span className="text-[9px] font-medium" style={{ color: '#9ca3af' }}>{ehr.desc}</span>
+                  <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}` }}>{ehr.category}</span>
                 </div>
               </motion.button>
             );
@@ -604,16 +665,16 @@ const IntegrationsDemo = () => {
         {syncedEHR !== null && (
           <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="rounded-2xl p-3 border flex items-center gap-3"
-            style={{ background: 'linear-gradient(135deg, #f0f6fa, #e8f3f5)', borderColor: '#387E8930' }}>
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-black flex-shrink-0 shadow-sm"
-              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+            style={{ background: ehrColors[syncedEHR % ehrColors.length].bg, borderColor: ehrColors[syncedEHR % ehrColors.length].border }}>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black flex-shrink-0 shadow-sm"
+              style={{ background: ehrColors[syncedEHR % ehrColors.length].bg, color: ehrColors[syncedEHR % ehrColors.length].text, border: `2px solid ${ehrColors[syncedEHR % ehrColors.length].border}` }}>
               {ehrList[syncedEHR].abbr}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-[11px] font-black" style={{ color: '#143151' }}>Connected to {ehrList[syncedEHR].name}</p>
-              <p className="text-[9.5px]" style={{ color: '#387E89' }}>Notes · Orders · Charts · Real-time sync ✓</p>
+              <p className="text-[9.5px]" style={{ color: '#6b7280' }}>Notes · Orders · Charts · Real-time sync ✓</p>
             </div>
-            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full border flex-shrink-0" style={{ color: '#143151', background: '#e8f3f5', borderColor: '#387E8940' }}>Live</span>
+            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 animate-pulse" style={{ color: palette.emerald.text, background: palette.emerald.bg, border: `1px solid ${palette.emerald.border}` }}>● Live</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -622,13 +683,17 @@ const IntegrationsDemo = () => {
       <div>
         <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: '#143151', opacity: 0.4 }}>+ 7,000 more apps</span>
         <div className="flex flex-wrap gap-1.5 mt-1.5">
-          {appList.map((name, i) => (
-            <motion.div key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }}
-              className="flex items-center gap-1.5 bg-white border rounded-xl px-2.5 py-1 shadow-sm hover:shadow-md transition-all cursor-default" style={{ borderColor: '#edf0f4' }}>
-              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: i % 2 === 0 ? '#143151' : '#387E89' }} />
-              <span className="text-[10px] font-semibold" style={{ color: '#143151' }}>{name}</span>
-            </motion.div>
-          ))}
+          {appList.map((name, i) => {
+            const c = appColors[i % appColors.length];
+            return (
+              <motion.div key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }}
+                className="flex items-center gap-1.5 border rounded-xl px-2.5 py-1 shadow-sm hover:shadow-md transition-all cursor-default"
+                style={{ background: c.bg, borderColor: c.border }}>
+                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: c.icon }} />
+                <span className="text-[10px] font-semibold" style={{ color: c.text }}>{name}</span>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -638,10 +703,10 @@ const IntegrationsDemo = () => {
 
 // ─── Main Demo Panel ──────────────────────────────────────────────────────────
 const tabItems = [
-  { id: 'scribe', label: 'AI Scribe',     shortLabel: 'Scribe',       subtitle: 'Live transcription → auto SOAP note',       badge: '2+ hrs saved/day',  color: '#143151', Demo: ScribeDemo },
-  { id: 'bravo',  label: 'BRAVO',         shortLabel: 'BRAVO',        subtitle: 'AI handles every inbound call 24/7',         badge: '24/7 availability', color: '#387E89', Demo: ReceptionistDemo },
-  { id: 'agents', label: 'AI Agents',     shortLabel: 'Agents',       subtitle: '5 autonomous agents run your clinic',        badge: '40% less admin',    color: '#143151', Demo: CustomAgentsDemo },
-  { id: 'ehr',    label: 'Integrations',  shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption',      badge: 'Plug & play',       color: '#387E89', Demo: IntegrationsDemo },
+  { id: 'scribe', label: 'AI Scribe',     shortLabel: 'Scribe',       subtitle: 'Live transcription → auto SOAP note',       badge: '2+ hrs saved/day',  color: palette.sky.icon,    pal: palette.sky,    Demo: ScribeDemo },
+  { id: 'bravo',  label: 'BRAVO',         shortLabel: 'BRAVO',        subtitle: 'AI handles every inbound call 24/7',         badge: '24/7 availability', color: palette.violet.icon, pal: palette.violet, Demo: ReceptionistDemo },
+  { id: 'agents', label: 'AI Agents',     shortLabel: 'Agents',       subtitle: '5 autonomous agents run your clinic',        badge: '40% less admin',    color: palette.amber.icon,  pal: palette.amber,  Demo: CustomAgentsDemo },
+  { id: 'ehr',    label: 'Integrations',  shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption',      badge: 'Plug & play',       color: palette.emerald.icon,pal: palette.emerald,Demo: IntegrationsDemo },
 ];
 
 const HeroDemoPanel = () => {
@@ -687,7 +752,7 @@ const HeroDemoPanel = () => {
 
         {/* ── Tab bar — icon + label layout ── */}
         <div className="px-4 pt-3.5 pb-0 border-b" style={{ background: '#f8fafc', borderColor: '#eaeff4' }}>
-          <div className="flex gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+          <div className="flex gap-0 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
             {tabItems.map((t, i) => {
               const isActive = activeTab === i;
               return (
@@ -695,18 +760,18 @@ const HeroDemoPanel = () => {
                   key={t.id}
                   onClick={() => setActiveTab(i)}
                   whileTap={{ scale: 0.97 }}
-                  className="relative flex-shrink-0 flex flex-col items-center gap-0.5 px-4 pb-3 pt-1.5 transition-all duration-200 focus:outline-none"
+                  className="relative flex-shrink-0 flex flex-col items-center gap-0.5 px-3.5 pb-3 pt-1.5 transition-all duration-200 focus:outline-none"
                   style={{ color: isActive ? t.color : '#94a3b8' }}
                 >
-                  <span className={`text-[11.5px] font-bold whitespace-nowrap transition-colors duration-200`}>
+                  <span className="text-[11.5px] font-bold whitespace-nowrap transition-colors duration-200">
                     {t.shortLabel}
                   </span>
                   {/* Active underline */}
                   <motion.div
-                    className="absolute bottom-0 left-1 right-1 h-0.5 rounded-full"
+                    className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full"
                     animate={{ opacity: isActive ? 1 : 0, scaleX: isActive ? 1 : 0 }}
                     transition={{ duration: 0.2 }}
-                    style={{ background: `linear-gradient(90deg, ${t.color}60, ${t.color})`, transformOrigin: 'center' }}
+                    style={{ background: `linear-gradient(90deg, ${t.color}70, ${t.color})`, transformOrigin: 'center' }}
                   />
                 </motion.button>
               );
@@ -721,17 +786,17 @@ const HeroDemoPanel = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             className="flex items-center justify-between px-5 py-2.5 border-b"
-            style={{ background: '#ffffff', borderColor: '#eaeff4' }}
+            style={{ background: tab.pal.bg, borderColor: tab.pal.border }}
           >
             <div className="flex items-center gap-2.5">
               <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: `linear-gradient(180deg, ${tab.color}50, ${tab.color})` }} />
               <div>
                 <p className="text-[12.5px] font-black leading-none" style={{ color: '#143151' }}>{tab.label}</p>
-                <p className="text-[10.5px] mt-0.5 leading-none" style={{ color: '#387E89' }}>{tab.subtitle}</p>
+                <p className="text-[10.5px] mt-0.5 leading-none" style={{ color: tab.pal.text }}>{tab.subtitle}</p>
               </div>
             </div>
             <span className="text-[9.5px] font-black px-2.5 py-1 rounded-full flex-shrink-0"
-              style={{ background: tab.color + '12', color: tab.color, border: `1.5px solid ${tab.color}30` }}>
+              style={{ background: '#ffffff', color: tab.pal.text, border: `1.5px solid ${tab.pal.border}` }}>
               {tab.badge}
             </span>
           </motion.div>
