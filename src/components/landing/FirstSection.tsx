@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon } from "lucide-react";
+import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon, Stethoscope, User, Activity, ClipboardList, Bot, CreditCard, FlaskConical, PhoneMissed, Network, Layers, Puzzle, Globe } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -90,12 +90,12 @@ const scribeConversation = [
   { speaker: 'patient' as const, text: 'Yes, bright lights really bother me.' },
   { speaker: 'clinician' as const, text: "Ordering a CT scan and bloodwork to rule out anything serious." },
 ];
-type NoteItem = { label: string; abbr: string; value: string; icon: string; color: string };
+type NoteItem = { label: string; abbr: string; value: string; abbrev: string; color: string };
 const generatedNote: NoteItem[] = [
-  { label: 'Subjective', abbr: 'S', value: 'Headache × 3 days, neck stiffness, photophobia present', icon: '💬', color: S10.navy },
-  { label: 'Objective',  abbr: 'O', value: 'Afebrile on exam. Nuchal rigidity noted.', icon: '🩺', color: S10.teal },
-  { label: 'Assessment', abbr: 'A', value: 'R/O meningitis vs. tension headache', icon: '🔍', color: S10.mid },
-  { label: 'Plan',       abbr: 'P', value: 'CT Head + CBC + CMP ordered. F/U in 48h.', icon: '📋', color: S10.navy },
+  { label: 'Subjective', abbr: 'S', value: 'Headache × 3 days, neck stiffness, photophobia present', abbrev: 'S', color: S10.navy },
+  { label: 'Objective',  abbr: 'O', value: 'Afebrile on exam. Nuchal rigidity noted.', abbrev: 'O', color: S10.teal },
+  { label: 'Assessment', abbr: 'A', value: 'R/O meningitis vs. tension headache', abbrev: 'A', color: S10.mid },
+  { label: 'Plan',       abbr: 'P', value: 'CT Head + CBC + CMP ordered. F/U in 48h.', abbrev: 'P', color: S10.navy },
 ];
 
 export const ScribeDemo = () => {
@@ -140,18 +140,17 @@ export const ScribeDemo = () => {
   }, []);
 
   return (
-    <div className="space-y-2.5">
+    <div className="flex flex-col gap-2.5 h-[380px] overflow-hidden">
       {/* Doctor + status header */}
-      <div className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition-all duration-300"
+      <div className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 flex-shrink-0 transition-all duration-300"
         style={{
           background: phase === 'recording' ? `${S10.teal}08` : phase === 'generating' ? `${S10.mid}08` : phase === 'done' ? `${S10.teal}10` : `${S10.navy}05`,
           border: `1px solid ${phase === 'idle' ? S10.navy+'10' : S10.teal+'25'}`,
         }}>
-        {/* Doctor avatar */}
         <div className="relative flex-shrink-0">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-sm"
+          <div className="w-9 h-9 rounded-full flex items-center justify-center shadow-sm"
             style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}>
-            <span>👨‍⚕️</span>
+            <Stethoscope className="w-4 h-4 text-white" />
           </div>
           {phase === 'recording' && (
             <>
@@ -168,15 +167,9 @@ export const ScribeDemo = () => {
             </div>
           )}
         </div>
-
-        {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[12px] font-bold leading-none" style={{ color: S10.navy }}>Dr. Chen</span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold"
-              style={{ background: `${S10.mid}15`, color: S10.mid, border: `1px solid ${S10.mid}25` }}>
-              General Practice
-            </span>
+            <span className="text-[12px] font-bold leading-none" style={{ color: S10.navy }}>Dr. Chen · General Practice</span>
           </div>
           <div className="flex items-center gap-1.5 mt-1">
             <span className="relative flex h-1.5 w-1.5">
@@ -188,8 +181,6 @@ export const ScribeDemo = () => {
             </span>
           </div>
         </div>
-
-        {/* Right side: waveform or status */}
         {phase === 'recording' && <WaveformBars isActive bars={12} color={S10.teal} />}
         {phase === 'generating' && (
           <div className="flex items-center gap-1">
@@ -201,159 +192,150 @@ export const ScribeDemo = () => {
           </div>
         )}
         {phase === 'done' && (
-          <span className="text-[9.5px] font-bold px-2 py-1 rounded-full"
+          <span className="text-[9.5px] font-bold px-2 py-1 rounded-full flex-shrink-0"
             style={{ background: `${S10.teal}14`, color: S10.teal, border: `1px solid ${S10.teal}28` }}>
             ✓ Done
           </span>
         )}
       </div>
 
-      {/* Conversation */}
-      <div ref={chatRef} className="h-[112px] overflow-y-auto rounded-xl px-3 py-2.5 space-y-2 scroll-smooth"
-        style={{ background: '#f8fafc', border: `1px solid ${S10.navy}0e` }}>
-        {visibleLines.length === 0 && (
-          <div className="h-full flex flex-col items-center justify-center gap-1.5 select-none">
-            <span className="text-2xl">🎙️</span>
-            <p className="text-[10.5px] font-medium" style={{ color: '#b0b8c4' }}>Press Start Encounter to begin</p>
-          </div>
-        )}
-        {scribeConversation.map((line, i) => (
-          visibleLines.includes(i) && (
-            <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
-              className={`flex items-end gap-2 ${line.speaker === 'patient' ? 'flex-row-reverse' : ''}`}>
-              {/* Avatar */}
-              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[11px] shadow-sm"
-                style={{
-                  background: line.speaker === 'clinician' ? `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` : '#e8edf2',
-                }}>
-                <span>{line.speaker === 'clinician' ? '👨‍⚕️' : '🧑'}</span>
+      {/* Conversation + Note scrollable area */}
+      <div className="flex-1 overflow-y-auto space-y-2 min-h-0">
+        {/* Conversation */}
+        <div ref={chatRef} className="rounded-xl px-3 py-2.5 space-y-2"
+          style={{ background: '#f8fafc', border: `1px solid ${S10.navy}0e` }}>
+          {visibleLines.length === 0 && (
+            <div className="flex flex-col items-center justify-center gap-1.5 py-4 select-none">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${S10.navy}08`, border: `1.5px dashed ${S10.navy}20` }}>
+                <Activity className="w-4 h-4" style={{ color: S10.navy, opacity: 0.4 }} />
               </div>
-              {/* Bubble */}
-              <div className="max-w-[76%] px-3 py-1.5 text-[10.5px] leading-relaxed shadow-sm"
-                style={{
-                  background: line.speaker === 'clinician' ? '#fff' : `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`,
-                  color: line.speaker === 'clinician' ? '#374151' : '#fff',
-                  border: line.speaker === 'clinician' ? `1px solid ${S10.mid}22` : 'none',
-                  borderRadius: line.speaker === 'clinician' ? '0.25rem 1rem 1rem 1rem' : '1rem 0.25rem 1rem 1rem',
-                }}>
-                {line.text}
-              </div>
-            </motion.div>
-          )
-        ))}
-      </div>
-
-      {/* SOAP Note */}
-      <AnimatePresence>
-        {noteLines.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl overflow-hidden bg-white"
-            style={{ border: `1px solid ${S10.navy}14`, boxShadow: `0 2px 8px ${S10.navy}08` }}>
-            {/* Header */}
-            <div className="flex items-center justify-between px-3.5 py-2 border-b"
-              style={{ borderColor: `${S10.navy}10`, background: `${S10.navy}05` }}>
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-md flex items-center justify-center text-[11px]"
-                  style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}>
-                  <span className="text-white" style={{ fontSize: '9px', fontWeight: 900 }}>S</span>
-                </div>
-                <span className="text-[10.5px] font-bold tracking-widest uppercase" style={{ color: S10.navy }}>SOAP Note</span>
-              </div>
-              <AnimatePresence mode="wait">
-                {noteLines.length < generatedNote.length ? (
-                  <motion.div key="writing" className="flex items-center gap-1.5">
-                    {[0,1,2].map(i => (
-                      <motion.div key={i} className="w-1 h-1 rounded-full" style={{ background: S10.mid }}
-                        animate={{ scale: [0.6,1.3,0.6] }} transition={{ repeat: Infinity, duration: 0.7, delay: i*0.2 }} />
-                    ))}
-                    <span className="text-[9.5px] font-semibold" style={{ color: S10.mid }}>Writing…</span>
-                  </motion.div>
-                ) : (
-                  <motion.span key="done" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
-                    className="text-[9.5px] font-bold px-2 py-0.5 rounded-full"
-                    style={{ background: `${S10.teal}14`, color: S10.teal, border: `1px solid ${S10.teal}28` }}>
-                    ✓ Ready
-                  </motion.span>
-                )}
-              </AnimatePresence>
+              <p className="text-[10.5px] font-medium" style={{ color: '#b0b8c4' }}>Press Start to begin encounter</p>
             </div>
+          )}
+          {scribeConversation.map((line, i) => (
+            visibleLines.includes(i) && (
+              <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
+                className={`flex items-end gap-2 ${line.speaker === 'patient' ? 'flex-row-reverse' : ''}`}>
+                <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center shadow-sm"
+                  style={{ background: line.speaker === 'clinician' ? `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` : '#e8edf2' }}>
+                  {line.speaker === 'clinician'
+                    ? <Stethoscope className="w-3 h-3 text-white" />
+                    : <User className="w-3 h-3" style={{ color: S10.navy }} />}
+                </div>
+                <div className="max-w-[76%] px-3 py-1.5 text-[10.5px] leading-relaxed shadow-sm"
+                  style={{
+                    background: line.speaker === 'clinician' ? '#fff' : `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`,
+                    color: line.speaker === 'clinician' ? '#374151' : '#fff',
+                    border: line.speaker === 'clinician' ? `1px solid ${S10.mid}22` : 'none',
+                    borderRadius: line.speaker === 'clinician' ? '0.25rem 1rem 1rem 1rem' : '1rem 0.25rem 1rem 1rem',
+                  }}>
+                  {line.text}
+                </div>
+              </motion.div>
+            )
+          ))}
+        </div>
 
-            {/* SOAP rows */}
-            <div className="px-3 py-2 space-y-1.5">
-              {noteLines.map((item, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.25, delay: i * 0.04 }}
-                  className="flex items-start gap-2.5">
-                  {/* Section icon + letter */}
-                  <div className="flex items-center gap-1.5 flex-shrink-0 mt-0.5">
-                    <span className="text-[12px] leading-none">{item.icon}</span>
-                    <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-black"
+        {/* SOAP Note */}
+        <AnimatePresence>
+          {noteLines.length > 0 && (
+            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+              className="rounded-xl overflow-hidden bg-white"
+              style={{ border: `1px solid ${S10.navy}14`, boxShadow: `0 2px 8px ${S10.navy}08` }}>
+              <div className="flex items-center justify-between px-3.5 py-2 border-b"
+                style={{ borderColor: `${S10.navy}10`, background: `${S10.navy}05` }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}>
+                    <ClipboardList className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-[10.5px] font-bold tracking-widest uppercase" style={{ color: S10.navy }}>SOAP Note</span>
+                </div>
+                <AnimatePresence mode="wait">
+                  {noteLines.length < generatedNote.length ? (
+                    <motion.div key="writing" className="flex items-center gap-1.5">
+                      {[0,1,2].map(i => (
+                        <motion.div key={i} className="w-1 h-1 rounded-full" style={{ background: S10.mid }}
+                          animate={{ scale: [0.6,1.3,0.6] }} transition={{ repeat: Infinity, duration: 0.7, delay: i*0.2 }} />
+                      ))}
+                      <span className="text-[9.5px] font-semibold" style={{ color: S10.mid }}>Writing…</span>
+                    </motion.div>
+                  ) : (
+                    <motion.span key="done" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+                      className="text-[9.5px] font-bold px-2 py-0.5 rounded-full"
+                      style={{ background: `${S10.teal}14`, color: S10.teal, border: `1px solid ${S10.teal}28` }}>
+                      ✓ Ready
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+              <div className="px-3 py-2 space-y-1.5">
+                {noteLines.map((item, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.25, delay: i * 0.04 }}
+                    className="flex items-start gap-2.5">
+                    <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-black flex-shrink-0 mt-0.5"
                       style={{ background: item.color }}>
                       {item.abbr}
                     </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[8.5px] font-bold uppercase tracking-widest block leading-none mb-0.5" style={{ color: item.color }}>{item.label}</span>
-                    <span className="text-[10.5px] leading-snug" style={{ color: '#374151' }}>{item.value}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* EHR push confirmation */}
-      <AnimatePresence>
-        {(ehrSyncing || ehrSynced) && (
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className="rounded-xl overflow-hidden"
-            style={{ border: `1px solid ${ehrSynced ? S10.teal+'30' : S10.mid+'25'}`, background: ehrSynced ? `${S10.teal}08` : `${S10.navy}05` }}>
-            <div className="flex items-center gap-3 px-3.5 py-2.5">
-              {/* EHR icon */}
-              <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-xl"
-                style={{ background: ehrSynced ? `${S10.teal}15` : `${S10.navy}10`, border: `1px solid ${ehrSynced ? S10.teal+'25' : S10.navy+'15'}` }}>
-                {ehrSyncing ? (
-                  <motion.div className="w-5 h-5 rounded-full border-2" style={{ borderColor: S10.mid, borderTopColor: 'transparent' }}
-                    animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.7, ease: 'linear' }} />
-                ) : '🏥'}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[11.5px] font-bold leading-none" style={{ color: ehrSynced ? S10.teal : S10.navy }}>
-                  {ehrSyncing ? 'Pushing to Epic EHR…' : '✓ Synced to Epic EHR'}
-                </p>
-                <p className="text-[9.5px] mt-0.5" style={{ color: '#9ca3af' }}>
-                  {ehrSyncing ? 'Establishing secure connection…' : 'Chart updated · Note saved · Patient notified'}
-                </p>
-              </div>
-              {ehrSynced && (
-                <div className="flex flex-col items-end gap-1">
-                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full animate-pulse"
-                    style={{ background: `${S10.teal}14`, color: S10.teal, border: `1px solid ${S10.teal}28` }}>
-                    ● Live
-                  </span>
-                  <span className="text-[8.5px] font-medium" style={{ color: '#b0b8c4' }}>0.3s sync</span>
-                </div>
-              )}
-            </div>
-            {ehrSynced && (
-              <div className="flex items-center gap-3 px-3.5 pb-2.5">
-                {['Chart', 'Orders', 'Billing', 'Patient'].map((tag, i) => (
-                  <motion.span key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 }}
-                    className="text-[8.5px] font-semibold px-1.5 py-0.5 rounded-full"
-                    style={{ background: `${S10.teal}12`, color: S10.teal, border: `1px solid ${S10.teal}22` }}>
-                    ✓ {tag}
-                  </motion.span>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[8.5px] font-bold uppercase tracking-widest block leading-none mb-0.5" style={{ color: item.color }}>{item.label}</span>
+                      <span className="text-[10.5px] leading-snug" style={{ color: '#374151' }}>{item.value}</span>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* EHR push confirmation */}
+        <AnimatePresence>
+          {(ehrSyncing || ehrSynced) && (
+            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="rounded-xl overflow-hidden flex-shrink-0"
+              style={{ border: `1px solid ${ehrSynced ? S10.teal+'30' : S10.mid+'25'}`, background: ehrSynced ? `${S10.teal}08` : `${S10.navy}05` }}>
+              <div className="flex items-center gap-3 px-3.5 py-2.5">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: ehrSynced ? `${S10.teal}15` : `${S10.navy}10`, border: `1px solid ${ehrSynced ? S10.teal+'25' : S10.navy+'15'}` }}>
+                  {ehrSyncing ? (
+                    <motion.div className="w-4 h-4 rounded-full border-2" style={{ borderColor: S10.mid, borderTopColor: 'transparent' }}
+                      animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.7, ease: 'linear' }} />
+                  ) : <Network className="w-4 h-4" style={{ color: S10.teal }} />}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[11.5px] font-bold leading-none" style={{ color: ehrSynced ? S10.teal : S10.navy }}>
+                    {ehrSyncing ? 'Pushing to Epic EHR…' : '✓ Synced to Epic EHR'}
+                  </p>
+                  <p className="text-[9.5px] mt-0.5" style={{ color: '#9ca3af' }}>
+                    {ehrSyncing ? 'Establishing secure connection…' : 'Chart updated · Note saved · Patient notified'}
+                  </p>
+                </div>
+                {ehrSynced && (
+                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full animate-pulse flex-shrink-0"
+                    style={{ background: `${S10.teal}14`, color: S10.teal, border: `1px solid ${S10.teal}28` }}>
+                    Live
+                  </span>
+                )}
+              </div>
+              {ehrSynced && (
+                <div className="flex items-center gap-3 px-3.5 pb-2.5">
+                  {['Chart', 'Orders', 'Billing', 'Patient'].map((tag, i) => (
+                    <motion.span key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 }}
+                      className="text-[8.5px] font-semibold px-1.5 py-0.5 rounded-full"
+                      style={{ background: `${S10.teal}12`, color: S10.teal, border: `1px solid ${S10.teal}22` }}>
+                      ✓ {tag}
+                    </motion.span>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Actions */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-shrink-0">
         {(phase === 'idle' || phase === 'done') ? (
           <>
             <button onClick={startEncounter}
@@ -441,44 +423,45 @@ export const ReceptionistDemo = () => {
     setPhase('idle'); setVisibleLines([]); setActiveSpeaker(null);
   }, []);
 
-  const outcomes = ['Appt · Thu 10:30 AM', 'Rx refill → Walgreens', 'SMS confirmation sent'];
-
   const outcomeChips = [
     { text: 'Appt · Thu 10:30 AM', pal: palette.teal },
     { text: 'Rx refill → Walgreens', pal: palette.blue },
-    { text: 'SMS confirmation sent', pal: palette.emerald },
+    { text: 'SMS sent', pal: palette.emerald },
   ];
 
   return (
-    <div className="space-y-2.5">
-      {/* Call card */}
-      <div className="rounded-2xl border overflow-hidden" style={{
+    <div className="flex flex-col gap-2.5 h-[380px] overflow-hidden">
+      {/* BRAVO agent card */}
+      <div className="rounded-xl border overflow-hidden flex-shrink-0" style={{
         borderColor: phase === 'calling' ? palette.teal.border : '#edf0f4',
         background: phase === 'calling' ? palette.teal.bg : '#f8fafc'
       }}>
-        <div className="px-4 py-3 flex items-center gap-3">
+        <div className="px-3.5 py-2.5 flex items-center gap-3">
           <div className="relative flex-shrink-0">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-lg shadow-md"
-              style={{ background: phase === 'calling' ? `linear-gradient(135deg,${palette.teal.icon},#143151)` : 'linear-gradient(135deg,#143151,#387E89)' }}>
-              <span>🤖</span>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+              style={{ background: `linear-gradient(135deg,${S10.navy},${S10.teal})` }}>
+              <Bot className="w-5 h-5 text-white" />
             </div>
             {phase === 'calling' && (
               <>
-                <motion.span className="absolute inset-0 rounded-2xl border-2" style={{ borderColor: palette.teal.icon }}
+                <motion.span className="absolute inset-0 rounded-xl border-2" style={{ borderColor: S10.teal }}
                   animate={{ scale: [1, 1.5], opacity: [0.6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }} />
-                <motion.span className="absolute inset-0 rounded-2xl border" style={{ borderColor: palette.teal.icon }}
+                <motion.span className="absolute inset-0 rounded-xl border" style={{ borderColor: S10.teal }}
                   animate={{ scale: [1, 1.9], opacity: [0.3, 0] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.35 }} />
               </>
             )}
             {phase === 'done' && (
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-sm border-2 border-white text-white text-[8px] font-black" style={{ background: palette.emerald.icon }}>✓</div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-sm border-2 border-white"
+                style={{ background: S10.teal }}>
+                <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4l2 2 3-3" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
+              </div>
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-black leading-none" style={{ color: '#143151' }}>BRAVO AI Receptionist</p>
+            <p className="text-[13px] font-black leading-none" style={{ color: S10.navy }}>BRAVO AI Receptionist</p>
             <div className="flex items-center gap-1.5 mt-1">
-              {phase === 'calling' && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: palette.rose.icon }} />}
-              <p className="text-[10.5px] font-medium" style={{ color: phase === 'calling' ? palette.rose.text : '#6b7280' }}>
+              {phase === 'calling' && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: S10.teal }} />}
+              <p className="text-[10.5px] font-medium" style={{ color: phase === 'calling' ? S10.teal : '#6b7280' }}>
                 {phase === 'idle' ? '24/7 · All calls handled automatically' : phase === 'calling' ? 'Live call with Sarah M.' : 'Call complete · All tasks done'}
               </p>
             </div>
@@ -486,7 +469,8 @@ export const ReceptionistDemo = () => {
           {phase === 'calling' && activeSpeaker && (
             <div className="flex flex-col items-center gap-0.5">
               <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? S10.teal : S10.mid} />
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: activeSpeaker === 'bravo' ? `${S10.teal}15` : `${S10.mid}15`, color: activeSpeaker === 'bravo' ? S10.teal : S10.navy }}>
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                style={{ background: activeSpeaker === 'bravo' ? `${S10.teal}15` : `${S10.mid}15`, color: activeSpeaker === 'bravo' ? S10.teal : S10.navy }}>
                 {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
               </span>
             </div>
@@ -494,12 +478,14 @@ export const ReceptionistDemo = () => {
         </div>
       </div>
 
-      {/* Transcript */}
-      <div ref={scrollRef} className="h-[136px] overflow-y-auto rounded-2xl border px-3 py-2.5 space-y-2 scroll-smooth" style={{ background: '#f9fafb', borderColor: '#e5e7eb' }}>
+      {/* Transcript — scrollable, fills remaining space */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto rounded-xl border px-3 py-2.5 space-y-2 scroll-smooth min-h-0"
+        style={{ background: '#f9fafb', borderColor: '#e5e7eb' }}>
         {visibleLines.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-1.5 select-none">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: palette.sky.bg, border: `1.5px dashed ${palette.sky.border}` }}>
-              <span className="text-sm">📞</span>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+              style={{ background: `${S10.navy}08`, border: `1.5px dashed ${S10.navy}20` }}>
+              <PhoneIcon className="w-4 h-4" style={{ color: S10.navy, opacity: 0.4 }} />
             </div>
             <p className="text-[11px] font-medium" style={{ color: '#9ca3af' }}>Press Start Call to hear BRAVO live</p>
           </div>
@@ -508,13 +494,14 @@ export const ReceptionistDemo = () => {
           visibleLines.includes(i) && (
             <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
               className={`flex items-end gap-1.5 ${line.speaker === 'caller' ? 'flex-row-reverse' : ''}`}>
-              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[8px] font-black shadow-sm"
+              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center shadow-sm"
                 style={{
-                  background: line.speaker === 'bravo' ? `${S10.teal}20` : `${S10.navy}15`,
-                  color: line.speaker === 'bravo' ? S10.teal : S10.navy,
-                  border: `1.5px solid ${line.speaker === 'bravo' ? S10.teal + '40' : S10.navy + '30'}`
+                  background: line.speaker === 'bravo' ? `linear-gradient(135deg,${S10.navy},${S10.teal})` : `${S10.mid}20`,
+                  border: `1.5px solid ${line.speaker === 'bravo' ? S10.teal+'40' : S10.navy+'30'}`
                 }}>
-                {line.speaker === 'bravo' ? 'B' : 'S'}
+                {line.speaker === 'bravo'
+                  ? <Bot className="w-3 h-3 text-white" />
+                  : <User className="w-3 h-3" style={{ color: S10.navy }} />}
               </div>
               <div className="max-w-[80%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm" style={{
                 background: line.speaker === 'bravo' ? '#fff' : `linear-gradient(135deg,${S10.navy},${S10.teal})`,
@@ -533,7 +520,7 @@ export const ReceptionistDemo = () => {
       {/* Outcome chips */}
       <AnimatePresence>
         {phase === 'done' && (
-          <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5">
+          <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5 flex-shrink-0">
             {outcomeChips.map(({ text, pal }, i) => (
               <motion.span key={i} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
                 className="text-[10px] font-bold px-2.5 py-1 rounded-full border"
@@ -545,17 +532,17 @@ export const ReceptionistDemo = () => {
         )}
       </AnimatePresence>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-shrink-0">
         {phase !== 'calling' ? (
           <button onClick={startCall}
-            className="flex-1 py-2.5 rounded-2xl text-xs font-black text-white transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+            className="flex-1 py-2.5 rounded-xl text-xs font-black text-white transition-all hover:opacity-90 active:scale-[0.98]"
+            style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}>
             {phase === 'done' ? '↺ Replay Call' : '▶ Start Call'}
           </button>
         ) : (
           <button onClick={endCall}
-            className="flex-1 py-2.5 rounded-2xl text-xs font-black transition-all active:scale-[0.98]"
-            style={{ background: palette.rose.bg, color: palette.rose.text, border: `1.5px solid ${palette.rose.border}` }}>
+            className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all active:scale-[0.98]"
+            style={{ background: `${S10.teal}12`, color: S10.teal, border: `1.5px solid ${S10.teal}30` }}>
             ✕ End Call
           </button>
         )}
@@ -566,12 +553,14 @@ export const ReceptionistDemo = () => {
 
 // ─── Custom AI Agents Demo ────────────────────────────────────────────────────
 const agents = [
-  { id: 'scribe',  label: 'AI Scribe',      icon: '🎙', task: 'Transcribing visit notes…',  done: 'SOAP note generated',   pct: 87, timeEst: '1.2s' },
-  { id: 'billing', label: 'Smart Billing',  icon: '💳', task: 'Coding encounter…',           done: 'CPT 99213 suggested',   pct: 62, timeEst: '0.8s' },
-  { id: 'prior',   label: 'Prior Auth',     icon: '✅', task: 'Filing auth request…',        done: 'Authorization approved', pct: 100, timeEst: '2.1s' },
-  { id: 'labs',    label: 'Lab Router',     icon: '🧪', task: 'Routing lab results…',        done: 'Sent to Dr. Chen',      pct: 45, timeEst: '0.5s' },
-  { id: 'recall',  label: 'Patient Recall', icon: '📞', task: 'Scheduling outreach calls…',  done: '24 patients reached',   pct: 78, timeEst: '3.4s' },
+  { id: 'scribe',  label: 'AI Scribe',      task: 'Transcribing visit notes…',  done: 'SOAP note generated',   pct: 87 },
+  { id: 'billing', label: 'Smart Billing',  task: 'Coding encounter…',           done: 'CPT 99213 suggested',   pct: 62 },
+  { id: 'prior',   label: 'Prior Auth',     task: 'Filing auth request…',        done: 'Authorization approved', pct: 100 },
+  { id: 'labs',    label: 'Lab Router',     task: 'Routing lab results…',        done: 'Sent to Dr. Chen',      pct: 45 },
+  { id: 'recall',  label: 'Patient Recall', task: 'Scheduling outreach calls…',  done: '24 patients reached',   pct: 78 },
 ];
+const agentIcons = [FileText, CreditCard, ClipboardList, FlaskConical, PhoneIcon];
+const agentColors = [S10.navy, S10.teal, S10.mid, S10.navy, S10.teal];
 
 export const CustomAgentsDemo = () => {
   const [progresses, setProgresses] = useState<Record<string, number>>(
@@ -608,12 +597,10 @@ export const CustomAgentsDemo = () => {
 
   useEffect(() => () => timers.current.forEach(clearInterval), []);
 
-  const agentColors = [S10.navy, S10.teal, S10.mid, S10.navy, S10.teal];
-
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col gap-2.5 h-[380px] overflow-hidden">
       {/* Status bar */}
-      <div className="flex items-center justify-between rounded-xl px-3.5 py-2.5"
+      <div className="flex items-center justify-between rounded-xl px-3.5 py-2.5 flex-shrink-0"
         style={{ background: done ? `${S10.teal}12` : running ? `${S10.navy}08` : `${S10.navy}06`, border: `1px solid ${done ? S10.teal+'30' : S10.navy+'12'}` }}>
         <div className="flex items-center gap-2.5">
           {running && (
@@ -624,8 +611,8 @@ export const CustomAgentsDemo = () => {
               ))}
             </div>
           )}
-          {done && <span className="text-sm">✨</span>}
-          {!running && !done && <span className="text-sm">🤖</span>}
+          {done && <Zap className="w-4 h-4" style={{ color: S10.teal }} />}
+          {!running && !done && <Layers className="w-4 h-4" style={{ color: S10.navy, opacity: 0.5 }} />}
           <div>
             <p className="text-[11.5px] font-bold leading-none" style={{ color: S10.navy }}>
               {running ? 'Agents working…' : done ? 'All tasks complete!' : '5 AI agents ready'}
@@ -643,37 +630,33 @@ export const CustomAgentsDemo = () => {
         )}
       </div>
 
-      {/* Agent list */}
-      <div className="space-y-2">
+      {/* Agent list — scrollable */}
+      <div className="flex-1 overflow-y-auto space-y-1.5 min-h-0">
         {agents.map((agent, idx) => {
           const pct = progresses[agent.id];
           const isActive = running && pct > 0 && pct < agent.pct;
           const isDone = pct >= agent.pct && (running || done);
           const isQueued = running && pct === 0;
           const color = agentColors[idx];
+          const AgentIcon = agentIcons[idx];
 
           return (
             <motion.div
               key={agent.id}
               animate={{ opacity: (!running && !done) ? 0.7 : 1 }}
-              className="rounded-xl overflow-hidden transition-all duration-300"
+              className="rounded-xl overflow-hidden"
               style={{
                 border: `1px solid ${isDone ? color+'28' : isActive ? color+'20' : '#f0f4f8'}`,
                 background: isDone ? `${color}06` : 'white',
               }}
             >
               <div className="px-3 py-2.5 flex items-center gap-3">
-                {/* Icon */}
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base"
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: isDone ? `${color}15` : isActive ? `${color}10` : '#f8fafc', border: `1px solid ${isDone ? color+'25' : '#eee'}` }}>
-                  {isDone
-                    ? <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300 }}>{agent.icon}</motion.span>
-                    : isActive
+                  {isActive
                     ? <motion.div className="w-4 h-4 rounded-full border-2" style={{ borderColor: color, borderTopColor: 'transparent' }} animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.7, ease: 'linear' }} />
-                    : <span className="text-sm opacity-40">{agent.icon}</span>}
+                    : <AgentIcon className="w-4 h-4" style={{ color: isDone ? color : '#d1d5db' }} />}
                 </div>
-
-                {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[12px] font-semibold leading-none" style={{ color: isDone ? color : S10.navy }}>{agent.label}</span>
@@ -695,7 +678,6 @@ export const CustomAgentsDemo = () => {
                       <span className="text-[10px] font-black tabular-nums" style={{ color: pct > 0 ? color : '#d1d5db' }}>{pct}%</span>
                     </div>
                   </div>
-                  {/* Progress bar */}
                   <div className="h-1.5 rounded-full overflow-hidden" style={{ background: `${color}12` }}>
                     <motion.div className="h-full rounded-full"
                       style={{ background: `linear-gradient(90deg, ${color}70, ${color})` }}
@@ -714,7 +696,7 @@ export const CustomAgentsDemo = () => {
       {/* Result stats */}
       <AnimatePresence>
         {done && (
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-3 gap-2">
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-3 gap-2 flex-shrink-0">
             {[
               { val: '5/5', label: 'Completed', color: S10.teal },
               { val: '0.8s', label: 'Avg speed', color: S10.navy },
@@ -732,7 +714,7 @@ export const CustomAgentsDemo = () => {
       </AnimatePresence>
 
       <button onClick={running ? undefined : runAgents} disabled={running}
-        className="w-full py-2.5 rounded-xl text-[11px] font-bold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+        className="w-full py-2.5 rounded-xl text-[11px] font-bold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 flex-shrink-0"
         style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}>
         {running ? '⚡ Running agents…' : done ? '↺ Run Again' : '▶ Deploy All Agents'}
       </button>
@@ -780,20 +762,21 @@ export const IntegrationsDemo = () => {
   const syncMessages = ['', 'Establishing connection…', 'Handshaking HL7 FHIR…', 'Sync complete ✓'];
 
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col gap-2.5 h-[380px] overflow-hidden">
       {/* S10 hub */}
-      <div className="flex items-center justify-center gap-3 py-2">
+      <div className="flex items-center justify-center gap-3 flex-shrink-0">
         <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${S10.teal}40)` }} />
         <div className="flex items-center gap-2 px-3.5 py-2 rounded-full shadow-sm"
           style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`, border: `1px solid ${S10.teal}40` }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+          <Network className="w-3.5 h-3.5 text-white" />
           <span className="text-[11px] font-bold text-white tracking-wide">S10.AI Hub</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
         </div>
         <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, ${S10.teal}40)` }} />
       </div>
 
       {/* EHR grid */}
-      <div>
+      <div className="flex-shrink-0">
         <div className="flex items-center justify-between mb-2">
           <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: S10.navy, opacity: 0.5 }}>EHR Systems</span>
           <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
@@ -805,6 +788,7 @@ export const IntegrationsDemo = () => {
           {ehrList.map((ehr, i) => {
             const isSynced = syncedEHR === i;
             const color = ehrColors[i];
+            const EhrIcon = [Globe, Activity, Stethoscope, ClipboardList, PhoneIcon, Layers][i];
             return (
               <motion.button key={i}
                 onClick={() => handleSync(i)}
@@ -818,7 +802,7 @@ export const IntegrationsDemo = () => {
                 <div className="w-full h-0.5 rounded-full -mt-0.5"
                   style={{ background: isSynced ? `linear-gradient(90deg,${color}60,${color})` : `${color}20` }} />
                 <div className="flex items-center justify-between w-full mt-1">
-                  <span className="text-base leading-none">{ehr.icon}</span>
+                  <EhrIcon className="w-4 h-4" style={{ color: isSynced ? color : '#b0b8c4' }} />
                   {isSynced ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 350 }}
                       className="w-4 h-4 rounded-full flex items-center justify-center"
@@ -843,7 +827,7 @@ export const IntegrationsDemo = () => {
       <AnimatePresence mode="wait">
         {syncing && (
           <motion.div key="syncing" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5"
+            className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 flex-shrink-0"
             style={{ background: `${S10.teal}08`, border: `1px solid ${S10.teal}25` }}>
             <motion.div className="w-4 h-4 rounded-full border-2 flex-shrink-0" style={{ borderColor: S10.teal, borderTopColor: 'transparent' }}
               animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.6, ease: 'linear' }} />
@@ -858,11 +842,11 @@ export const IntegrationsDemo = () => {
         )}
         {syncedEHR !== null && !syncing && (
           <motion.div key="synced" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 rounded-xl px-3.5 py-2.5"
+            className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 flex-shrink-0"
             style={{ background: `${ehrColors[syncedEHR]}08`, border: `1px solid ${ehrColors[syncedEHR]}28` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
               style={{ background: `${ehrColors[syncedEHR]}14`, border: `1px solid ${ehrColors[syncedEHR]}25` }}>
-              {ehrList[syncedEHR].icon}
+              <CheckCircle className="w-4 h-4" style={{ color: ehrColors[syncedEHR] }} />
             </div>
             <div className="flex-1">
               <p className="text-[11.5px] font-bold leading-none" style={{ color: ehrColors[syncedEHR] }}>
@@ -872,14 +856,14 @@ export const IntegrationsDemo = () => {
             </div>
             <span className="text-[9px] font-bold px-2 py-1 rounded-full"
               style={{ color: S10.teal, background: `${S10.teal}12`, border: `1px solid ${S10.teal}25` }}>
-              ● Live
+              Live
             </span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Apps row */}
-      <div>
+      {/* Apps row — scrollable */}
+      <div className="flex-1 overflow-y-auto min-h-0">
         <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: S10.navy, opacity: 0.4 }}>+ 7,000 apps</p>
         <div className="flex flex-wrap gap-1.5">
           {appList.map((app, i) => (
@@ -888,7 +872,7 @@ export const IntegrationsDemo = () => {
               whileHover={{ y: -1, scale: 1.04 }}
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg cursor-default transition-all"
               style={{ background: `${app.color}08`, border: `1px solid ${app.color}20` }}>
-              <span className="text-sm leading-none">{app.icon}</span>
+              <Puzzle className="w-3 h-3" style={{ color: app.color }} />
               <span className="text-[10px] font-semibold" style={{ color: app.color }}>{app.name}</span>
             </motion.div>
           ))}
