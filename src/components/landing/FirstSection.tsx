@@ -71,17 +71,17 @@ const S10 = {
   light: '#A5CCF3',
 };
 
-// Dark glass design system
+// White glassmorphism design system — brand-matched
 const DK = {
-  bg:       '#0d1117',
-  surface:  '#161b22',
-  elevated: '#1c2330',
-  border:   'rgba(99,179,237,0.12)',
-  borderHi: 'rgba(99,179,237,0.28)',
-  text:     '#e6edf3',
-  muted:    '#7d8590',
-  accent:   '#38bdae',
-  accent2:  '#58a6ff',
+  bg:       'rgba(255,255,255,0.92)',
+  surface:  'rgba(248,251,255,0.85)',
+  elevated: 'rgba(255,255,255,0.95)',
+  border:   'rgba(20,49,81,0.10)',
+  borderHi: 'rgba(56,126,137,0.28)',
+  text:     '#143151',
+  muted:    '#5192AE',
+  accent:   '#387E89',
+  accent2:  '#5192AE',
 };
 
 const palette = {
@@ -115,10 +115,10 @@ const scribeConversation = [
 ];
 type NoteItem = { label: string; abbr: string; value: string; abbrev: string; color: string };
 const generatedNote: NoteItem[] = [
-  { label: 'Subjective', abbr: 'S', value: 'Headache × 3 days, neck stiffness, photophobia present', abbrev: 'S', color: DK.accent2 },
-  { label: 'Objective',  abbr: 'O', value: 'Afebrile on exam. Nuchal rigidity noted.', abbrev: 'O', color: DK.accent },
-  { label: 'Assessment', abbr: 'A', value: 'R/O meningitis vs. tension headache', abbrev: 'A', color: '#a78bfa' },
-  { label: 'Plan',       abbr: 'P', value: 'CT Head + CBC + CMP ordered. F/U in 48h.', abbrev: 'P', color: DK.accent2 },
+  { label: 'Subjective', abbr: 'S', value: 'Headache × 3 days, neck stiffness, photophobia present', abbrev: 'S', color: S10.navy },
+  { label: 'Objective',  abbr: 'O', value: 'Afebrile on exam. Nuchal rigidity noted.', abbrev: 'O', color: S10.teal },
+  { label: 'Assessment', abbr: 'A', value: 'R/O meningitis vs. tension headache', abbrev: 'A', color: S10.mid },
+  { label: 'Plan',       abbr: 'P', value: 'CT Head + CBC + CMP ordered. F/U in 48h.', abbrev: 'P', color: S10.navy },
 ];
 
 export const ScribeDemo = () => {
@@ -538,7 +538,7 @@ const agents = [
   { id: 'recall',  label: 'Patient Recall', task: 'Scheduling outreach calls…',  done: '24 patients reached',   pct: 78 },
 ];
 const agentIcons = [FileText, CreditCard, ClipboardList, FlaskConical, PhoneIcon];
-const agentGlows = [DK.accent, DK.accent2, '#a78bfa', DK.accent, DK.accent2];
+const agentGlows = [S10.navy, S10.teal, S10.mid, S10.navy, S10.teal];
 
 export const CustomAgentsDemo = () => {
   const [progresses, setProgresses] = useState<Record<string, number>>(
@@ -701,14 +701,14 @@ const ehrList = [
   { name: 'Kareo',      abbr: 'KA',  desc: 'REST API',   },
 ];
 const appList = [
-  { name: 'Zoom',       color: DK.accent },
-  { name: 'Twilio',     color: DK.accent2 },
-  { name: 'Slack',      color: '#a78bfa' },
-  { name: 'AWS',        color: DK.accent },
-  { name: 'Salesforce', color: DK.accent2 },
-  { name: 'Stripe',     color: '#a78bfa' },
-  { name: 'Doximity',   color: DK.accent },
-  { name: 'G Suite',    color: DK.accent2 },
+  { name: 'Zoom',       color: S10.teal },
+  { name: 'Twilio',     color: S10.navy },
+  { name: 'Slack',      color: S10.mid },
+  { name: 'AWS',        color: S10.teal },
+  { name: 'Salesforce', color: S10.navy },
+  { name: 'Stripe',     color: S10.mid },
+  { name: 'Doximity',   color: S10.teal },
+  { name: 'G Suite',    color: S10.navy },
 ];
 
 export const IntegrationsDemo = () => {
@@ -852,7 +852,7 @@ const demoSteps = [
     title: 'AI Medical Scribe',
     description: 'Live transcription → auto SOAP note in seconds',
     badge: '2+ hrs saved/day',
-    color: DK.accent,
+    color: S10.navy,
     Demo: ScribeDemo,
   },
   {
@@ -862,7 +862,7 @@ const demoSteps = [
     title: 'BRAVO AI Receptionist',
     description: 'Handles every inbound call 24/7, books & confirms',
     badge: '24/7 availability',
-    color: DK.accent2,
+    color: S10.teal,
     Demo: ReceptionistDemo,
   },
   {
@@ -872,7 +872,7 @@ const demoSteps = [
     title: 'Custom AI Agents',
     description: '5 autonomous agents run your entire clinic',
     badge: '40% less admin',
-    color: '#a78bfa',
+    color: S10.mid,
     Demo: CustomAgentsDemo,
   },
   {
@@ -882,7 +882,7 @@ const demoSteps = [
     title: 'EHR & App Integrations',
     description: 'Any EHR + 7,000 apps — zero disruption',
     badge: 'Plug & play',
-    color: DK.accent,
+    color: S10.navy,
     Demo: IntegrationsDemo,
   },
 ];
@@ -952,41 +952,44 @@ export const HeroDemoPanel = () => {
     >
       {/* Ambient glow */}
       <div className="absolute -inset-10 rounded-[3rem] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(56,189,174,0.12) 0%, rgba(88,166,255,0.06) 50%, transparent 70%)', filter: 'blur(40px)' }} />
+        style={{ background: `radial-gradient(ellipse at 50% 50%, ${S10.teal}14 0%, ${S10.mid}08 50%, transparent 70%)`, filter: 'blur(40px)' }} />
 
-      {/* Main container — dark glass */}
+      {/* Main container — white glassmorphism */}
       <div className="relative rounded-2xl overflow-hidden"
         style={{
-          background: DK.bg,
-          border: `1px solid ${DK.border}`,
-          boxShadow: '0 0 0 1px rgba(99,179,237,0.05), 0 24px 64px rgba(0,0,0,0.5), 0 8px 24px rgba(56,189,174,0.08)',
+          background: 'rgba(255,255,255,0.88)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: `1px solid rgba(20,49,81,0.10)`,
+          boxShadow: `0 4px 6px rgba(20,49,81,0.04), 0 12px 40px rgba(20,49,81,0.09), 0 28px 64px rgba(20,49,81,0.07)`,
         }}>
 
-        {/* ── Top bar ── */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ borderColor: DK.border, background: DK.surface }}>
+        {/* ── Top bar — brand gradient matching the CTA button ── */}
+        <div className="flex items-center justify-between px-5 py-3.5 border-b"
+          style={{ borderColor: `rgba(20,49,81,0.10)`, background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)` }}>
           {/* macOS dots */}
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#ffbd2e' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+            <div className="w-3 h-3 rounded-full bg-white/20" />
+            <div className="w-3 h-3 rounded-full bg-white/35" />
+            <div className="w-3 h-3 rounded-full bg-white/55" />
           </div>
           {/* Center title */}
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background: DK.accent }} />
-              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: DK.accent }} />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70 bg-white" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
             </span>
-            <span className="text-[12px] font-semibold tracking-wide" style={{ color: DK.text }}>S10.AI · Live Demo</span>
+            <span className="text-[12px] font-semibold tracking-wide text-white">S10.AI · Live Demo</span>
           </div>
           {/* Live badge */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: 'rgba(56,189,174,0.12)', border: '1px solid rgba(56,189,174,0.25)' }}>
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: DK.accent }} />
-            <span className="text-[10px] font-bold" style={{ color: DK.accent }}>LIVE</span>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 border border-white/25">
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-white" />
+            <span className="text-[10px] font-bold text-white">LIVE</span>
           </div>
         </div>
 
         {/* ── Horizontal tab bar ── */}
-        <div className="flex border-b" style={{ borderColor: DK.border, background: DK.surface }}>
+        <div className="flex border-b" style={{ borderColor: `rgba(20,49,81,0.08)`, background: 'rgba(248,251,255,0.9)' }}>
           {demoSteps.map((s, i) => {
             const Icon = s.icon;
             const isActive = currentStep === i;
@@ -994,24 +997,24 @@ export const HeroDemoPanel = () => {
               <button
                 key={s.id}
                 onClick={() => handleTabClick(i)}
-                className="relative flex-1 flex flex-col items-center gap-1 px-2 pt-3 pb-2.5 transition-all duration-200 group"
-                style={{ borderBottom: isActive ? `2px solid ${s.color}` : '2px solid transparent' }}
+                className="relative flex-1 flex flex-col items-center gap-1 px-2 pt-3 pb-2.5 transition-all duration-200"
+                style={{ borderBottom: isActive ? `2px solid ${s.color}` : '2px solid transparent', background: isActive ? `${s.color}06` : 'transparent' }}
               >
                 {/* Icon */}
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200"
                   style={{
-                    background: isActive ? `${s.color}20` : 'transparent',
-                    border: isActive ? `1px solid ${s.color}35` : '1px solid transparent',
+                    background: isActive ? `${s.color}18` : 'transparent',
+                    border: isActive ? `1px solid ${s.color}30` : '1px solid transparent',
                   }}>
                   <Icon className="w-3.5 h-3.5 transition-colors duration-200"
-                    style={{ color: isActive ? s.color : DK.muted }} />
+                    style={{ color: isActive ? s.color : S10.mid }} />
                 </div>
                 {/* Label */}
-                <span className="text-[9.5px] font-semibold leading-tight text-center transition-colors duration-200 line-clamp-2"
-                  style={{ color: isActive ? s.color : DK.muted }}>
+                <span className="text-[9.5px] font-semibold leading-tight text-center transition-colors duration-200"
+                  style={{ color: isActive ? s.color : S10.mid }}>
                   {s.shortTitle}
                 </span>
-                {/* Progress bar underlay on active */}
+                {/* Auto-progress underline */}
                 {isActive && isAutoPlaying && (
                   <div className="absolute bottom-0 left-0 h-0.5 rounded-full" style={{ background: s.color, width: `${tabProgress}%`, transition: 'none' }} />
                 )}
@@ -1020,28 +1023,28 @@ export const HeroDemoPanel = () => {
           })}
         </div>
 
-        {/* ── Active tab header pill ── */}
-        <div className="flex items-center justify-between px-5 py-3" style={{ borderBottom: `1px solid ${DK.border}` }}>
+        {/* ── Active tab header ── */}
+        <div className="flex items-center justify-between px-5 py-3" style={{ borderBottom: `1px solid rgba(20,49,81,0.08)`, background: 'rgba(255,255,255,0.7)' }}>
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: `${step.color}20`, border: `1px solid ${step.color}30` }}>
+              style={{ background: `${step.color}14`, border: `1px solid ${step.color}25` }}>
               <step.icon className="w-3.5 h-3.5" style={{ color: step.color }} />
             </div>
             <div>
-              <p className="text-[13px] font-bold leading-none" style={{ color: DK.text }}>{step.title}</p>
-              <p className="text-[10px] mt-0.5" style={{ color: DK.muted }}>{step.description}</p>
+              <p className="text-[13px] font-bold leading-none" style={{ color: S10.navy }}>{step.title}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: S10.mid }}>{step.description}</p>
             </div>
           </div>
           <motion.span key={currentStep}
             initial={{ opacity: 0, scale: 0.75 }} animate={{ opacity: 1, scale: 1 }}
             className="text-[9.5px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap"
-            style={{ background: `${step.color}15`, color: step.color, border: `1px solid ${step.color}30`, boxShadow: `0 0 12px ${step.color}20` }}>
+            style={{ background: `${step.color}12`, color: step.color, border: `1px solid ${step.color}28` }}>
             {step.badge}
           </motion.span>
         </div>
 
         {/* ── Demo body ── */}
-        <div className="px-5 py-4" style={{ background: DK.bg }}>
+        <div className="px-5 py-4" style={{ background: 'rgba(248,251,255,0.85)' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
