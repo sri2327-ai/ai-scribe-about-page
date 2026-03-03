@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Clock, Database, Shield, Users, Star, ArrowRight, Check,
-  FileText, Phone, Bot, Link as LinkIcon, ChevronLeft, ChevronRight,
+  FileText, Phone, Bot, Link as LinkIcon,
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -56,104 +56,83 @@ const FeaturePill = ({ icon, text, delay }: { icon: React.ReactNode; text: strin
   </motion.div>
 );
 
-// ─── Product tabs config ──────────────────────────────────────────────────────
-const productTabs = [
+// ─── Steps config ─────────────────────────────────────────────────────────────
+const steps = [
   {
     id: 'scribe',
     icon: FileText,
-    label: 'AI Scribe',
-    fullLabel: 'C.R.U.S.H — AI Medical Scribe',
-    badge: '2+ hrs saved/day',
-    description: 'Live transcription → structured SOAP notes in seconds, auto-coded & pushed to your EHR.',
+    step: 'AI Scribe',
+    title: 'C.R.U.S.H — AI Medical Scribe',
+    content: 'Live transcription → structured SOAP notes in seconds, auto-coded & pushed to your EHR. Save 2+ hours daily.',
     color: S10.navy,
     Demo: ScribeDemo,
   },
   {
     id: 'bravo',
     icon: Phone,
-    label: 'AI Receptionist',
-    fullLabel: 'B.R.A.V.O — AI Phone Agent',
-    badge: '24/7 availability',
-    description: 'Handles every inbound call autonomously — books appointments, confirms details, answers patient questions.',
+    step: 'AI Receptionist',
+    title: 'B.R.A.V.O — AI Phone Agent',
+    content: 'Handles every inbound call autonomously — books appointments, confirms details, answers patient questions 24/7.',
     color: S10.teal,
     Demo: ReceptionistDemo,
   },
   {
     id: 'agents',
     icon: Bot,
-    label: 'Custom Agents',
-    fullLabel: 'Custom AI Agents',
-    badge: '5 agents deployed',
-    description: 'Prior auth, referrals, billing, and more — 5 autonomous agents running your entire clinic.',
+    step: 'Custom Agents',
+    title: '5 Custom AI Agents',
+    content: 'Prior auth, referrals, billing, lab routing and more — autonomous agents running your entire clinic backend.',
     color: S10.mid,
     Demo: CustomAgentsDemo,
   },
   {
     id: 'integrations',
     icon: LinkIcon,
-    label: 'Integrations',
-    fullLabel: 'EHR & App Integrations',
-    badge: '7,000+ apps',
-    description: 'Tap any EHR to sync instantly — bidirectional HL7 FHIR, SMART API, and 7,000+ app connections.',
+    step: 'Integrations',
+    title: 'EHR & App Integrations',
+    content: 'Tap any EHR to sync instantly — bidirectional HL7 FHIR, SMART API, and 7,000+ app connections built-in.',
     color: S10.light,
     Demo: IntegrationsDemo,
   },
 ];
 
-// ─── Slide variants ───────────────────────────────────────────────────────────
-const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0 }),
-};
+const AUTO_PLAY_MS = 6000;
 
-// ─── Cinematic Demo Slider ────────────────────────────────────────────────────
-const AUTO_ADVANCE_MS = 6000;
-const PROGRESS_TICK_MS = 60;
-
-const CinematicDemoSlider = () => {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [paused, setPaused] = useState(false);
+// ─── Feature Steps Demo Panel ─────────────────────────────────────────────────
+const FeatureStepsPanel = () => {
+  const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [paused, setPaused] = useState(false);
   const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const navigate = (newIdx: number, dir: number) => {
-    setDirection(dir);
-    setActiveIdx(newIdx);
-    setProgress(0);
-    setPaused(true);
-    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
-    pauseTimerRef.current = setTimeout(() => setPaused(false), 10000);
-  };
-
-  const prev = () => navigate((activeIdx - 1 + productTabs.length) % productTabs.length, -1);
-  const next = () => navigate((activeIdx + 1) % productTabs.length, 1);
-
-  // Auto-advance
+  // Auto-advance with progress bar
   useEffect(() => {
     if (paused) return;
     const interval = setInterval(() => {
       setProgress(p => {
         if (p >= 100) {
-          setDirection(1);
-          setActiveIdx(i => (i + 1) % productTabs.length);
+          setCurrent(c => (c + 1) % steps.length);
           return 0;
         }
-        return p + (PROGRESS_TICK_MS / AUTO_ADVANCE_MS) * 100;
+        return p + (60 / AUTO_PLAY_MS) * 100;
       });
-    }, PROGRESS_TICK_MS);
+    }, 60);
     return () => clearInterval(interval);
   }, [paused]);
 
-  const tab = productTabs[activeIdx];
-  const Demo = tab.Demo;
+  const goTo = (idx: number) => {
+    setCurrent(idx);
+    setProgress(0);
+    setPaused(true);
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    pauseTimerRef.current = setTimeout(() => setPaused(false), 12000);
+  };
+
+  const activeStep = steps[current];
+  const Demo = activeStep.Demo;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7, delay: 0.2 }}
+    <div
       className="w-full"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => {
@@ -161,127 +140,148 @@ const CinematicDemoSlider = () => {
         setPaused(false);
       }}
     >
-      {/* Ambient glow */}
-      <div
-        className="absolute -inset-6 rounded-[3rem] pointer-events-none -z-10"
-        style={{ background: `radial-gradient(ellipse at 50% 50%, ${S10.teal}14 0%, transparent 70%)`, filter: 'blur(28px)' }}
-      />
+      <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-0 rounded-2xl overflow-hidden bg-white"
+        style={{
+          border: `1px solid ${S10.mid}20`,
+          boxShadow: `0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(20,49,81,0.09), 0 28px 64px rgba(20,49,81,0.05)`
+        }}>
 
-      <div
-        className="rounded-2xl overflow-hidden bg-white"
-        style={{ border: `1px solid ${S10.mid}22`, boxShadow: `0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(20,49,81,0.09), 0 28px 64px rgba(20,49,81,0.05)` }}
-      >
-        {/* ── Header ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIdx + '-header'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="flex items-center justify-between px-5 py-4"
-            style={{
-              borderLeft: `4px solid ${tab.color}`,
-              background: `linear-gradient(135deg, ${tab.color}08 0%, transparent 100%)`,
-              borderBottom: `1px solid ${S10.navy}08`,
-            }}
-          >
-            {/* Left: icon + label */}
-            <div className="flex items-center gap-3">
-              <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: `${tab.color}18`, border: `1px solid ${tab.color}30` }}
+        {/* ── Left stepper ── */}
+        <div className="flex flex-col py-5 px-4 gap-1 border-r"
+          style={{ borderColor: `${S10.navy}0d`, background: `${S10.navy}03` }}>
+          {steps.map((s, i) => {
+            const isActive = i === current;
+            const isDone = i < current;
+            const Icon = s.icon;
+
+            return (
+              <button
+                key={s.id}
+                onClick={() => goTo(i)}
+                className="group relative flex items-start gap-3 rounded-xl px-3 py-3 text-left transition-all duration-300 w-full"
+                style={{
+                  background: isActive ? `${s.color}10` : 'transparent',
+                  border: `1px solid ${isActive ? s.color + '30' : 'transparent'}`,
+                }}
               >
-                <tab.icon className="w-4 h-4" style={{ color: tab.color }} />
-              </div>
-              <div>
-                <p className="text-[12px] font-bold leading-none" style={{ color: tab.color }}>{tab.fullLabel}</p>
-                <p className="text-[10px] text-gray-400 mt-0.5">{tab.badge}</p>
-              </div>
-            </div>
+                {/* Step indicator */}
+                <div
+                  className="relative flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black transition-all duration-300 mt-0.5"
+                  style={{
+                    background: isActive
+                      ? `linear-gradient(135deg, ${s.color}, ${S10.teal})`
+                      : isDone
+                      ? `${s.color}18`
+                      : '#f1f5f9',
+                    border: `1.5px solid ${isActive ? s.color : isDone ? s.color + '40' : '#e2e8f0'}`,
+                    color: isActive ? '#fff' : isDone ? s.color : '#94a3b8',
+                  }}
+                >
+                  {isDone ? (
+                    <Check className="w-3.5 h-3.5" />
+                  ) : (
+                    <Icon className="w-3.5 h-3.5" />
+                  )}
+                  {/* Pulse ring for active */}
+                  {isActive && (
+                    <motion.span
+                      className="absolute inset-0 rounded-full"
+                      style={{ border: `2px solid ${s.color}50` }}
+                      animate={{ scale: [1, 1.6], opacity: [0.6, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.4 }}
+                    />
+                  )}
+                </div>
 
-            {/* Right: LIVE badge */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border"
-              style={{ background: `${tab.color}10`, borderColor: `${tab.color}25` }}>
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: tab.color }} />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: tab.color }} />
-              </span>
-              <span className="text-[10px] font-bold" style={{ color: tab.color }}>LIVE</span>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                {/* Text */}
+                <div className="flex-1 min-w-0">
+                  <p
+                    className="text-[11px] font-bold leading-none mb-1 transition-colors duration-200"
+                    style={{ color: isActive ? s.color : isDone ? '#64748b' : '#94a3b8' }}
+                  >
+                    {s.step}
+                  </p>
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="text-[10px] leading-relaxed overflow-hidden"
+                        style={{ color: '#64748b' }}
+                      >
+                        {s.content}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </button>
+            );
+          })}
 
-        {/* ── Demo body ── */}
-        <div className="px-5 py-5 overflow-hidden" style={{ minHeight: 340 }}>
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeIdx}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <Demo />
-            </motion.div>
-          </AnimatePresence>
+          {/* Progress bar at bottom of stepper */}
+          <div className="mt-auto pt-4 px-1">
+            <div className="h-[3px] w-full rounded-full bg-gray-100 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full"
+                style={{ background: `linear-gradient(90deg, ${activeStep.color}, ${S10.teal})` }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.06, ease: 'linear' }}
+              />
+            </div>
+            <p className="text-[9px] text-gray-400 mt-1.5 font-medium">
+              Auto-advancing · hover to pause
+            </p>
+          </div>
         </div>
 
-        {/* ── Footer controls ── */}
-        <div className="px-5 pb-4 flex flex-col gap-3">
-          {/* Arrows + dots */}
-          <div className="flex items-center justify-between">
-            {/* Prev */}
-            <button
-              onClick={prev}
-              className="w-8 h-8 rounded-full flex items-center justify-center border border-gray-200 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all"
-              style={{ background: 'white' }}
-            >
-              <ChevronLeft className="w-4 h-4 text-gray-500" />
-            </button>
-
-            {/* Dots */}
-            <div className="flex items-center gap-2">
-              {productTabs.map((t, i) => (
-                <motion.button
-                  key={t.id}
-                  onClick={() => navigate(i, i > activeIdx ? 1 : -1)}
-                  layout
-                  animate={{
-                    width: i === activeIdx ? 24 : 8,
-                    opacity: i === activeIdx ? 1 : 0.35,
-                  }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                  className="h-2 rounded-full"
-                  style={{ background: i === activeIdx ? tab.color : '#cbd5e1' }}
-                />
-              ))}
+        {/* ── Right demo panel ── */}
+        <div className="flex flex-col overflow-hidden">
+          {/* Panel header */}
+          <div
+            className="flex items-center justify-between px-5 py-3.5 border-b flex-shrink-0"
+            style={{
+              borderColor: `${S10.navy}0d`,
+              borderLeft: `3px solid ${activeStep.color}`,
+              background: `linear-gradient(135deg, ${activeStep.color}06 0%, transparent 100%)`,
+            }}
+          >
+            <div>
+              <p className="text-[12px] font-black leading-none" style={{ color: activeStep.color }}>
+                {activeStep.title}
+              </p>
             </div>
-
-            {/* Next */}
-            <button
-              onClick={next}
-              className="w-8 h-8 rounded-full flex items-center justify-center border border-gray-200 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all"
-              style={{ background: 'white' }}
+            {/* LIVE badge */}
+            <div
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border"
+              style={{ background: `${activeStep.color}10`, borderColor: `${activeStep.color}28` }}
             >
-              <ChevronRight className="w-4 h-4 text-gray-500" />
-            </button>
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: activeStep.color }} />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: activeStep.color }} />
+              </span>
+              <span className="text-[10px] font-bold" style={{ color: activeStep.color }}>LIVE</span>
+            </div>
           </div>
 
-          {/* Progress bar */}
-          <div className="h-[3px] w-full rounded-full bg-gray-100 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: tab.color }}
-              animate={{ width: `${paused ? progress : progress}%` }}
-              transition={{ duration: 0.06, ease: 'linear' }}
-            />
+          {/* Demo body */}
+          <div className="px-5 py-4 overflow-y-auto flex-1" style={{ minHeight: 320 }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <Demo />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -304,7 +304,7 @@ const HomeLanding = () => {
         />
 
         <div className="container mx-auto px-6 md:px-10 lg:px-16 max-w-7xl relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             {/* ── Left ── */}
             <div className="flex flex-col gap-7 lg:pt-4">
@@ -372,10 +372,20 @@ const HomeLanding = () => {
               </motion.div>
             </div>
 
-            {/* ── Right: Cinematic Demo Slider ── */}
-            <div className="w-full relative">
-              <CinematicDemoSlider />
-            </div>
+            {/* ── Right: Feature Steps Demo ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="w-full relative"
+            >
+              {/* Ambient glow */}
+              <div
+                className="absolute -inset-6 rounded-[3rem] pointer-events-none -z-10"
+                style={{ background: `radial-gradient(ellipse at 50% 50%, ${S10.teal}14 0%, transparent 70%)`, filter: 'blur(28px)' }}
+              />
+              <FeatureStepsPanel />
+            </motion.div>
           </div>
         </div>
       </section>
