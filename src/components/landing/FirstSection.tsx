@@ -115,10 +115,10 @@ const scribeConversation = [
 ];
 type NoteItem = { label: string; abbr: string; value: string; abbrev: string; color: string };
 const generatedNote: NoteItem[] = [
-  { label: 'Subjective', abbr: 'S', value: 'Headache × 3 days, neck stiffness, photophobia present', abbrev: 'S', color: S10.navy },
-  { label: 'Objective',  abbr: 'O', value: 'Afebrile on exam. Nuchal rigidity noted.', abbrev: 'O', color: S10.teal },
-  { label: 'Assessment', abbr: 'A', value: 'R/O meningitis vs. tension headache', abbrev: 'A', color: S10.mid },
-  { label: 'Plan',       abbr: 'P', value: 'CT Head + CBC + CMP ordered. F/U in 48h.', abbrev: 'P', color: S10.navy },
+  { label: 'Chief Complaint', abbr: 'CC', value: 'Headache × 3 days, neck stiffness, photophobia', abbrev: 'CC', color: S10.navy },
+  { label: 'HPI',             abbr: 'HPI', value: 'Gradual onset, worsening. Nuchal rigidity on exam.', abbrev: 'HPI', color: S10.teal },
+  { label: 'Assessment',      abbr: 'Dx',  value: 'R/O meningitis vs. tension headache', abbrev: 'Dx', color: S10.mid },
+  { label: 'Plan / Orders',   abbr: 'Rx',  value: 'CT Head + CBC ordered. Follow-up in 48h.', abbrev: 'Rx', color: S10.navy },
 ];
 
 export const ScribeDemo = () => {
@@ -177,14 +177,14 @@ export const ScribeDemo = () => {
           )}
         </div>
         <div className="flex-1">
-          <p className="text-[12px] font-bold" style={{ color: DK.text }}>Dr. Chen · General Practice</p>
+          <p className="text-[12px] font-bold" style={{ color: DK.text }}>Dr. Chen · Any Template · Any EHR Field</p>
           <div className="flex items-center gap-1.5 mt-0.5">
             <span className="relative flex h-1.5 w-1.5">
               {phase !== 'idle' && <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: DK.accent }} />}
               <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: phase !== 'idle' ? DK.accent : DK.muted }} />
             </span>
             <span className="text-[10px]" style={{ color: DK.muted }}>
-              {phase === 'idle' ? 'Ready to record' : phase === 'recording' ? 'Recording visit…' : phase === 'generating' ? 'Writing note…' : 'Note complete'}
+              {phase === 'idle' ? 'SOAP · DAP · Progress · Specialty notes' : phase === 'recording' ? 'Recording visit…' : phase === 'generating' ? 'Generating structured note…' : 'Posted to EHR fields'}
             </span>
           </div>
         </div>
@@ -254,7 +254,7 @@ export const ScribeDemo = () => {
                     style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.25), rgba(88,166,255,0.15))', border: '1px solid rgba(56,189,174,0.3)' }}>
                     <ClipboardList className="w-3 h-3" style={{ color: DK.accent }} />
                   </div>
-                  <span className="text-[10.5px] font-bold tracking-widest uppercase" style={{ color: DK.text }}>SOAP Note</span>
+                  <span className="text-[10.5px] font-bold tracking-widest uppercase" style={{ color: DK.text }}>Structured Note → EHR Fields</span>
                 </div>
                 {noteLines.length < generatedNote.length ? (
                   <div className="flex items-center gap-1.5">
@@ -304,10 +304,10 @@ export const ScribeDemo = () => {
               </div>
               <div className="flex-1">
                 <p className="text-[11px] font-bold" style={{ color: ehrSynced ? DK.accent : DK.text }}>
-                  {ehrSyncing ? 'Pushing to Epic EHR…' : '✓ Synced to Epic EHR'}
+                  {ehrSyncing ? 'Posting to EHR fields…' : '✓ Structured fields updated'}
                 </p>
                 <p className="text-[9.5px] mt-0.5" style={{ color: DK.muted }}>
-                  {ehrSyncing ? 'Establishing secure connection…' : 'Chart · Note · Orders updated'}
+                  {ehrSyncing ? 'Writing to any EHR field…' : 'HPI · Assessment · Plan · Orders posted'}
                 </p>
               </div>
               {ehrSynced && (
@@ -349,6 +349,9 @@ export const ScribeDemo = () => {
 
 
 // ─── BRAVO Demo ───────────────────────────────────────────────────────────────
+// Audio file path — replace with your actual file when ready
+const BRAVO_AUDIO_SRC = '/bravo-demo.mp3'; // TODO: Replace with actual audio file
+
 const bravoConversation = [
   { speaker: 'bravo' as const, name: 'BRAVO', time: '0:00', text: "Good morning, Greenfield Medical. How can I help you today?" },
   { speaker: 'caller' as const, name: 'Sarah', time: '0:05', text: "Hi, I'd like to book an appointment and refill my blood pressure meds." },
@@ -363,46 +366,86 @@ export const ReceptionistDemo = () => {
   const [phase, setPhase] = useState<'idle' | 'calling' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
   const [activeSpeaker, setActiveSpeaker] = useState<'bravo' | 'caller' | null>(null);
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const isCancelledRef = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [visibleLines]);
-  useEffect(() => () => { window.speechSynthesis.cancel(); timers.current.forEach(clearTimeout); }, []);
 
-  const speakLine = useCallback((index: number) => {
-    if (isCancelledRef.current || index >= bravoConversation.length) {
-      setPhase('done'); setActiveSpeaker(null); return;
-    }
-    const line = bravoConversation[index];
-    setActiveSpeaker(line.speaker);
-    setVisibleLines(p => [...p, index]);
-    const u = new SpeechSynthesisUtterance(line.text);
-    u.rate = line.speaker === 'bravo' ? 1.05 : 0.9;
-    u.pitch = line.speaker === 'bravo' ? 1.15 : 0.85;
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      const bv = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.includes('Female'));
-      const cv = voices.find(v => v.name.includes('Daniel') || v.name.includes('Male') || v.name.includes('Alex'));
-      u.voice = line.speaker === 'bravo' ? (bv || voices[0]) : (cv || voices[1] || voices[0]);
-    }
-    u.onend = () => { if (!isCancelledRef.current) setTimeout(() => speakLine(index + 1), 350); };
-    u.onerror = () => { if (!isCancelledRef.current) speakLine(index + 1); };
-    window.speechSynthesis.speak(u);
+  useEffect(() => {
+    return () => {
+      timers.current.forEach(clearTimeout);
+      if (progressRef.current) clearInterval(progressRef.current);
+      if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+    };
   }, []);
 
-  const startCall = useCallback(() => {
+  const handleAudioToggle = useCallback(() => {
+    if (audioPlaying) {
+      if (audioRef.current) { audioRef.current.pause(); }
+      setAudioPlaying(false);
+      if (progressRef.current) clearInterval(progressRef.current);
+    } else {
+      if (!audioRef.current) {
+        audioRef.current = new Audio(BRAVO_AUDIO_SRC);
+        audioRef.current.onended = () => {
+          setAudioPlaying(false);
+          setAudioProgress(100);
+          if (progressRef.current) clearInterval(progressRef.current);
+        };
+        audioRef.current.onerror = () => {
+          // Fallback to transcript animation if audio not found
+          setAudioPlaying(false);
+          startTranscriptAnimation();
+        };
+      }
+      audioRef.current.play().catch(() => {
+        // File not yet provided — run transcript animation instead
+        startTranscriptAnimation();
+      });
+      setAudioPlaying(true);
+      setAudioProgress(0);
+      progressRef.current = setInterval(() => {
+        if (audioRef.current && audioRef.current.duration) {
+          setAudioProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
+        }
+      }, 200);
+    }
+  }, [audioPlaying]);
+
+  const startTranscriptAnimation = useCallback(() => {
     isCancelledRef.current = false;
     timers.current.forEach(clearTimeout);
     setPhase('calling'); setVisibleLines([]); setActiveSpeaker(null);
-    timers.current.push(setTimeout(() => speakLine(0), 500));
-  }, [speakLine]);
+    bravoConversation.forEach((line, i) => {
+      timers.current.push(setTimeout(() => {
+        setVisibleLines(p => [...p, i]);
+        setActiveSpeaker(line.speaker);
+        if (i === bravoConversation.length - 1) {
+          setTimeout(() => { setPhase('done'); setActiveSpeaker(null); }, 1200);
+        }
+      }, i * 1400));
+    });
+  }, []);
+
+  const startCall = useCallback(() => {
+    setPhase('calling'); setVisibleLines([]); setActiveSpeaker(null);
+    handleAudioToggle();
+    startTranscriptAnimation();
+  }, [handleAudioToggle, startTranscriptAnimation]);
 
   const endCall = useCallback(() => {
     isCancelledRef.current = true;
-    window.speechSynthesis.cancel();
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+    setAudioPlaying(false); setAudioProgress(0);
+    if (progressRef.current) clearInterval(progressRef.current);
+    timers.current.forEach(clearTimeout);
     setPhase('idle'); setVisibleLines([]); setActiveSpeaker(null);
   }, []);
 
@@ -515,7 +558,7 @@ export const ReceptionistDemo = () => {
           <button onClick={startCall}
             className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98]"
             style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
-            {phase === 'done' ? '↺ Replay Call' : '▶ Start Call'}
+            {phase === 'done' ? '↺ Listen Again' : '🎧 Listen to BRAVO'}
           </button>
         ) : (
           <button onClick={endCall}
@@ -531,11 +574,11 @@ export const ReceptionistDemo = () => {
 
 // ─── Custom AI Agents Demo ────────────────────────────────────────────────────
 const agents = [
-  { id: 'scribe',  label: 'AI Scribe',      task: 'Transcribing visit notes…',  done: 'SOAP note generated',   pct: 87 },
-  { id: 'billing', label: 'Smart Billing',  task: 'Coding encounter…',           done: 'CPT 99213 suggested',   pct: 62 },
-  { id: 'prior',   label: 'Prior Auth',     task: 'Filing auth request…',        done: 'Authorization approved', pct: 100 },
-  { id: 'labs',    label: 'Lab Router',     task: 'Routing lab results…',        done: 'Sent to Dr. Chen',      pct: 45 },
-  { id: 'recall',  label: 'Patient Recall', task: 'Scheduling outreach calls…',  done: '24 patients reached',   pct: 78 },
+  { id: 'crm',     label: 'CRM → EHR Import',   task: 'Importing patient records…',  done: '142 records synced',      pct: 87 },
+  { id: 'billing', label: 'Auto Medical Coding', task: 'Coding encounter…',           done: 'CPT 99213 suggested',      pct: 62 },
+  { id: 'prior',   label: 'Prior Auth Filing',   task: 'Filing auth request…',        done: 'Authorization approved',   pct: 100 },
+  { id: 'labs',    label: 'Lab Result Routing',  task: 'Routing results…',            done: 'Sent to ordering provider', pct: 45 },
+  { id: 'recall',  label: 'Patient Outreach',    task: 'Scheduling recall calls…',    done: '24 patients reached',      pct: 78 },
 ];
 const agentIcons = [FileText, CreditCard, ClipboardList, FlaskConical, PhoneIcon];
 const agentGlows = [S10.navy, S10.teal, S10.mid, S10.navy, S10.teal];
@@ -594,7 +637,7 @@ export const CustomAgentsDemo = () => {
               {running ? 'Agents working…' : done ? 'All tasks complete!' : '5 AI agents ready'}
             </p>
             <p className="text-[10px]" style={{ color: DK.muted }}>
-              {done ? 'Saved ~40 min of manual work' : 'Autonomous clinical automation'}
+              {done ? 'Saved ~40 min of manual work' : 'Any repetitive task — automated end-to-end'}
             </p>
           </div>
         </div>
@@ -693,12 +736,12 @@ export const CustomAgentsDemo = () => {
 
 // ─── Integrations Demo ────────────────────────────────────────────────────────
 const ehrList = [
-  { name: 'Epic',       abbr: 'EP',  desc: 'HL7 FHIR',  },
-  { name: 'Cerner',     abbr: 'CE',  desc: 'SMART API',  },
-  { name: 'Athena',     abbr: 'ATH', desc: 'REST API',   },
-  { name: 'eClinicals', abbr: 'eC',  desc: 'HL7 v2',    },
-  { name: 'DrChrono',   abbr: 'DC',  desc: 'OAuth 2',    },
-  { name: 'Kareo',      abbr: 'KA',  desc: 'REST API',   },
+  { name: 'Epic',        abbr: 'EP',  desc: 'Seamless sync'  },
+  { name: 'Cerner',      abbr: 'CE',  desc: 'Seamless sync'  },
+  { name: 'Athena',      abbr: 'ATH', desc: 'Seamless sync'  },
+  { name: 'eClinicals',  abbr: 'eC',  desc: 'Seamless sync'  },
+  { name: 'DrChrono',    abbr: 'DC',  desc: 'Seamless sync'  },
+  { name: '& Any EHR',   abbr: '+',   desc: 'Works with all' },
 ];
 const appList = [
   { name: 'Zoom',       color: S10.teal },
@@ -725,7 +768,7 @@ export const IntegrationsDemo = () => {
     setTimeout(() => { setSyncing(false); setSyncedEHR(idx); setSyncStep(0); }, 1800);
   };
 
-  const syncMessages = ['', 'Establishing connection…', 'Handshaking HL7 FHIR…', 'Sync complete ✓'];
+  const syncMessages = ['', 'Establishing connection…', 'Authenticating securely…', 'Sync complete ✓'];
   const EhrIcons = [Globe, Activity, Stethoscope, ClipboardList, PhoneIcon, Layers];
 
   return (
@@ -824,7 +867,7 @@ export const IntegrationsDemo = () => {
 
       {/* Apps */}
       <div className="flex-1 overflow-y-auto min-h-0">
-        <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: DK.muted }}>+ 7,000 apps via Zapier & API</p>
+        <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: DK.muted }}>+ Thousands of apps & workflows</p>
         <div className="flex flex-wrap gap-1.5">
           {appList.map((app, i) => (
             <motion.div key={i}
@@ -850,7 +893,7 @@ const demoSteps = [
     icon: FileText,
     shortTitle: 'AI Scribe',
     title: 'AI Medical Scribe',
-    description: 'Live transcription → auto SOAP note in seconds',
+    description: 'Any template, any note style → structured EHR fields instantly',
     badge: '2+ hrs saved/day',
     color: S10.navy,
     Demo: ScribeDemo,
@@ -860,7 +903,7 @@ const demoSteps = [
     icon: PhoneIcon,
     shortTitle: 'AI Receptionist',
     title: 'BRAVO AI Receptionist',
-    description: 'Handles every inbound call 24/7, books & confirms',
+    description: 'Handles every inbound call 24/7 — listen to BRAVO in action',
     badge: '24/7 availability',
     color: S10.teal,
     Demo: ReceptionistDemo,
@@ -870,7 +913,7 @@ const demoSteps = [
     icon: Users,
     shortTitle: 'Custom Agents',
     title: 'Custom AI Agents',
-    description: '5 autonomous agents run your entire clinic',
+    description: 'Automate any repetitive task — CRM → EHR imports, coding, outreach & more',
     badge: '40% less admin',
     color: S10.mid,
     Demo: CustomAgentsDemo,
@@ -880,7 +923,7 @@ const demoSteps = [
     icon: LinkIcon,
     shortTitle: 'EHR + Apps',
     title: 'EHR & App Integrations',
-    description: 'Any EHR + 7,000 apps — zero disruption',
+    description: 'Works with any EHR + thousands of apps — zero disruption',
     badge: 'Plug & play',
     color: S10.navy,
     Demo: IntegrationsDemo,
