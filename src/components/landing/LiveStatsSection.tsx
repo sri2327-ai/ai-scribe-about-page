@@ -6,70 +6,70 @@ const S10 = { navy: '#143151', teal: '#387E89', mid: '#5192AE', light: '#A5CCF3'
 
 const STATS = [
   {
+    product: 'AI Medical Scribe',
     label: 'Clinical Notes Generated',
-    sublabel: 'AI Medical Scribe',
     icon: FileText,
     base: 12_810_470,
     tickPerSec: 18.5,
     color: S10.teal,
-    gradient: 'linear-gradient(135deg, #387E89, #5192AE)',
-    bgLight: 'rgba(56,126,137,0.07)',
-    borderColor: 'rgba(56,126,137,0.2)',
+    gradient: `linear-gradient(135deg, ${S10.teal}, ${S10.mid})`,
+    bgLight: 'rgba(56,126,137,0.08)',
+    borderColor: 'rgba(56,126,137,0.18)',
   },
   {
+    product: 'AI Medical Coder',
     label: 'Autonomous ICD Codes',
-    sublabel: 'AI Medical Coder',
     icon: Code2,
     base: 2_414_497,
     tickPerSec: 4.1,
-    color: '#7C3AED',
-    gradient: 'linear-gradient(135deg, #7C3AED, #A78BFA)',
-    bgLight: 'rgba(124,58,237,0.07)',
-    borderColor: 'rgba(124,58,237,0.2)',
+    color: S10.mid,
+    gradient: `linear-gradient(135deg, ${S10.mid}, ${S10.light})`,
+    bgLight: 'rgba(81,146,174,0.08)',
+    borderColor: 'rgba(81,146,174,0.18)',
   },
   {
+    product: 'AI Receptionist',
     label: 'Patient Calls Handled',
-    sublabel: 'AI Receptionist',
     icon: Phone,
     base: 1_203_942,
     tickPerSec: 2.4,
-    color: '#0EA5E9',
-    gradient: 'linear-gradient(135deg, #0EA5E9, #38BDF8)',
-    bgLight: 'rgba(14,165,233,0.07)',
-    borderColor: 'rgba(14,165,233,0.2)',
+    color: S10.navy,
+    gradient: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`,
+    bgLight: 'rgba(20,49,81,0.07)',
+    borderColor: 'rgba(20,49,81,0.15)',
   },
   {
+    product: 'AI Chat Agent',
     label: 'Chat Conversations',
-    sublabel: 'AI Chat Agent',
     icon: MessageSquare,
     base: 3_891_204,
     tickPerSec: 6.3,
-    color: '#10B981',
-    gradient: 'linear-gradient(135deg, #10B981, #34D399)',
-    bgLight: 'rgba(16,185,129,0.07)',
-    borderColor: 'rgba(16,185,129,0.2)',
+    color: S10.teal,
+    gradient: `linear-gradient(135deg, ${S10.teal}, ${S10.navy})`,
+    bgLight: 'rgba(56,126,137,0.08)',
+    borderColor: 'rgba(56,126,137,0.18)',
   },
   {
+    product: 'Custom AI Agents',
     label: 'Custom Workflows Run',
-    sublabel: 'Custom AI Agents',
     icon: Bot,
     base: 8_338_324,
     tickPerSec: 9.8,
-    color: '#F59E0B',
-    gradient: 'linear-gradient(135deg, #F59E0B, #FCD34D)',
-    bgLight: 'rgba(245,158,11,0.07)',
-    borderColor: 'rgba(245,158,11,0.2)',
+    color: S10.mid,
+    gradient: `linear-gradient(135deg, ${S10.navy}, ${S10.mid})`,
+    bgLight: 'rgba(81,146,174,0.08)',
+    borderColor: 'rgba(81,146,174,0.18)',
   },
   {
+    product: 'S10.AI Platform',
     label: 'Hours Saved for Clinicians',
-    sublabel: 'S10.AI Platform',
     icon: Clock,
     base: 42_139_694,
     tickPerSec: 45.2,
     color: S10.navy,
-    gradient: 'linear-gradient(135deg, #143151, #387E89)',
+    gradient: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`,
     bgLight: 'rgba(20,49,81,0.07)',
-    borderColor: 'rgba(20,49,81,0.2)',
+    borderColor: 'rgba(20,49,81,0.15)',
   },
 ];
 
@@ -113,56 +113,67 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
 
   return (
     <motion.div
-      className="relative flex flex-col bg-white rounded-2xl p-5 overflow-hidden"
+      className="relative flex flex-col bg-white rounded-2xl overflow-hidden"
       style={{
         border: `1px solid ${stat.borderColor}`,
-        boxShadow: `0 4px 24px ${stat.color}10`,
+        boxShadow: `0 2px 16px rgba(20,49,81,0.06)`,
       }}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay: index * 0.07 }}
-      whileHover={{ y: -4, boxShadow: `0 16px 40px ${stat.color}20` }}
+      whileHover={{ y: -4, boxShadow: `0 16px 40px rgba(20,49,81,0.12)` }}
     >
-      {/* Accent bar top */}
-      <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style={{ background: stat.gradient }} />
+      {/* Gradient accent bar */}
+      <div className="h-1 w-full flex-shrink-0" style={{ background: stat.gradient }} />
 
-      {/* Icon */}
-      <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 flex-shrink-0"
-        style={{ background: stat.bgLight }}
-      >
-        <Icon className="w-5 h-5" style={{ color: stat.color }} strokeWidth={1.75} />
-      </div>
+      <div className="flex flex-col p-5 flex-1">
+        {/* Product name — prominent */}
+        <div className="flex items-center justify-between mb-3">
+          <span
+            className="text-[15px] font-bold leading-tight"
+            style={{ color: S10.navy }}
+          >
+            {stat.product}
+          </span>
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{ background: stat.bgLight }}
+          >
+            <Icon className="w-4.5 h-4.5" style={{ color: stat.color }} strokeWidth={1.75} />
+          </div>
+        </div>
 
-      {/* Number */}
-      <span
-        className="block font-black tabular-nums leading-none mb-1.5"
-        style={{
-          color: S10.navy,
-          fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-          letterSpacing: '-0.03em',
-        }}
-      >
-        {display.toLocaleString()}
-      </span>
+        {/* Divider */}
+        <div className="h-px w-full mb-4" style={{ background: stat.borderColor }} />
 
-      {/* Label */}
-      <p className="text-[13px] font-semibold leading-snug mb-1" style={{ color: '#1E293B' }}>
-        {stat.label}
-      </p>
-
-      {/* Sublabel badge */}
-      <div
-        className="inline-flex items-center gap-1.5 w-fit mt-auto pt-3"
-      >
+        {/* Big animated number */}
         <span
-          className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0"
-          style={{ background: stat.color }}
-        />
-        <span className="text-[11px] font-medium" style={{ color: stat.color }}>
-          {stat.sublabel}
+          className="block font-black tabular-nums leading-none mb-2"
+          style={{
+            color: S10.navy,
+            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+            letterSpacing: '-0.03em',
+          }}
+        >
+          {display.toLocaleString()}
         </span>
+
+        {/* Metric label */}
+        <p className="text-[13px] font-medium leading-snug" style={{ color: '#64748B' }}>
+          {stat.label}
+        </p>
+
+        {/* Live indicator */}
+        <div className="flex items-center gap-1.5 mt-auto pt-4">
+          <span
+            className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0"
+            style={{ background: stat.color }}
+          />
+          <span className="text-[11px] font-semibold tracking-wide uppercase" style={{ color: stat.color }}>
+            Live
+          </span>
+        </div>
       </div>
     </motion.div>
   );
@@ -178,12 +189,9 @@ const LiveStatsSection = () => {
       className="relative py-16 md:py-24 overflow-hidden"
       style={{ background: '#F8FAFC', borderTop: '1px solid #E8EFF4' }}
     >
-      {/* Subtle background blob */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse at 50% 0%, rgba(56,126,137,0.06) 0%, transparent 70%)`,
-        }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[280px] pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at 50% 0%, rgba(56,126,137,0.05) 0%, transparent 70%)` }}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -215,8 +223,8 @@ const LiveStatsSection = () => {
           </p>
         </motion.div>
 
-        {/* Stats grid: 3 cols on desktop, 2 on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Stats grid: 3 cols desktop, 2 tablet, 1 mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {STATS.map((stat, i) => (
             <AnimatedStat key={i} stat={stat} index={i} started={inView} />
           ))}
