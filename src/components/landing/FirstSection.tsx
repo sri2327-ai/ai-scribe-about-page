@@ -1152,59 +1152,46 @@ export const HeroDemoPanel = () => {
         }}>
 
         {/* ── Top bar — brand gradient ── */}
-        {/* ── Clean headline header (inspired by reference) ── */}
-        <div className="px-4 sm:px-6 pt-5 pb-4 text-center" style={{ background: DK.surface, borderBottom: `1px solid ${DK.border}` }}>
-          <p className="text-[18px] sm:text-[22px] font-black tracking-[-0.02em] leading-tight"
-            style={{ color: DK.text }}>
-            One AI Platform.{' '}
-            <span style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Every Task Automated.
-            </span>
-          </p>
+        {/* ── Pill switcher header ── */}
+        <div className="px-4 sm:px-5 pt-4 pb-0 flex items-center justify-between" style={{ background: DK.surface }}>
+          {/* Left: S10 logo + label */}
+          <div className="flex items-center gap-2">
+            <img src="/s10-logo.webp" alt="S10.AI" className="h-5 w-auto" style={{ filter: 'brightness(0) saturate(100%) invert(18%) sepia(40%) saturate(800%) hue-rotate(180deg)' }} />
+            <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: `${S10.teal}` }}>Product Suite</span>
+          </div>
+          {/* Right: Live badge */}
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full" style={{ background: `${S10.teal}12`, border: `1px solid ${S10.teal}30` }}>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: S10.teal }} />
+            <span className="text-[10px] font-semibold" style={{ color: S10.teal }}>Live</span>
+          </div>
         </div>
 
-        {/* ── Horizontal tab bar ── */}
-        <div className="flex border-b" style={{ borderColor: DK.border, background: DK.surface }}>
-          {demoSteps.map((s, i) => {
-            const Icon = s.icon;
-            const isActive = currentStep === i;
-            return (
-              <button
-                key={s.id}
-                onClick={() => handleTabClick(i)}
-                className="relative flex-1 flex flex-col items-center gap-1.5 px-1 sm:px-2 pt-3 pb-2.5 transition-all duration-200"
-                style={{
-                  borderBottom: isActive ? `3px solid ${s.color}` : '3px solid transparent',
-                  background: isActive ? DK.elevated : 'transparent',
-                }}
-              >
-                {/* Icon */}
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-all duration-200"
+        {/* ── Pill tab switcher ── */}
+        <div className="px-4 sm:px-5 pt-3 pb-3" style={{ background: DK.surface, borderBottom: `1px solid ${DK.border}` }}>
+          <div className="flex gap-1.5 p-1 rounded-xl" style={{ background: 'rgba(0,0,0,0.04)' }}>
+            {demoSteps.map((s, i) => {
+              const isActive = currentStep === i;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => { setCurrentStep(i); setIsAutoPlaying(false); }}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-200"
                   style={{
-                    background: isActive ? `${s.color}20` : `${DK.muted}15`,
-                    border: isActive ? `1.5px solid ${s.color}40` : `1.5px solid transparent`,
-                  }}>
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors duration-200"
-                    style={{ color: isActive ? s.color : DK.muted }} />
-                </div>
-                {/* Label */}
-                <span
-                  className="text-[11px] sm:text-[13px] leading-tight text-center transition-all duration-200 block w-full px-0.5"
-                  style={{
-                    color: isActive ? s.color : DK.muted,
-                    fontWeight: isActive ? 800 : 600,
-                    letterSpacing: isActive ? '0.01em' : 0,
-                  }}>
-                  {s.shortTitle}
-                </span>
-                {/* Active dot indicator — clean, subtle */}
-                {isActive && (
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full" style={{ background: s.color }} />
-                )}
-              </button>
-            );
-          })}
+                    background: isActive ? 'white' : 'transparent',
+                    color: isActive ? S10.navy : '#6b7280',
+                    boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)' : 'none',
+                    fontWeight: isActive ? 700 : 500,
+                  }}
+                >
+                  <s.icon size={12} style={{ opacity: isActive ? 1 : 0.6 }} />
+                  <span className="hidden sm:inline">{s.shortTitle}</span>
+                  <span className="sm:hidden">{s.shortTitle.split(' ')[0]}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
 
         {/* ── Active tab header ── */}
         <div className="flex items-start sm:items-center justify-between gap-2 px-4 sm:px-5 py-2.5 sm:py-3"
