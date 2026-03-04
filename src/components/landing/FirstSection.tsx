@@ -349,8 +349,54 @@ export const ScribeDemo = () => {
 
 
 // ─── BRAVO Demo ───────────────────────────────────────────────────────────────
-// Audio file path — replace with your actual file when ready
-const BRAVO_AUDIO_SRC = '/bravo-demo.mp3'; // TODO: Replace with actual audio file
+const BRAVO_AUDIO_SRC = '/bravo-demo.mp3';
+
+// Flowing sinusoidal wave lines (like the reference image)
+const SinusoidalWaves = ({ isActive }: { isActive: boolean }) => {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    if (!isActive) return;
+    const id = setInterval(() => setTick(t => t + 1), 50);
+    return () => clearInterval(id);
+  }, [isActive]);
+
+  const width = 320;
+  const height = 80;
+  const cx = width / 2;
+  const cy = height / 2;
+
+  const buildPath = (amp: number, freq: number, phase: number, offset: number) => {
+    const pts: string[] = [];
+    for (let x = 0; x <= width; x += 3) {
+      const y = cy + offset + Math.sin((x / width) * Math.PI * freq + phase) * amp;
+      pts.push(x === 0 ? `M ${x} ${y}` : `L ${x} ${y}`);
+    }
+    return pts.join(' ');
+  };
+
+  const t = tick * 0.12;
+  const waves = [
+    { amp: isActive ? 18 : 4, freq: 3.5, phase: t,        offset: -8,  color: '#387E89', opacity: 0.9, width: 2 },
+    { amp: isActive ? 12 : 3, freq: 2.8, phase: t + 1.2,  offset: 4,   color: '#5192AE', opacity: 0.6, width: 1.5 },
+    { amp: isActive ? 22 : 5, freq: 4.2, phase: t - 0.8,  offset: 0,   color: '#143151', opacity: 0.35, width: 1 },
+  ];
+
+  return (
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
+      {waves.map((w, i) => (
+        <path
+          key={i}
+          d={buildPath(w.amp, w.freq, w.phase, w.offset)}
+          fill="none"
+          stroke={w.color}
+          strokeWidth={w.width}
+          strokeOpacity={w.opacity}
+          strokeLinecap="round"
+        />
+      ))}
+    </svg>
+  );
+};
 
 const bravoConversation = [
   { speaker: 'bravo' as const, name: 'BRAVO', time: '0:00', text: "Good morning, Greenfield Medical. How can I help you today?" },
@@ -509,53 +555,48 @@ export const ReceptionistDemo = () => {
                   </p>
                 </div>
               </div>
-              {phase === 'calling' && activeSpeaker && (
-                <div className="flex flex-col items-center gap-0.5">
-                  <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? DK.accent : DK.accent2} />
-                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-                    style={{ background: activeSpeaker === 'bravo' ? 'rgba(56,189,174,0.15)' : 'rgba(88,166,255,0.15)', color: activeSpeaker === 'bravo' ? DK.accent : DK.accent2 }}>
-                    {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
-                  </span>
-                </div>
+              {phase === 'calling' && (
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full animate-pulse"
+                  style={{ background: 'rgba(56,189,174,0.15)', color: DK.accent, border: '1px solid rgba(56,189,174,0.3)' }}>
+                  LIVE
+                </span>
               )}
             </div>
           </div>
 
-          {/* Transcript */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto rounded-xl px-3 py-2.5 space-y-2 scroll-smooth min-h-0"
+          {/* Sinusoidal wave visualization */}
+          <div className="flex-1 rounded-xl flex flex-col items-center justify-center gap-4 min-h-0 overflow-hidden"
             style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
-            {visibleLines.length === 0 && (
-              <div className="h-full flex flex-col items-center justify-center gap-1.5 select-none">
-                <PhoneIcon className="w-5 h-5" style={{ color: DK.muted }} />
-                <p className="text-[11px]" style={{ color: DK.muted }}>Press Start Call to hear BRAVO live</p>
+            {phase === 'idle' ? (
+              <div className="flex flex-col items-center gap-3 select-none">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(56,189,174,0.08)', border: `1px solid rgba(56,189,174,0.2)` }}>
+                  <PhoneIcon className="w-7 h-7" style={{ color: DK.muted }} />
+                </div>
+                <p className="text-[11px]" style={{ color: DK.muted }}>Press Play to hear BRAVO</p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-3 w-full px-4">
+                <div className="text-center">
+                  <p className="text-[12px] font-black" style={{ color: phase === 'calling' ? DK.accent : DK.text }}>
+                    {phase === 'calling' ? 'BRAVO is speaking…' : '✓ Call ended'}
+                  </p>
+                  {phase === 'calling' && (
+                    <p className="text-[9.5px] mt-0.5" style={{ color: DK.muted }}>Sarah M. · Appointment & Refill request</p>
+                  )}
+                </div>
+                <SinusoidalWaves isActive={phase === 'calling'} />
+                {phase === 'calling' && (
+                  <div className="flex items-center gap-1.5">
+                    {[0,1,2].map(i => (
+                      <motion.div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: DK.accent }}
+                        animate={{ scale: [0.6, 1.3, 0.6], opacity: [0.3, 1, 0.3] }}
+                        transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.25 }} />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
-            {bravoConversation.map((line, i) => (
-              visibleLines.includes(i) && (
-                <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
-                  className={`flex items-end gap-1.5 ${line.speaker === 'caller' ? 'flex-row-reverse' : ''}`}>
-                  <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center"
-                    style={{
-                      background: line.speaker === 'bravo' ? 'rgba(56,189,174,0.2)' : 'rgba(88,166,255,0.15)',
-                      border: `1px solid ${line.speaker === 'bravo' ? 'rgba(56,189,174,0.35)' : 'rgba(88,166,255,0.3)'}`,
-                    }}>
-                    {line.speaker === 'bravo'
-                      ? <Bot className="w-3 h-3" style={{ color: DK.accent }} />
-                      : <User className="w-3 h-3" style={{ color: DK.accent2 }} />}
-                  </div>
-                  <div className="max-w-[80%] px-3 py-1.5 text-[10.5px] leading-relaxed"
-                    style={{
-                      background: line.speaker === 'bravo' ? DK.elevated : 'rgba(88,166,255,0.1)',
-                      border: `1px solid ${line.speaker === 'bravo' ? DK.border : 'rgba(88,166,255,0.2)'}`,
-                      color: DK.text,
-                      borderRadius: line.speaker === 'bravo' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
-                    }}>
-                    <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? DK.accent : DK.accent2 }}>{line.name}</span>
-                    {line.text}
-                  </div>
-                </motion.div>
-              )
-            ))}
           </div>
 
           <AnimatePresence>
@@ -575,9 +616,12 @@ export const ReceptionistDemo = () => {
           <div className="flex gap-2 flex-shrink-0">
             {phase !== 'calling' ? (
               <button onClick={startCall}
-                className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98]"
+                className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2"
                 style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
-                {phase === 'done' ? '↺ Listen Again' : '🎧 Listen to BRAVO'}
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.2)' }}>
+                  <Play className="w-2.5 h-2.5 fill-white text-white ml-0.5" />
+                </div>
+                {phase === 'done' ? 'Play Again' : 'Play — Listen to BRAVO'}
               </button>
             ) : (
               <button onClick={endCall}
