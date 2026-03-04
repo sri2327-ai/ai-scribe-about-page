@@ -1152,25 +1152,15 @@ export const HeroDemoPanel = () => {
         }}>
 
         {/* ── Top bar — brand gradient ── */}
-        <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3"
-          style={{ background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)` }}>
-          {/* macOS dots */}
-          <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.25)' }} />
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.4)' }} />
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.6)' }} />
-          </div>
-          {/* Center branding */}
-          <div className="flex items-center gap-2">
-            <img src="/s10-logo.webp" alt="S10.AI" className="h-4 sm:h-5 w-auto brightness-0 invert opacity-90" />
-            <span className="text-white/40 text-[14px] font-light">|</span>
-            <span className="text-[11px] sm:text-[12px] font-semibold text-white/90 tracking-wide">Product Tour</span>
-          </div>
-          {/* Interaction hint */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)' }}>
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#4ade80' }} />
-            <span className="text-[10px] sm:text-[11px] font-semibold text-white">Interactive</span>
-          </div>
+        {/* ── Clean headline header (inspired by reference) ── */}
+        <div className="px-4 sm:px-6 pt-5 pb-4 text-center" style={{ background: DK.surface, borderBottom: `1px solid ${DK.border}` }}>
+          <p className="text-[18px] sm:text-[22px] font-black tracking-[-0.02em] leading-tight"
+            style={{ color: DK.text }}>
+            One AI Platform.{' '}
+            <span style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Every Task Automated.
+            </span>
+          </p>
         </div>
 
         {/* ── Horizontal tab bar ── */}
@@ -1207,9 +1197,9 @@ export const HeroDemoPanel = () => {
                   }}>
                   {s.shortTitle}
                 </span>
-                {/* Auto-progress bar — slim line at very bottom of tab bar */}
-                {isActive && isAutoPlaying && (
-                  <div className="absolute bottom-0 left-0 h-[3px] rounded-full opacity-60" style={{ background: s.color, width: `${tabProgress}%`, transition: 'none' }} />
+                {/* Active dot indicator — clean, subtle */}
+                {isActive && (
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full" style={{ background: s.color }} />
                 )}
               </button>
             );
