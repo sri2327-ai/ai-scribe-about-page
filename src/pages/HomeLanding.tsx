@@ -58,7 +58,7 @@ const HomeLanding = () => {
       <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
       {/* Hero */}
-      <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
+      <section className="relative pt-24 pb-16 md:pt-36 md:pb-28 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -67,30 +67,30 @@ const HomeLanding = () => {
           }}
         />
 
-        <div className="container mx-auto px-6 md:px-10 lg:px-16 max-w-7xl relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-16 max-w-7xl relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start">
 
             {/* ── Left ── */}
-            <div className="flex flex-col gap-7 lg:pt-4">
+            <div className="flex flex-col gap-5 sm:gap-7 lg:pt-4">
               <TrustBadge />
 
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[2.6rem] sm:text-5xl md:text-[3.4rem] lg:text-[3.8rem] font-black leading-[1.06] tracking-[-0.02em] text-gray-900"
+                className="text-[2.1rem] sm:text-[2.6rem] md:text-5xl lg:text-[3.8rem] font-black leading-[1.06] tracking-[-0.02em] text-gray-900"
               >
                 Less Admin.<br />
                 Less Documentation.<br />
                 More Time for Care.
               </motion.h1>
 
-              {/* Feature pills 2×2 */}
+              {/* Feature pills — stack to 1 col on mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
-                className="grid grid-cols-2 gap-2.5 w-fit"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 w-full sm:w-fit"
               >
                 <FeaturePill icon={<Clock className="w-[15px] h-[15px]" />} text="75% faster charting" delay={0.28} />
                 <FeaturePill icon={<Database className="w-[15px] h-[15px]" />} text="Works with all EHRs + thousands of apps" delay={0.33} />
@@ -106,11 +106,11 @@ const HomeLanding = () => {
               >
                 <button
                   onClick={() => (window.location.href = '/contact')}
-                  className="inline-flex items-center gap-3 px-7 py-4 rounded-full text-[15px] font-bold text-white shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  className="inline-flex items-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full text-[14px] sm:text-[15px] font-bold text-white shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}
                 >
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20">
-                    <ArrowRight className="w-4 h-4" />
+                  <span className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20">
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </span>
                   Request A Demo
                 </button>
@@ -130,18 +130,18 @@ const HomeLanding = () => {
                 ].map((line, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: S10.teal }} />
-                    <span className="text-[13px] text-gray-500">{line}</span>
+                    <span className="text-[12px] sm:text-[13px] text-gray-500">{line}</span>
                   </div>
                 ))}
               </motion.div>
             </div>
 
-            {/* ── Right: Feature Steps Demo ── */}
+            {/* ── Right: Demo Panel ── */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="w-full relative"
+              className="w-full relative mt-4 lg:mt-0"
             >
               {/* Ambient glow */}
               <div
