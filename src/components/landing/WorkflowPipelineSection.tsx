@@ -73,10 +73,10 @@ const WorkflowPipelineSection = () => {
   return (
     <section
       className="relative py-16 md:py-24 overflow-hidden"
-      style={{ background: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}
+      style={{ background: 'linear-gradient(180deg, #fff 0%, #F5F9FC 100%)', borderTop: '1px solid #E8EFF5' }}
     >
-      {/* Top accent */}
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${S10.teal}, ${S10.mid})` }} />
+      {/* Soft background blobs */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(56,126,137,0.05) 0%, transparent 60%)' }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -87,7 +87,7 @@ const WorkflowPipelineSection = () => {
         >
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5"
-            style={{ background: `${S10.teal}15`, color: S10.teal, border: `1px solid ${S10.teal}35` }}
+            style={{ background: `${S10.teal}12`, color: S10.teal, border: `1px solid ${S10.teal}28`, boxShadow: `0 1px 8px ${S10.teal}10` }}
           >
             End-to-End Clinical Workflow
           </div>
@@ -116,15 +116,13 @@ const WorkflowPipelineSection = () => {
                   className="relative flex flex-col items-center text-center gap-4 rounded-2xl p-5 cursor-default transition-all duration-300"
                   style={{
                     background: isActive
-                      ? `linear-gradient(160deg, #fff 0%, ${step.color}08 100%)`
+                      ? `linear-gradient(160deg, #fff 0%, ${step.color}10 100%)`
                       : '#ffffff',
-                    border: isActive
-                      ? `2px solid ${step.color}60`
-                      : '2px solid #E2E8F0',
+                    border: `1.5px solid ${isActive ? step.color + '50' : '#EAF0F5'}`,
                     boxShadow: isActive
-                      ? `0 12px 40px ${step.color}20`
-                      : '0 2px 8px rgba(0,0,0,0.06)',
-                    transform: isActive ? 'translateY(-2px)' : 'none',
+                      ? `0 8px 32px ${step.color}18, 0 2px 8px rgba(20,49,81,0.06)`
+                      : '0 1px 6px rgba(20,49,81,0.05)',
+                    transform: isActive ? 'translateY(-4px)' : 'none',
                   }}
                   onMouseEnter={() => setActive(i)}
                   onMouseLeave={() => setActive(null)}

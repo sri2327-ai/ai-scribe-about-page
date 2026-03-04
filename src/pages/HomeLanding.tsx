@@ -44,7 +44,7 @@ const FeaturePill = ({ icon, text, delay }: { icon: React.ReactNode; text: strin
     initial={{ opacity: 0, y: 6 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay }}
-    className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all cursor-default w-fit"
+    className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 hover:-translate-y-px transition-all cursor-default w-fit"
   >
     <span style={{ color: S10.teal }}>{icon}</span>
     <span className="text-[13px] font-medium text-gray-700 whitespace-nowrap">{text}</span>
@@ -62,13 +62,15 @@ const HomeLanding = () => {
 
       {/* Hero */}
       <section className="relative pt-24 pb-16 md:pt-36 md:pb-28 overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse 70% 50% at 75% 50%, rgba(56,126,137,0.04) 0%, transparent 70%)',
-          }}
-        />
+        {/* Soft mesh background */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: 'radial-gradient(ellipse 80% 60% at 80% 40%, rgba(56,126,137,0.06) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(20,49,81,0.04) 0%, transparent 60%)',
+        }} />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.025]" style={{
+          backgroundImage: 'linear-gradient(#143151 1px, transparent 1px), linear-gradient(90deg, #143151 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }} />
 
         <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-16 max-w-7xl relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start">

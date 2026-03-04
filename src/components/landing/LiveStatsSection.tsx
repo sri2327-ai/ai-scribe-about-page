@@ -116,43 +116,43 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
       className="relative flex flex-col bg-white rounded-2xl overflow-hidden"
       style={{
         border: `1px solid ${stat.borderColor}`,
-        boxShadow: `0 2px 16px rgba(20,49,81,0.06)`,
+        boxShadow: `0 1px 12px rgba(20,49,81,0.05), 0 0 0 0 transparent`,
       }}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay: index * 0.07 }}
-      whileHover={{ y: -4, boxShadow: `0 16px 40px rgba(20,49,81,0.12)` }}
+      whileHover={{ y: -5, boxShadow: `0 16px 40px ${stat.color}20, 0 2px 8px rgba(20,49,81,0.08)` }}
     >
       {/* Gradient accent bar */}
-      <div className="h-1 w-full flex-shrink-0" style={{ background: stat.gradient }} />
+      <div className="h-[3px] w-full flex-shrink-0" style={{ background: stat.gradient }} />
 
       <div className="flex flex-col p-5 flex-1">
-        {/* Product name — prominent */}
+        {/* Product name */}
         <div className="flex items-center justify-between mb-3">
-          <span
-            className="text-[15px] font-bold leading-tight"
-            style={{ color: S10.navy }}
-          >
+          <span className="text-[14px] font-black leading-tight tracking-tight" style={{ color: S10.navy }}>
             {stat.product}
           </span>
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: stat.bgLight }}
+            style={{ background: stat.bgLight, border: `1px solid ${stat.borderColor}` }}
           >
-            <Icon className="w-4.5 h-4.5" style={{ color: stat.color }} strokeWidth={1.75} />
+            <Icon className="w-[18px] h-[18px]" style={{ color: stat.color }} strokeWidth={1.75} />
           </div>
         </div>
 
         {/* Divider */}
-        <div className="h-px w-full mb-4" style={{ background: stat.borderColor }} />
+        <div className="h-px w-full mb-4" style={{ background: '#EAF1F6' }} />
 
         {/* Big animated number */}
         <span
           className="block font-black tabular-nums leading-none mb-2"
           style={{
-            color: S10.navy,
-            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+            background: stat.gradient,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            fontSize: 'clamp(1.6rem, 3vw, 2.1rem)',
             letterSpacing: '-0.03em',
           }}
         >
@@ -160,17 +160,14 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
         </span>
 
         {/* Metric label */}
-        <p className="text-[13px] font-medium leading-snug" style={{ color: '#64748B' }}>
+        <p className="text-[12px] font-semibold leading-snug" style={{ color: '#64748B' }}>
           {stat.label}
         </p>
 
         {/* Live indicator */}
         <div className="flex items-center gap-1.5 mt-auto pt-4">
-          <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0"
-            style={{ background: stat.color }}
-          />
-          <span className="text-[11px] font-semibold tracking-wide uppercase" style={{ color: stat.color }}>
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{ background: stat.color }} />
+          <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: stat.color }}>
             Live
           </span>
         </div>
@@ -187,12 +184,10 @@ const LiveStatsSection = () => {
     <section
       ref={ref}
       className="relative py-16 md:py-24 overflow-hidden"
-      style={{ background: '#F8FAFC', borderTop: '1px solid #E8EFF4' }}
+      style={{ background: 'linear-gradient(180deg, #EEF4F8 0%, #E6EFF5 100%)', borderTop: '1px solid #D8E6EF' }}
     >
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[280px] pointer-events-none"
-        style={{ background: `radial-gradient(ellipse at 50% 0%, rgba(56,126,137,0.05) 0%, transparent 70%)` }}
-      />
+      {/* Decorative background */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(20,49,81,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(56,126,137,0.06) 0%, transparent 60%)' }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
@@ -224,7 +219,7 @@ const LiveStatsSection = () => {
         </motion.div>
 
         {/* Stats grid: 3 cols desktop, 2 tablet, 1 mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
           {STATS.map((stat, i) => (
             <AnimatedStat key={i} stat={stat} index={i} started={inView} />
           ))}
