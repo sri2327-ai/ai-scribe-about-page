@@ -1151,19 +1151,17 @@ export const HeroDemoPanel = () => {
           boxShadow: `0 2px 4px rgba(20,49,81,0.04), 0 8px 24px rgba(20,49,81,0.08), 0 20px 48px rgba(20,49,81,0.06)`,
         }}>
 
-        {/* ── Top bar — brand gradient ── */}
-        {/* ── Pill switcher header ── */}
-        <div className="px-4 sm:px-5 pt-4 pb-0 flex items-center justify-between" style={{ background: DK.surface }}>
-          {/* Left: S10 logo + label */}
-          <div className="flex items-center gap-2">
-            <img src="/s10-logo.webp" alt="S10.AI" className="h-5 w-auto" style={{ filter: 'brightness(0) saturate(100%) invert(18%) sepia(40%) saturate(800%) hue-rotate(180deg)' }} />
-            <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: `${S10.teal}` }}>Product Suite</span>
-          </div>
-          {/* Right: Live badge */}
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full" style={{ background: `${S10.teal}12`, border: `1px solid ${S10.teal}30` }}>
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: S10.teal }} />
-            <span className="text-[10px] font-semibold" style={{ color: S10.teal }}>Live</span>
-          </div>
+        {/* ── Headline banner ── */}
+        <div
+          className="px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, #f0f4ff 0%, #eef2f8 50%, #f5f0ff 100%)' }}
+        >
+          <p className="text-[15px] sm:text-[17px] font-bold tracking-tight text-center" style={{ color: S10.navy }}>
+            One AI Platform.{' '}
+            <span style={{ background: `linear-gradient(90deg, ${S10.navy}, ${S10.teal})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Every Task Automated.
+            </span>
+          </p>
         </div>
 
         {/* ── Pill tab switcher ── */}
