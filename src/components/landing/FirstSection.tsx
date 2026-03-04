@@ -1039,7 +1039,7 @@ const demoSteps = [
     icon: FileText,
     shortTitle: 'AI Scribe & Coding',
     title: 'AI Scribe & AI Coding',
-    description: 'Any template, any note style → structured EHR fields + automated ICD-10 & CPT coding',
+    description: 'Crush AI Scribe & AI Coding — any template, any note style → structured EHR fields + automated ICD-10 & CPT coding',
     badge: '2+ hrs saved/day',
     color: S10.navy,
     Demo: ScribeDemo,
@@ -1152,26 +1152,24 @@ export const HeroDemoPanel = () => {
         }}>
 
         {/* ── Top bar — brand gradient ── */}
-        <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3.5"
+        <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3"
           style={{ background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)` }}>
           {/* macOS dots */}
-          <div className="flex items-center gap-1 sm:gap-1.5">
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white/20" />
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white/35" />
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white/55" />
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.25)' }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.4)' }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.6)' }} />
           </div>
-          {/* Center title */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70 bg-white" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
-            </span>
-            <span className="text-[11px] sm:text-[12px] font-semibold tracking-wide text-white">S10.AI · Live Demo</span>
+          {/* Center branding */}
+          <div className="flex items-center gap-2">
+            <img src="/s10-logo.webp" alt="S10.AI" className="h-4 sm:h-5 w-auto brightness-0 invert opacity-90" />
+            <span className="text-white/40 text-[14px] font-light">|</span>
+            <span className="text-[11px] sm:text-[12px] font-semibold text-white/90 tracking-wide">Product Tour</span>
           </div>
-          {/* Live badge */}
-          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-white/15 border border-white/25">
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-white" />
-            <span className="text-[9px] sm:text-[10px] font-bold text-white">LIVE</span>
+          {/* Interaction hint */}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#4ade80' }} />
+            <span className="text-[10px] sm:text-[11px] font-semibold text-white">Interactive</span>
           </div>
         </div>
 
@@ -1209,9 +1207,9 @@ export const HeroDemoPanel = () => {
                   }}>
                   {s.shortTitle}
                 </span>
-                {/* Auto-progress underline */}
+                {/* Auto-progress bar — slim line at very bottom of tab bar */}
                 {isActive && isAutoPlaying && (
-                  <div className="absolute bottom-0 left-0 h-[2.5px]" style={{ background: s.color, width: `${tabProgress}%`, transition: 'none' }} />
+                  <div className="absolute bottom-0 left-0 h-[3px] rounded-full opacity-60" style={{ background: s.color, width: `${tabProgress}%`, transition: 'none' }} />
                 )}
               </button>
             );
