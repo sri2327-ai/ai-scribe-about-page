@@ -1200,8 +1200,8 @@ export const HeroDemoPanel = () => {
                     style={{ color: isActive ? s.color : DK.muted }} />
                 </div>
                 {/* Label */}
-                <span className="text-[9px] sm:text-[10px] font-semibold leading-tight text-center transition-all duration-200 hidden xs:block"
-                  style={{ color: isActive ? s.color : DK.muted }}>
+                <span className="text-[10px] sm:text-[12px] font-bold leading-tight text-center transition-all duration-200 block"
+                  style={{ color: isActive ? s.color : DK.muted, letterSpacing: isActive ? '0.01em' : 0 }}>
                   {s.shortTitle}
                 </span>
                 {/* Auto-progress underline */}
