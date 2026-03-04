@@ -1158,7 +1158,7 @@ export const HeroDemoPanel = () => {
         </div>
 
         {/* ── Horizontal tab bar ── */}
-        <div className="flex border-b" style={{ borderColor: `rgba(20,49,81,0.08)`, background: 'rgba(248,251,255,0.9)' }}>
+        <div className="flex border-b" style={{ borderColor: `rgba(20,49,81,0.08)`, background: 'linear-gradient(135deg, #F5EAF8 0%, #EAF0F9 55%, #E8EFF8 100%)' }}>
           {demoSteps.map((s, i) => {
             const Icon = s.icon;
             const isActive = currentStep === i;
