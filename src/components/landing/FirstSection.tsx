@@ -121,6 +121,7 @@ const generatedNote: NoteItem[] = [
   { label: 'HPI',             abbr: 'HPI', value: 'Gradual onset, worsening. Nuchal rigidity on exam.', abbrev: 'HPI', color: S10.teal },
   { label: 'Assessment',      abbr: 'Dx',  value: 'R/O meningitis vs. tension headache', abbrev: 'Dx', color: S10.mid },
   { label: 'Plan / Orders',   abbr: 'Rx',  value: 'CT Head + CBC ordered. Follow-up in 48h.', abbrev: 'Rx', color: S10.navy },
+  { label: 'AI Coding',       abbr: 'CPT', value: 'ICD-10: G43.909 · CPT: 99213, 71046 — auto-suggested', abbrev: 'CPT', color: S10.teal },
 ];
 
 export const ScribeDemo = () => {
@@ -186,7 +187,7 @@ export const ScribeDemo = () => {
               <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: phase !== 'idle' ? DK.accent : DK.muted }} />
             </span>
             <span className="text-[10px]" style={{ color: DK.muted }}>
-              {phase === 'idle' ? 'SOAP · DAP · Progress · Specialty notes' : phase === 'recording' ? 'Recording visit…' : phase === 'generating' ? 'Generating structured note…' : 'Posted to EHR fields'}
+              {phase === 'idle' ? 'SOAP · DAP · Progress · Specialty notes · Auto ICD-10 & CPT Coding' : phase === 'recording' ? 'Recording visit…' : phase === 'generating' ? 'Generating note + AI coding…' : 'Note & codes posted to EHR'}
             </span>
           </div>
         </div>
@@ -1036,9 +1037,9 @@ const demoSteps = [
   {
     id: 'scribe',
     icon: FileText,
-    shortTitle: 'AI Scribe',
-    title: 'AI Medical Scribe',
-    description: 'Any template, any note style → structured EHR fields instantly',
+    shortTitle: 'AI Scribe & Coding',
+    title: 'AI Scribe & AI Coding',
+    description: 'Any template, any note style → structured EHR fields + automated ICD-10 & CPT coding',
     badge: '2+ hrs saved/day',
     color: S10.navy,
     Demo: ScribeDemo,
@@ -1066,7 +1067,7 @@ const demoSteps = [
   {
     id: 'ehr',
     icon: LinkIcon,
-    shortTitle: 'EHR + Apps',
+    shortTitle: 'EHR + Integrations',
     title: 'EHR & App Integrations',
     description: 'Works with any EHR + thousands of apps — zero disruption',
     badge: 'Plug & play',
