@@ -363,6 +363,7 @@ const bravoConversation = [
 ];
 
 export const ReceptionistDemo = () => {
+  const [activeView, setActiveView] = useState<'call' | 'chat'>('call');
   const [phase, setPhase] = useState<'idle' | 'calling' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
   const [activeSpeaker, setActiveSpeaker] = useState<'bravo' | 'caller' | null>(null);
@@ -457,131 +458,207 @@ export const ReceptionistDemo = () => {
 
   return (
     <div className="flex flex-col gap-2.5 h-[380px] overflow-hidden">
-      {/* Agent card */}
-      <div className="rounded-xl overflow-hidden flex-shrink-0"
-        style={{ background: phase === 'calling' ? 'rgba(56,189,174,0.07)' : DK.elevated, border: `1px solid ${phase === 'calling' ? 'rgba(56,189,174,0.25)' : DK.border}` }}>
-        <div className="px-3.5 py-2.5 flex items-center gap-3">
-          <div className="relative flex-shrink-0">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.25), rgba(88,166,255,0.15))', border: '1px solid rgba(56,189,174,0.35)' }}>
-              <Bot className="w-5 h-5" style={{ color: DK.accent }} />
-            </div>
-            {phase === 'calling' && (
-              <>
-                <motion.span className="absolute inset-0 rounded-xl border-2" style={{ borderColor: DK.accent }}
-                  animate={{ scale: [1, 1.5], opacity: [0.6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }} />
-                <motion.span className="absolute inset-0 rounded-xl border" style={{ borderColor: DK.accent }}
-                  animate={{ scale: [1, 1.9], opacity: [0.3, 0] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.35 }} />
-              </>
-            )}
-            {phase === 'done' && (
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-sm border-2"
-                style={{ background: DK.accent, borderColor: DK.surface }}>
-                <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4l2 2 3-3" stroke={DK.bg} strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
-              </div>
-            )}
-          </div>
-          <div className="flex-1">
-            <p className="text-[13px] font-black" style={{ color: DK.text }}>BRAVO AI Receptionist</p>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              {phase === 'calling' && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: DK.accent }} />}
-              <p className="text-[10px]" style={{ color: phase === 'calling' ? DK.accent : DK.muted }}>
-                {phase === 'idle' ? '24/7 · All calls handled automatically' : phase === 'calling' ? 'Live call with Sarah M.' : 'Call complete · All tasks done'}
-              </p>
-            </div>
-          </div>
-          {phase === 'calling' && activeSpeaker && (
-            <div className="flex flex-col items-center gap-0.5">
-              <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? DK.accent : DK.accent2} />
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-                style={{ background: activeSpeaker === 'bravo' ? 'rgba(56,189,174,0.15)' : 'rgba(88,166,255,0.15)', color: activeSpeaker === 'bravo' ? DK.accent : DK.accent2 }}>
-                {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
-              </span>
-            </div>
-          )}
-        </div>
+      {/* View Toggle: Call vs Chat */}
+      <div className="flex items-center gap-1.5 flex-shrink-0 rounded-xl p-1" style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
+        <button
+          onClick={() => setActiveView('call')}
+          className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-bold transition-all"
+          style={{ background: activeView === 'call' ? 'linear-gradient(135deg, #143151, #387E89)' : 'transparent', color: activeView === 'call' ? '#fff' : DK.muted }}>
+          <PhoneIcon className="w-3 h-3" /> Voice Call
+        </button>
+        <button
+          onClick={() => setActiveView('chat')}
+          className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-bold transition-all"
+          style={{ background: activeView === 'chat' ? 'linear-gradient(135deg, #143151, #387E89)' : 'transparent', color: activeView === 'chat' ? '#fff' : DK.muted }}>
+          <Bot className="w-3 h-3" /> Live Chat
+        </button>
       </div>
 
-      {/* Transcript */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto rounded-xl px-3 py-2.5 space-y-2 scroll-smooth min-h-0"
-        style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
-        {visibleLines.length === 0 && (
-          <div className="h-full flex flex-col items-center justify-center gap-1.5 select-none">
-            <PhoneIcon className="w-5 h-5" style={{ color: DK.muted }} />
-            <p className="text-[11px]" style={{ color: DK.muted }}>Press Start Call to hear BRAVO live</p>
+      {activeView === 'call' ? (
+        <>
+          {/* Agent card */}
+          <div className="rounded-xl overflow-hidden flex-shrink-0"
+            style={{ background: phase === 'calling' ? 'rgba(56,189,174,0.07)' : DK.elevated, border: `1px solid ${phase === 'calling' ? 'rgba(56,189,174,0.25)' : DK.border}` }}>
+            <div className="px-3.5 py-2.5 flex items-center gap-3">
+              <div className="relative flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.25), rgba(88,166,255,0.15))', border: '1px solid rgba(56,189,174,0.35)' }}>
+                  <Bot className="w-5 h-5" style={{ color: DK.accent }} />
+                </div>
+                {phase === 'calling' && (
+                  <>
+                    <motion.span className="absolute inset-0 rounded-xl border-2" style={{ borderColor: DK.accent }}
+                      animate={{ scale: [1, 1.5], opacity: [0.6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }} />
+                    <motion.span className="absolute inset-0 rounded-xl border" style={{ borderColor: DK.accent }}
+                      animate={{ scale: [1, 1.9], opacity: [0.3, 0] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.35 }} />
+                  </>
+                )}
+                {phase === 'done' && (
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-sm border-2"
+                    style={{ background: DK.accent, borderColor: DK.surface }}>
+                    <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4l2 2 3-3" stroke={DK.bg} strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
+                  </div>
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="text-[13px] font-black" style={{ color: DK.text }}>BRAVO AI · Voice Receptionist</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  {phase === 'calling' && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: DK.accent }} />}
+                  <p className="text-[10px]" style={{ color: phase === 'calling' ? DK.accent : DK.muted }}>
+                    {phase === 'idle' ? '24/7 · Handles every inbound call' : phase === 'calling' ? 'Live call with Sarah M.' : 'Call complete · All tasks done'}
+                  </p>
+                </div>
+              </div>
+              {phase === 'calling' && activeSpeaker && (
+                <div className="flex flex-col items-center gap-0.5">
+                  <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? DK.accent : DK.accent2} />
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                    style={{ background: activeSpeaker === 'bravo' ? 'rgba(56,189,174,0.15)' : 'rgba(88,166,255,0.15)', color: activeSpeaker === 'bravo' ? DK.accent : DK.accent2 }}>
+                    {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
-        )}
-        {bravoConversation.map((line, i) => (
-          visibleLines.includes(i) && (
-            <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
-              className={`flex items-end gap-1.5 ${line.speaker === 'caller' ? 'flex-row-reverse' : ''}`}>
-              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center"
-                style={{
-                  background: line.speaker === 'bravo' ? 'rgba(56,189,174,0.2)' : 'rgba(88,166,255,0.15)',
-                  border: `1px solid ${line.speaker === 'bravo' ? 'rgba(56,189,174,0.35)' : 'rgba(88,166,255,0.3)'}`,
-                }}>
-                {line.speaker === 'bravo'
-                  ? <Bot className="w-3 h-3" style={{ color: DK.accent }} />
-                  : <User className="w-3 h-3" style={{ color: DK.accent2 }} />}
-              </div>
-              <div className="max-w-[80%] px-3 py-1.5 text-[10.5px] leading-relaxed"
-                style={{
-                  background: line.speaker === 'bravo' ? DK.elevated : 'rgba(88,166,255,0.1)',
-                  border: `1px solid ${line.speaker === 'bravo' ? DK.border : 'rgba(88,166,255,0.2)'}`,
-                  color: DK.text,
-                  borderRadius: line.speaker === 'bravo' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
-                }}>
-                <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? DK.accent : DK.accent2 }}>{line.name}</span>
-                {line.text}
-              </div>
-            </motion.div>
-          )
-        ))}
-      </div>
 
-      <AnimatePresence>
-        {phase === 'done' && (
-          <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5 flex-shrink-0">
-            {outcomeChips.map(({ text, color }, i) => (
-              <motion.span key={i} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
-                className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                style={{ background: `${color}18`, color, border: `1px solid ${color}30` }}>
-                {text}
-              </motion.span>
+          {/* Transcript */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto rounded-xl px-3 py-2.5 space-y-2 scroll-smooth min-h-0"
+            style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
+            {visibleLines.length === 0 && (
+              <div className="h-full flex flex-col items-center justify-center gap-1.5 select-none">
+                <PhoneIcon className="w-5 h-5" style={{ color: DK.muted }} />
+                <p className="text-[11px]" style={{ color: DK.muted }}>Press Start Call to hear BRAVO live</p>
+              </div>
+            )}
+            {bravoConversation.map((line, i) => (
+              visibleLines.includes(i) && (
+                <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
+                  className={`flex items-end gap-1.5 ${line.speaker === 'caller' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center"
+                    style={{
+                      background: line.speaker === 'bravo' ? 'rgba(56,189,174,0.2)' : 'rgba(88,166,255,0.15)',
+                      border: `1px solid ${line.speaker === 'bravo' ? 'rgba(56,189,174,0.35)' : 'rgba(88,166,255,0.3)'}`,
+                    }}>
+                    {line.speaker === 'bravo'
+                      ? <Bot className="w-3 h-3" style={{ color: DK.accent }} />
+                      : <User className="w-3 h-3" style={{ color: DK.accent2 }} />}
+                  </div>
+                  <div className="max-w-[80%] px-3 py-1.5 text-[10.5px] leading-relaxed"
+                    style={{
+                      background: line.speaker === 'bravo' ? DK.elevated : 'rgba(88,166,255,0.1)',
+                      border: `1px solid ${line.speaker === 'bravo' ? DK.border : 'rgba(88,166,255,0.2)'}`,
+                      color: DK.text,
+                      borderRadius: line.speaker === 'bravo' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
+                    }}>
+                    <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? DK.accent : DK.accent2 }}>{line.name}</span>
+                    {line.text}
+                  </div>
+                </motion.div>
+              )
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
 
-      <div className="flex gap-2 flex-shrink-0">
-        {phase !== 'calling' ? (
-          <button onClick={startCall}
-            className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
-            {phase === 'done' ? '↺ Listen Again' : '🎧 Listen to BRAVO'}
-          </button>
-        ) : (
-          <button onClick={endCall}
-            className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all active:scale-[0.98]"
-            style={{ background: 'rgba(56,189,174,0.12)', color: DK.accent, border: '1px solid rgba(56,189,174,0.3)' }}>
-            ✕ End Call
-          </button>
-        )}
-      </div>
+          <AnimatePresence>
+            {phase === 'done' && (
+              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5 flex-shrink-0">
+                {outcomeChips.map(({ text, color }, i) => (
+                  <motion.span key={i} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
+                    className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                    style={{ background: `${color}18`, color, border: `1px solid ${color}30` }}>
+                    {text}
+                  </motion.span>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="flex gap-2 flex-shrink-0">
+            {phase !== 'calling' ? (
+              <button onClick={startCall}
+                className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98]"
+                style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
+                {phase === 'done' ? '↺ Listen Again' : '🎧 Listen to BRAVO'}
+              </button>
+            ) : (
+              <button onClick={endCall}
+                className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all active:scale-[0.98]"
+                style={{ background: 'rgba(56,189,174,0.12)', color: DK.accent, border: '1px solid rgba(56,189,174,0.3)' }}>
+                ✕ End Call
+              </button>
+            )}
+          </div>
+        </>
+      ) : (
+        /* ── Chat View ── */
+        <div className="flex-1 flex flex-col min-h-0 gap-2">
+          {/* Chat header */}
+          <div className="rounded-xl px-3.5 py-2.5 flex items-center gap-3 flex-shrink-0"
+            style={{ background: 'rgba(20,49,81,0.05)', border: `1px solid rgba(20,49,81,0.12)` }}>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+              <Bot className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="text-[12px] font-black" style={{ color: DK.text }}>BRAVO AI · Chat Receptionist</p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                <p className="text-[10px]" style={{ color: DK.muted }}>Online · Replies instantly</p>
+              </div>
+            </div>
+            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(56,189,174,0.12)', color: DK.accent, border: '1px solid rgba(56,189,174,0.25)' }}>Live Chat</span>
+          </div>
+          {/* Chat messages */}
+          <div className="flex-1 overflow-y-auto rounded-xl px-3 py-3 space-y-2.5 min-h-0"
+            style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
+            {[
+              { from: 'bravo', text: "Hi! I'm BRAVO. How can I help you today? 😊" },
+              { from: 'patient', text: "I need to reschedule my appointment with Dr. Patel." },
+              { from: 'bravo', text: "Of course! Dr. Patel has availability Thursday at 10:30 AM or Friday at 2 PM. Which works?" },
+              { from: 'patient', text: "Thursday please!" },
+              { from: 'bravo', text: "✅ Done! Appointment rescheduled to Thu 10:30 AM. You'll receive a confirmation SMS shortly." },
+            ].map((msg, i) => (
+              <motion.div key={i}
+                initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.12, duration: 0.2 }}
+                className={`flex ${msg.from === 'patient' ? 'justify-end' : 'justify-start'}`}>
+                <div className="max-w-[80%] px-3 py-2 text-[10.5px] leading-relaxed"
+                  style={{
+                    background: msg.from === 'bravo' ? 'linear-gradient(135deg, #143151, #387E89)' : DK.elevated,
+                    color: msg.from === 'bravo' ? '#fff' : DK.text,
+                    border: msg.from === 'patient' ? `1px solid ${DK.border}` : 'none',
+                    borderRadius: msg.from === 'bravo' ? '0.25rem 1rem 1rem 1rem' : '1rem 0.25rem 1rem 1rem',
+                    boxShadow: msg.from === 'bravo' ? '0 2px 8px rgba(20,49,81,0.2)' : 'none',
+                  }}>
+                  {msg.text}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          {/* Chat input */}
+          <div className="rounded-xl flex items-center gap-2 px-3 py-2 flex-shrink-0"
+            style={{ background: DK.elevated, border: `1px solid ${DK.border}` }}>
+            <span className="flex-1 text-[10.5px]" style={{ color: DK.muted }}>Type a message…</span>
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+              <ArrowRight className="w-3.5 h-3.5 text-white" />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 // ─── Custom AI Agents Demo ────────────────────────────────────────────────────
 const agents = [
-  { id: 'crm',     label: 'CRM → EHR Import',   task: 'Importing patient records…',  done: '142 records synced',      pct: 87 },
-  { id: 'billing', label: 'Auto Medical Coding', task: 'Coding encounter…',           done: 'CPT 99213 suggested',      pct: 62 },
-  { id: 'prior',   label: 'Prior Auth Filing',   task: 'Filing auth request…',        done: 'Authorization approved',   pct: 100 },
-  { id: 'labs',    label: 'Lab Result Routing',  task: 'Routing results…',            done: 'Sent to ordering provider', pct: 45 },
-  { id: 'recall',  label: 'Patient Outreach',    task: 'Scheduling recall calls…',    done: '24 patients reached',      pct: 78 },
+  { id: 'crm',      label: 'CRM → EHR Import',       task: 'Importing patient records…',   done: '142 records synced',         pct: 87 },
+  { id: 'calendar', label: 'Calendar Sync & Sched.',  task: 'Syncing appointments…',        done: '38 appts scheduled',          pct: 75 },
+  { id: 'billing',  label: 'Auto Medical Coding',     task: 'Coding encounter…',            done: 'CPT 99213 suggested',         pct: 62 },
+  { id: 'prior',    label: 'Prior Auth Filing',       task: 'Filing auth request…',         done: 'Authorization approved',      pct: 100 },
+  { id: 'recall',   label: 'Patient Outreach & Recall', task: 'Scheduling recall calls…',  done: '24 patients reached',         pct: 78 },
+  { id: 'labs',     label: 'Lab Result Routing',      task: 'Routing results…',             done: 'Sent to ordering provider',   pct: 45 },
 ];
-const agentIcons = [FileText, CreditCard, ClipboardList, FlaskConical, PhoneIcon];
-const agentGlows = [S10.navy, S10.teal, S10.mid, S10.navy, S10.teal];
+const agentIcons = [FileText, Clock, CreditCard, ClipboardList, PhoneIcon, FlaskConical];
+const agentGlows = [S10.navy, S10.teal, S10.mid, S10.navy, S10.teal, S10.mid];
 
 export const CustomAgentsDemo = () => {
   const [progresses, setProgresses] = useState<Record<string, number>>(
@@ -744,14 +821,14 @@ const ehrList = [
   { name: '& Any EHR',   abbr: '+',   desc: 'Works with all' },
 ];
 const appList = [
-  { name: 'Zoom',       color: S10.teal },
-  { name: 'Twilio',     color: S10.navy },
-  { name: 'Slack',      color: S10.mid },
-  { name: 'AWS',        color: S10.teal },
-  { name: 'Salesforce', color: S10.navy },
-  { name: 'Stripe',     color: S10.mid },
-  { name: 'Doximity',   color: S10.teal },
-  { name: 'G Suite',    color: S10.navy },
+  { name: 'Gmail',       color: S10.teal },
+  { name: 'Outlook',     color: S10.navy },
+  { name: 'Teams',       color: S10.mid },
+  { name: 'Zoom',        color: S10.teal },
+  { name: 'Google Cal',  color: S10.navy },
+  { name: 'Slack',       color: S10.mid },
+  { name: 'Salesforce',  color: S10.teal },
+  { name: 'Stripe',      color: S10.navy },
 ];
 
 export const IntegrationsDemo = () => {
@@ -867,7 +944,10 @@ export const IntegrationsDemo = () => {
 
       {/* Apps */}
       <div className="flex-1 overflow-y-auto min-h-0">
-        <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: DK.muted }}>+ Thousands of apps & workflows</p>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: DK.muted }}>Apps & Workflows</p>
+          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: `${S10.teal}12`, color: S10.teal, border: `1px solid ${S10.teal}25` }}>+7,000 apps</span>
+        </div>
         <div className="flex flex-wrap gap-1.5">
           {appList.map((app, i) => (
             <motion.div key={i}
@@ -1053,8 +1133,8 @@ export const HeroDemoPanel = () => {
                     style={{ color: isActive ? s.color : S10.mid }} />
                 </div>
                 {/* Label */}
-                <span className="text-[9.5px] font-semibold leading-tight text-center transition-colors duration-200"
-                  style={{ color: isActive ? s.color : S10.mid }}>
+                <span className="text-[10px] font-black leading-tight text-center transition-colors duration-200"
+                  style={{ color: isActive ? s.color : S10.navy, opacity: isActive ? 1 : 0.65 }}>
                   {s.shortTitle}
                 </span>
                 {/* Auto-progress underline */}
@@ -1074,8 +1154,8 @@ export const HeroDemoPanel = () => {
               <step.icon className="w-3.5 h-3.5" style={{ color: step.color }} />
             </div>
             <div>
-              <p className="text-[13px] font-bold leading-none" style={{ color: S10.navy }}>{step.title}</p>
-              <p className="text-[10px] mt-0.5" style={{ color: S10.mid }}>{step.description}</p>
+              <p className="text-[13px] font-extrabold leading-none" style={{ color: S10.navy }}>{step.title}</p>
+              <p className="text-[11px] font-medium mt-0.5" style={{ color: S10.teal }}>{step.description}</p>
             </div>
           </div>
           <motion.span key={currentStep}
