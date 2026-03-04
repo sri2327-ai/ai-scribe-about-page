@@ -189,7 +189,7 @@ const ProductShowcaseSection = () => {
   const { Illustration } = product;
 
   return (
-    <section className="py-20 md:py-32 overflow-hidden" style={{ background: '#FAFAF8' }}>
+    <section className="py-20 md:py-32 overflow-hidden border-t-4" style={{ background: '#F0F4F8', borderTopColor: '#387E89' }}>
       <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-16 max-w-7xl">
 
         {/* ── Product Switcher (Heidi-style) ── */}
