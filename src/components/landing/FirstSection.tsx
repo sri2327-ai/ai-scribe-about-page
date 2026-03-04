@@ -324,7 +324,7 @@ export const ScribeDemo = () => {
           <>
             <button onClick={startEncounter}
               className="flex-1 py-2.5 rounded-xl text-[11px] font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.9), rgba(88,166,255,0.8))', color: DK.bg }}>
+              style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
               {phase === 'done' ? '↺ New Encounter' : '▶ Start Encounter'}
             </button>
             {phase === 'done' && !ehrSynced && !ehrSyncing && (
@@ -514,7 +514,7 @@ export const ReceptionistDemo = () => {
         {phase !== 'calling' ? (
           <button onClick={startCall}
             className="flex-1 py-2.5 rounded-xl text-xs font-black transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.9), rgba(88,166,255,0.8))', color: DK.bg }}>
+            style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
             {phase === 'done' ? '↺ Replay Call' : '▶ Start Call'}
           </button>
         ) : (
@@ -684,7 +684,7 @@ export const CustomAgentsDemo = () => {
 
       <button onClick={running ? undefined : runAgents} disabled={running}
         className="w-full py-2.5 rounded-xl text-[11px] font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 flex-shrink-0"
-        style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.9), rgba(88,166,255,0.8))', color: DK.bg }}>
+        style={{ background: 'linear-gradient(135deg, #143151, #387E89)', color: '#fff' }}>
         {running ? '⚡ Running agents…' : done ? '↺ Run Again' : '▶ Deploy All Agents'}
       </button>
     </div>
