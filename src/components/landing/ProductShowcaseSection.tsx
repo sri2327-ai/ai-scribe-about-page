@@ -192,19 +192,18 @@ const ProductShowcaseSection = () => {
   const { Illustration } = product;
 
   return (
-    <section className="py-10 sm:py-14 md:py-20 overflow-hidden border-t-4 w-full" style={{ background: '#F0F4F8', borderTopColor: '#387E89' }}>
+    <section style={{ background: '#F0F4F8', borderTop: '4px solid #387E89', padding: '60px 0', display: 'block', width: '100%', position: 'relative' }}>
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 max-w-6xl mx-auto">
 
         {/* ── Header ── */}
         <div className="flex flex-col items-center mb-8 sm:mb-12 md:mb-16">
-          <motion.h2
+          <h2
             className="text-center font-black mb-4 sm:mb-6 leading-tight"
             style={{ color: S10.navy, fontSize: 'clamp(1.4rem, 3.5vw, 2.6rem)', letterSpacing: '-0.02em' }}
-            initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
             Smarter Notes. AI Agents —<br className="hidden sm:block" />{' '}
             <span style={{ color: S10.teal }}>Building Your Dream Team.</span>
-          </motion.h2>
+          </h2>
 
           {/* Product switcher */}
           <div className="flex items-center justify-center gap-4 sm:gap-8 md:gap-12 w-full mb-3 flex-wrap">
@@ -270,13 +269,7 @@ const ProductShowcaseSection = () => {
         </div>
 
         {/* ── Product Detail Card ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        <div
             className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-gray-100"
             style={{ background: '#fff' }}
           >
@@ -347,8 +340,7 @@ const ProductShowcaseSection = () => {
                 </button>
               </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
 
       </div>
     </section>
