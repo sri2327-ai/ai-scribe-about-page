@@ -553,7 +553,7 @@ export const ReceptionistDemo = () => {
                 <div className="flex items-center gap-1.5 mt-0.5">
                   {phase === 'calling' && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: DK.accent }} />}
                   <p className="text-[10px]" style={{ color: phase === 'calling' ? DK.accent : DK.muted }}>
-                    {phase === 'idle' ? '24/7 · Handles every inbound call' : phase === 'calling' ? 'Live call with Sarah M.' : 'Call complete · All tasks done'}
+                    {phase === 'idle' ? 'Inbound · Outbound · Scheduling · Refills · Transfers' : phase === 'calling' ? 'Live call with Sarah M. — Scheduling & refill' : 'Call complete · Appt booked · Refill sent'}
                   </p>
                 </div>
               </div>
@@ -567,24 +567,29 @@ export const ReceptionistDemo = () => {
           </div>
 
           {/* Sinusoidal wave visualization */}
-          <div className="flex-1 rounded-xl flex flex-col items-center justify-center gap-4 min-h-0 overflow-hidden"
+          <div className="flex-1 rounded-xl flex flex-col items-center justify-center min-h-0 overflow-hidden"
             style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
             {phase === 'idle' ? (
-              <div className="flex flex-col items-center gap-3 select-none">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center"
+              <div className="flex flex-col items-center gap-3 select-none py-6">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center"
                   style={{ background: 'rgba(56,189,174,0.08)', border: `1px solid rgba(56,189,174,0.2)` }}>
-                  <PhoneIcon className="w-7 h-7" style={{ color: DK.muted }} />
+                  <PhoneIcon className="w-6 h-6" style={{ color: DK.muted }} />
                 </div>
-                <p className="text-[11px]" style={{ color: DK.muted }}>Press Play to hear BRAVO</p>
+                <div className="text-center px-4">
+                  <p className="text-[11px] font-semibold" style={{ color: DK.muted }}>Press Play to hear BRAVO</p>
+                  <p className="text-[9.5px] mt-1 leading-relaxed" style={{ color: DK.muted, opacity: 0.7 }}>
+                    Inbound & outbound · Scheduling · Cancellations<br/>Refills · Transfers · Precharting & feedback
+                  </p>
+                </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center gap-3 w-full px-4">
+              <div className="flex flex-col items-center gap-2 w-full px-4 py-3">
                 <div className="text-center">
                   <p className="text-[12px] font-black" style={{ color: phase === 'calling' ? DK.accent : DK.text }}>
-                    {phase === 'calling' ? 'BRAVO is speaking…' : '✓ Call ended'}
+                    {phase === 'calling' ? 'Live call with Sarah M.' : '✓ Call ended · All tasks complete'}
                   </p>
                   {phase === 'calling' && (
-                    <p className="text-[9.5px] mt-0.5" style={{ color: DK.muted }}>Sarah M. · Appointment & Refill request</p>
+                    <p className="text-[9.5px] mt-0.5" style={{ color: DK.muted }}>Appointment scheduling & medication refill</p>
                   )}
                 </div>
                 <SinusoidalWaves isActive={phase === 'calling'} />
@@ -596,6 +601,20 @@ export const ReceptionistDemo = () => {
                         transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.25 }} />
                     ))}
                   </div>
+                )}
+                {/* HIPAA disclaimer */}
+                {phase === 'calling' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="flex items-start gap-1.5 px-3 py-2 rounded-lg w-full mt-1"
+                    style={{ background: 'rgba(20,49,81,0.04)', border: '1px solid rgba(20,49,81,0.08)' }}>
+                    <Shield className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: DK.muted, opacity: 0.7 }} />
+                    <p className="text-[9px] leading-snug" style={{ color: DK.muted, opacity: 0.8 }}>
+                      <span className="font-bold">Disclaimer:</span> Both patient and BRAVO voices are AI-generated. No real patient voices are used in this demo in compliance with HIPAA regulations.
+                    </p>
+                  </motion.div>
                 )}
               </div>
             )}
@@ -1029,8 +1048,8 @@ const demoSteps = [
     icon: PhoneIcon,
     shortTitle: 'AI Receptionist',
     title: 'BRAVO AI Receptionist',
-    description: 'Handles every inbound call 24/7 — listen to BRAVO in action',
-    badge: '24/7 availability',
+    description: 'Inbound & outbound calls · Scheduling, rescheduling, cancellations · Medication refills · Transfers · Precharting & feedback',
+    badge: '24/7 · Never misses a call',
     color: S10.teal,
     Demo: ReceptionistDemo,
   },
@@ -1158,7 +1177,7 @@ export const HeroDemoPanel = () => {
         </div>
 
         {/* ── Horizontal tab bar ── */}
-        <div className="flex border-b" style={{ borderColor: `rgba(20,49,81,0.08)`, background: 'linear-gradient(135deg, #F5EAF8 0%, #EAF0F9 55%, #E8EFF8 100%)' }}>
+        <div className="flex border-b" style={{ borderColor: `rgba(20,49,81,0.08)`, background: 'linear-gradient(135deg, #F2E8F6 0%, #EAF0F9 50%, #E6EDF6 100%)' }}>
           {demoSteps.map((s, i) => {
             const Icon = s.icon;
             const isActive = currentStep === i;
@@ -1166,26 +1185,30 @@ export const HeroDemoPanel = () => {
               <button
                 key={s.id}
                 onClick={() => handleTabClick(i)}
-                className="relative flex-1 flex flex-col items-center gap-1 px-2 pt-3 pb-2.5 transition-all duration-200"
-                style={{ borderBottom: isActive ? `2px solid ${s.color}` : '2px solid transparent', background: isActive ? `${s.color}06` : 'transparent' }}
+                className="relative flex-1 flex flex-col items-center gap-1 px-2 pt-3 pb-2.5 transition-all duration-200 hover:bg-white/40"
+                style={{
+                  borderBottom: isActive ? `2px solid ${s.color}` : '2px solid transparent',
+                  background: isActive ? 'rgba(255,255,255,0.75)' : 'transparent',
+                  boxShadow: isActive ? 'inset 0 -2px 0 0 transparent' : 'none',
+                }}
               >
                 {/* Icon */}
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200"
                   style={{
-                    background: isActive ? `${s.color}18` : 'transparent',
-                    border: isActive ? `1px solid ${s.color}30` : '1px solid transparent',
+                    background: isActive ? `${s.color}1a` : 'rgba(255,255,255,0.5)',
+                    border: isActive ? `1px solid ${s.color}35` : '1px solid rgba(20,49,81,0.06)',
                   }}>
                   <Icon className="w-3.5 h-3.5 transition-colors duration-200"
-                    style={{ color: isActive ? s.color : S10.mid }} />
+                    style={{ color: isActive ? s.color : '#7A8FA0' }} />
                 </div>
                 {/* Label */}
-                <span className="text-[10px] font-black leading-tight text-center transition-colors duration-200"
-                  style={{ color: isActive ? s.color : S10.navy, opacity: isActive ? 1 : 0.65 }}>
+                <span className="text-[10px] font-bold leading-tight text-center transition-all duration-200"
+                  style={{ color: isActive ? s.color : '#6B7C8D', opacity: isActive ? 1 : 0.75 }}>
                   {s.shortTitle}
                 </span>
                 {/* Auto-progress underline */}
                 {isActive && isAutoPlaying && (
-                  <div className="absolute bottom-0 left-0 h-0.5 rounded-full" style={{ background: s.color, width: `${tabProgress}%`, transition: 'none' }} />
+                  <div className="absolute bottom-0 left-0 h-[2px] rounded-full" style={{ background: s.color, width: `${tabProgress}%`, transition: 'none', opacity: 0.6 }} />
                 )}
               </button>
             );
