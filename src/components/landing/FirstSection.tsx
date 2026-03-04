@@ -1184,24 +1184,29 @@ export const HeroDemoPanel = () => {
               <button
                 key={s.id}
                 onClick={() => handleTabClick(i)}
-                className="relative flex-1 flex flex-col items-center gap-1 px-1 sm:px-2 pt-2.5 sm:pt-3 pb-2 sm:pb-2.5 transition-all duration-200"
+                className="relative flex-1 flex flex-col items-center gap-1.5 px-1 sm:px-2 pt-3 pb-2.5 transition-all duration-200"
                 style={{
-                  borderBottom: isActive ? `2.5px solid ${s.color}` : '2.5px solid transparent',
+                  borderBottom: isActive ? `3px solid ${s.color}` : '3px solid transparent',
                   background: isActive ? DK.elevated : 'transparent',
                 }}
               >
                 {/* Icon */}
-                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center transition-all duration-200"
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-all duration-200"
                   style={{
-                    background: isActive ? `${s.color}18` : 'transparent',
-                    border: isActive ? `1px solid ${s.color}30` : `1px solid transparent`,
+                    background: isActive ? `${s.color}20` : `${DK.muted}15`,
+                    border: isActive ? `1.5px solid ${s.color}40` : `1.5px solid transparent`,
                   }}>
-                  <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-colors duration-200"
+                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors duration-200"
                     style={{ color: isActive ? s.color : DK.muted }} />
                 </div>
                 {/* Label */}
-                <span className="text-[10px] sm:text-[12px] font-bold leading-tight text-center transition-all duration-200 block"
-                  style={{ color: isActive ? s.color : DK.muted, letterSpacing: isActive ? '0.01em' : 0 }}>
+                <span
+                  className="text-[11px] sm:text-[13px] leading-tight text-center transition-all duration-200 block w-full px-0.5"
+                  style={{
+                    color: isActive ? s.color : DK.muted,
+                    fontWeight: isActive ? 800 : 600,
+                    letterSpacing: isActive ? '0.01em' : 0,
+                  }}>
                   {s.shortTitle}
                 </span>
                 {/* Auto-progress underline */}
