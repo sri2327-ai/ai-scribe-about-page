@@ -181,7 +181,7 @@ const ProductShowcaseSection = () => {
 
   useEffect(() => {
     if (!autoplay) return;
-    const id = setInterval(advance, 4000);
+    const id = setInterval(advance, 7000);
     return () => clearInterval(id);
   }, [autoplay, advance]);
 
@@ -189,22 +189,23 @@ const ProductShowcaseSection = () => {
   const { Illustration } = product;
 
   return (
-    <section className="py-20 md:py-32 overflow-hidden border-t-4" style={{ background: '#F0F4F8', borderTopColor: '#387E89' }}>
-      <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-16 max-w-7xl">
+    <section className="py-12 sm:py-16 md:py-24 overflow-hidden border-t-4 w-full" style={{ background: '#F0F4F8', borderTopColor: '#387E89' }}>
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 max-w-6xl mx-auto">
 
         {/* ── Product Switcher (Heidi-style) ── */}
         <div className="flex flex-col items-center mb-14 md:mb-20">
-          {/* Label */}
-          <motion.p
-            className="text-xs font-bold tracking-[0.2em] uppercase mb-6"
-            style={{ color: S10.teal }}
+          {/* Section heading */}
+          <motion.h2
+            className="text-center font-black mb-6 leading-tight"
+            style={{ color: S10.navy, fontSize: 'clamp(1.6rem, 4vw, 3rem)', letterSpacing: '-0.02em' }}
             initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
-            Our Products
-          </motion.p>
+            Smarter Notes. AI Agents —<br className="hidden sm:block" />{' '}
+            <span style={{ color: S10.teal }}>Building Your Dream Team.</span>
+          </motion.h2>
 
           {/* Large product name switcher */}
-          <div className="flex items-center justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16 w-full mb-6">
+          <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 lg:gap-14 w-full mb-4 flex-wrap">
             {products.map((p, i) => {
               const isActive = i === active;
               const offset = i - active;
@@ -220,15 +221,14 @@ const ProductShowcaseSection = () => {
                   }}
                 >
                   <span
-                    className="font-black leading-none text-center whitespace-nowrap"
+                    className="font-black leading-none text-center"
                     style={{
-                      color: isActive ? S10.navy : S10.navy,
-                      fontSize: 'clamp(1.5rem, 4vw, 3.5rem)',
-                      fontStyle: isActive ? 'normal' : 'normal',
+                      color: S10.navy,
+                      fontSize: 'clamp(1.1rem, 3vw, 2.5rem)',
                       letterSpacing: '-0.02em',
                     }}
                   >
-                    {p.tag === 'CRUSH' ? 'AI Scribe' : p.tag === 'BRAVO' ? 'AI Receptionist' : 'Custom AI'}
+                    {p.tag === 'CRUSH' ? 'AI Scribe' : p.tag === 'BRAVO' ? 'AI Receptionist' : 'Custom AI Agents'}
                   </span>
                   {/* Active underline */}
                   <motion.div
@@ -328,20 +328,25 @@ const ProductShowcaseSection = () => {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
                 <a href={product.ctaHref}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[14px] font-bold text-white shadow-sm hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-[13px] font-bold text-white shadow-sm hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
                   style={{ background: product.gradient }}>
                   {product.cta}
                   <ArrowRight className="w-4 h-4" />
+                </a>
+                <a href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-[13px] font-bold text-white shadow-sm hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+                  style={{ background: `linear-gradient(135deg, ${S10.teal}, ${S10.mid})` }}>
+                  <Calendar className="w-4 h-4" /> Book a Demo
                 </a>
                 {/* Next product hint */}
                 {products.length > 1 && (
                   <button
                     onClick={() => { setActive((active + 1) % products.length); setAutoplay(false); }}
-                    className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl text-[13px] font-semibold border border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700 transition-all"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-[13px] font-semibold border border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700 transition-all"
                   >
-                    Next product <ChevronRight className="w-3.5 h-3.5" />
+                    Next <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 )}
               </div>
