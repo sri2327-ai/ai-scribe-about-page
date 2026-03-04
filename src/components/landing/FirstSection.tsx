@@ -71,28 +71,30 @@ const S10 = {
   light: '#A5CCF3',
 };
 
-// White glassmorphism design system — brand-matched
+// Design tokens extracted from reference screenshot
+// bg panel: #F4F7FA, cards: #FFFFFF, border: #D8E2EC, text: #1B2D42, muted: #6B7C8D, accent: #3DB8A0
 const DK = {
-  bg:       'rgba(255,255,255,0.92)',
-  surface:  'rgba(248,251,255,0.85)',
-  elevated: 'rgba(255,255,255,0.95)',
-  border:   'rgba(20,49,81,0.10)',
-  borderHi: 'rgba(56,126,137,0.28)',
-  text:     '#143151',
-  muted:    '#5192AE',
-  accent:   '#387E89',
+  bg:       '#F4F7FA',
+  surface:  '#F0F4F8',
+  elevated: '#FFFFFF',
+  border:   '#D8E2EC',
+  borderHi: '#B8CEDF',
+  text:     '#1B2D42',
+  muted:    '#6B7C8D',
+  accent:   '#3DB8A0',   // green-teal from screenshot checkmark/active indicator
   accent2:  '#5192AE',
+  iconBg:   '#E8EDF4',   // neutral icon circle bg from screenshot
 };
 
 const palette = {
-  blue:   { bg: '#EEF4FA', border: `${S10.mid}30`, text: S10.navy,  icon: S10.mid },
-  teal:   { bg: '#EBF5F6', border: `${S10.teal}35`, text: S10.teal, icon: S10.teal },
-  violet: { bg: '#EFF4FA', border: `${S10.navy}25`, text: S10.navy, icon: S10.navy },
-  amber:  { bg: '#F0F7F8', border: `${S10.teal}40`, text: S10.teal, icon: S10.teal },
-  rose:   { bg: '#EDF3F9', border: `${S10.mid}35`,  text: S10.mid,  icon: S10.mid },
-  emerald:{ bg: '#EBF5F6', border: `${S10.teal}30`, text: S10.teal, icon: S10.teal },
-  sky:    { bg: '#EFF6FC', border: `${S10.mid}30`,  text: S10.mid,  icon: S10.mid },
-  indigo: { bg: '#EEF3F9', border: `${S10.navy}20`, text: S10.navy, icon: S10.navy },
+  blue:   { bg: '#EEF4FA', border: '#C8D8E8', text: '#1B2D42', icon: '#5192AE' },
+  teal:   { bg: '#E8F5F2', border: '#B8DDD7', text: '#2A7A6A', icon: '#3DB8A0' },
+  violet: { bg: '#EEF2F8', border: '#C8D4E4', text: '#1B2D42', icon: '#1B2D42' },
+  amber:  { bg: '#EDF5F3', border: '#B8D8D2', text: '#2A7A6A', icon: '#3DB8A0' },
+  rose:   { bg: '#EDF3F9', border: '#C4D4E2', text: '#5192AE', icon: '#5192AE' },
+  emerald:{ bg: '#E8F5F2', border: '#B8DDD7', text: '#2A7A6A', icon: '#3DB8A0' },
+  sky:    { bg: '#EDF4FB', border: '#C4D4E8', text: '#5192AE', icon: '#5192AE' },
+  indigo: { bg: '#EEF2F8', border: '#C8D4E4', text: '#1B2D42', icon: '#1B2D42' },
 };
 
 // ─── Shared dark card wrapper ────────────────────────────────────────────────
