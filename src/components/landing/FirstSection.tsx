@@ -1154,11 +1154,11 @@ export const HeroDemoPanel = () => {
         {/* ── Headline banner ── */}
         <div
           className="px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #f0f4ff 0%, #eef2f8 50%, #f5f0ff 100%)' }}
+          style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}
         >
-          <p className="text-[15px] sm:text-[17px] font-bold tracking-tight text-center" style={{ color: S10.navy }}>
+          <p className="text-[15px] sm:text-[17px] font-bold tracking-tight text-center text-white">
             One AI Platform.{' '}
-            <span style={{ background: `linear-gradient(90deg, ${S10.navy}, ${S10.teal})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <span style={{ opacity: 0.85 }}>
               Every Task Automated.
             </span>
           </p>
