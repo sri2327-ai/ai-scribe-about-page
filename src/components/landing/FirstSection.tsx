@@ -161,7 +161,7 @@ export const ScribeDemo = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 sm:gap-3 h-[320px] sm:h-[400px] overflow-hidden">
+    <div className="flex flex-col gap-2 sm:gap-2.5 h-[320px] sm:h-[380px] overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-2.5 sm:gap-3 rounded-xl px-3 sm:px-3.5 py-2 sm:py-2.5 flex-shrink-0"
         style={{ background: 'rgba(56,189,174,0.07)', border: `1px solid ${phase !== 'idle' ? 'rgba(56,189,174,0.25)' : DK.border}` }}>
@@ -275,17 +275,17 @@ export const ScribeDemo = () => {
                   </motion.span>
                 )}
               </div>
-              <div className="px-3 py-2.5 space-y-2.5">
+              <div className="px-3 py-2 space-y-1.5">
                 {noteLines.map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }}
-                    className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[9px] font-black flex-shrink-0 mt-0.5"
+                    className="flex items-start gap-2.5">
+                    <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-black flex-shrink-0 mt-0.5"
                       style={{ background: item.color, boxShadow: `0 0 8px ${item.color}40` }}>
                       {item.abbr}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <span className="text-[9px] font-bold uppercase tracking-widest block leading-none mb-1" style={{ color: item.color }}>{item.label}</span>
-                      <span className="text-[11px] leading-snug" style={{ color: DK.text }}>{item.value}</span>
+                      <span className="text-[8.5px] font-bold uppercase tracking-widest block leading-none mb-0.5" style={{ color: item.color }}>{item.label}</span>
+                      <span className="text-[10.5px] leading-snug" style={{ color: DK.text }}>{item.value}</span>
                     </div>
                   </motion.div>
                 ))}
@@ -1153,15 +1153,10 @@ export const HeroDemoPanel = () => {
 
         {/* ── Headline banner ── */}
         <div
-          className="px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-center relative overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, #e8f4f6 0%, #ddeef7 40%, #e4edf8 70%, #eef5fb 100%)' }}
+          className="px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, #f0f4ff 0%, #eef2f8 50%, #f5f0ff 100%)' }}
         >
-          {/* Decorative blobs */}
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(56,126,137,0.25) 0%, transparent 70%)', filter: 'blur(8px)' }} />
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(20,49,81,0.20) 0%, transparent 70%)', filter: 'blur(6px)' }} />
-          <p className="text-[15px] sm:text-[17px] font-bold tracking-tight text-center relative z-10" style={{ color: S10.navy }}>
+          <p className="text-[15px] sm:text-[17px] font-bold tracking-tight text-center" style={{ color: S10.navy }}>
             One AI Platform.{' '}
             <span style={{ background: `linear-gradient(90deg, ${S10.navy}, ${S10.teal})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               Every Task Automated.
@@ -1180,13 +1175,13 @@ export const HeroDemoPanel = () => {
                   onClick={() => { setCurrentStep(i); setIsAutoPlaying(false); }}
                   className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-200"
                   style={{
-                    background: isActive ? `${s.color}18` : 'transparent',
-                    color: isActive ? s.color : '#9ca3af',
-                    boxShadow: isActive ? `0 0 0 1px ${s.color}30, 0 1px 4px ${s.color}20` : 'none',
+                    background: isActive ? 'white' : 'transparent',
+                    color: isActive ? S10.navy : '#6b7280',
+                    boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)' : 'none',
                     fontWeight: isActive ? 700 : 500,
                   }}
                 >
-                  <s.icon size={12} style={{ color: isActive ? s.color : '#9ca3af', opacity: isActive ? 1 : 0.7 }} />
+                  <s.icon size={12} style={{ opacity: isActive ? 1 : 0.6 }} />
                   <span className="hidden sm:inline">{s.shortTitle}</span>
                   <span className="sm:hidden">{s.shortTitle.split(' ')[0]}</span>
                 </button>
