@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Stethoscope, Brain, TrendingUp, Check, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, Stethoscope, Brain, TrendingUp, Check, ArrowRight, Zap } from 'lucide-react';
 
 const S10 = { navy: '#143151', teal: '#387E89', mid: '#5192AE', light: '#A5CCF3' };
 
@@ -10,8 +10,7 @@ const steps = [
     icon: Calendar,
     title: 'AI Scheduling & Access',
     subtitle: 'Front-door automation',
-    color: S10.teal,
-    bgAccent: `${S10.teal}12`,
+    color: '#387E89',
     bullets: [
       'AI handles all inbound calls & bookings',
       'Syncs EHR, SIP & practice management',
@@ -23,8 +22,7 @@ const steps = [
     icon: Clock,
     title: 'Pre-Visit Automation',
     subtitle: 'Prep before they arrive',
-    color: S10.mid,
-    bgAccent: `${S10.mid}12`,
+    color: '#5192AE',
     bullets: [
       'Digital intake & insurance verification',
       'AI-powered pre-charting insights',
@@ -36,8 +34,7 @@ const steps = [
     icon: Stethoscope,
     title: 'During the Visit',
     subtitle: 'Hands-free documentation',
-    color: S10.teal,
-    bgAccent: `${S10.teal}12`,
+    color: '#387E89',
     bullets: [
       'Real-time ambient AI scribing',
       'Context-aware clinical notes',
@@ -49,8 +46,7 @@ const steps = [
     icon: Brain,
     title: 'Post-Visit Automation',
     subtitle: 'Close the loop instantly',
-    color: S10.mid,
-    bgAccent: `${S10.mid}12`,
+    color: '#5192AE',
     bullets: [
       'Auto ICD-10, CPT & HCC coding',
       'Orders sent directly to EHR',
@@ -62,8 +58,7 @@ const steps = [
     icon: TrendingUp,
     title: 'Faster Revenue Cycle',
     subtitle: 'Get paid, automatically',
-    color: S10.teal,
-    bgAccent: `${S10.teal}12`,
+    color: '#387E89',
     bullets: [
       'Real-time insurance eligibility checks',
       'AI-assisted claims processing',
@@ -73,194 +68,155 @@ const steps = [
 ];
 
 const WorkflowPipelineSection = () => {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section className="relative py-16 sm:py-20 md:py-28 bg-white overflow-hidden">
-      {/* Top border accent */}
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${S10.teal}40, transparent)` }} />
+    <section className="relative py-20 md:py-32 overflow-hidden" style={{ background: '#0B1F35' }}>
+      {/* Background texture */}
+      <div className="absolute inset-0 pointer-events-none opacity-30"
+        style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #387E8918 0%, transparent 50%), radial-gradient(circle at 80% 20%, #5192AE14 0%, transparent 50%)' }} />
+      {/* Grid lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
-      {/* Soft radial bg */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${S10.teal}05 0%, transparent 70%)` }} />
-
-      <div className="relative w-full px-4 sm:px-6 md:px-10 lg:px-16 max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
 
         {/* ── Header ── */}
-        <motion.div
-          className="text-center mb-12 sm:mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Label pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-5 text-[11px] sm:text-[12px] font-bold tracking-widest uppercase"
-            style={{ borderColor: `${S10.teal}40`, color: S10.teal, background: `${S10.teal}08` }}>
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: S10.teal }} />
+        <motion.div className="text-center mb-16 md:mb-24"
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+          
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 text-[11px] font-bold tracking-widest uppercase"
+            style={{ borderColor: '#387E8950', color: '#A5CCF3', background: '#387E8914' }}>
+            <Zap className="w-3 h-3" style={{ color: '#387E89' }} />
             End-to-End Clinical Workflow
           </div>
 
-          <h2 className="font-black leading-tight tracking-tight mb-4"
-            style={{ color: S10.navy, fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', letterSpacing: '-0.02em' }}>
+          <h2 className="font-black leading-tight tracking-tight mb-5 text-white"
+            style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', letterSpacing: '-0.025em' }}>
             One Platform.{' '}
-            <span style={{ color: S10.teal }}>Every Step of the Visit.</span>
+            <span style={{ background: 'linear-gradient(90deg, #387E89, #A5CCF3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Every Step of the Visit.
+            </span>
           </h2>
-          <p className="max-w-2xl mx-auto text-sm sm:text-base leading-relaxed" style={{ color: '#64748B' }}>
-            Most AI tools cover one part of the visit. S10.AI covers all of it — from the first call to the final claim,{' '}
-            <strong style={{ color: S10.navy }}>fully automated.</strong>
+          <p className="max-w-xl mx-auto text-sm sm:text-base leading-relaxed" style={{ color: '#94A3B8' }}>
+            From the first call to the final claim — fully automated, zero manual work.
           </p>
         </motion.div>
 
-        {/* ── Desktop Pipeline (hidden on mobile) ── */}
+        {/* ── Desktop: Horizontal Pipeline ── */}
         <div className="hidden md:block">
-          {/* Step cards row */}
-          <div className="grid grid-cols-5 gap-4 lg:gap-6 items-start">
+          <div className="grid grid-cols-5 gap-3 lg:gap-5 relative">
+            {/* Connector line behind cards */}
+            <div className="absolute top-[52px] left-[10%] right-[10%] h-px pointer-events-none"
+              style={{ background: 'linear-gradient(90deg, transparent, #387E8940, #5192AE40, #387E8940, transparent)' }} />
+
             {steps.map((step, i) => {
               const Icon = step.icon;
-              const isHov = hovered === i;
+              const isActive = active === i;
               return (
                 <motion.div
                   key={i}
-                  className="flex flex-col items-center text-center gap-3 cursor-default relative"
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                  initial={{ opacity: 0, y: 28 }}
+                  className="relative flex flex-col items-center text-center gap-4 rounded-2xl p-4 lg:p-5 cursor-default transition-all duration-300"
+                  style={{
+                    background: isActive ? `linear-gradient(145deg, #143151, #1a3d55)` : 'rgba(255,255,255,0.04)',
+                    border: isActive ? `1px solid ${step.color}60` : '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: isActive ? `0 20px 50px ${step.color}25` : 'none',
+                  }}
+                  onMouseEnter={() => setActive(i)}
+                  onMouseLeave={() => setActive(null)}
+                  initial={{ opacity: 0, y: 32 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
                   {/* Step number */}
-                  <span className="text-[11px] font-black tracking-widest mb-1 transition-colors duration-300"
-                    style={{ color: isHov ? step.color : '#CBD5E1' }}>
+                  <span className="text-[10px] font-black tracking-widest absolute top-3 right-3"
+                    style={{ color: isActive ? step.color : 'rgba(255,255,255,0.2)' }}>
                     {step.number}
                   </span>
 
-                  {/* Icon box */}
+                  {/* Icon */}
                   <motion.div
-                    className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center shadow-sm border-2 transition-all duration-300"
+                    className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center mt-2"
                     animate={{
-                      background: isHov ? `linear-gradient(135deg, ${S10.navy}, ${step.color})` : '#F8FAFC',
-                      borderColor: isHov ? 'transparent' : '#E2E8F0',
-                      boxShadow: isHov ? `0 12px 32px ${step.color}30` : '0 1px 3px rgba(0,0,0,0.06)',
-                      y: isHov ? -4 : 0,
+                      background: isActive ? `linear-gradient(135deg, ${step.color}, ${S10.navy})` : 'rgba(255,255,255,0.07)',
+                      scale: isActive ? 1.08 : 1,
                     }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25 }}
                   >
-                    <Icon
-                      className="w-7 h-7 lg:w-8 lg:h-8 transition-colors duration-300"
-                      style={{ color: isHov ? '#fff' : step.color }}
-                      strokeWidth={1.75}
-                    />
+                    <Icon className="w-6 h-6 lg:w-7 lg:h-7" style={{ color: isActive ? '#fff' : step.color }} strokeWidth={1.75} />
                   </motion.div>
 
                   {/* Title */}
                   <div>
-                    <h3 className="text-[13px] lg:text-[14px] font-black leading-snug transition-colors duration-300"
-                      style={{ color: isHov ? step.color : S10.navy }}>
-                      {step.title}
-                    </h3>
-                    <p className="text-[10px] lg:text-[11px] font-medium mt-0.5" style={{ color: '#94A3B8' }}>
-                      {step.subtitle}
-                    </p>
+                    <h3 className="text-[12px] lg:text-[13px] font-black leading-tight text-white">{step.title}</h3>
+                    <p className="text-[10px] font-medium mt-0.5" style={{ color: '#64748B' }}>{step.subtitle}</p>
                   </div>
 
                   {/* Divider */}
-                  <div className="w-full h-px" style={{ background: `${step.color}20` }} />
+                  <div className="w-full h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
 
                   {/* Bullets */}
-                  <ul className="flex flex-col gap-2 w-full text-left">
+                  <ul className="flex flex-col gap-1.5 w-full text-left">
                     {step.bullets.map((b, j) => (
-                      <motion.li
-                        key={j}
-                        className="flex items-start gap-2 text-[11px] lg:text-[12px] leading-snug"
-                        style={{ color: '#475569' }}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.08 + j * 0.05 + 0.3 }}
-                      >
+                      <li key={j} className="flex items-start gap-2 text-[10px] lg:text-[11px] leading-snug" style={{ color: '#94A3B8' }}>
                         <Check className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: step.color }} strokeWidth={2.5} />
                         {b}
-                      </motion.li>
+                      </li>
                     ))}
                   </ul>
+
+                  {/* Arrow connector (between cards) */}
+                  {i < steps.length - 1 && (
+                    <div className="absolute -right-3 lg:-right-4 top-[52px] z-10">
+                      <motion.div animate={{ x: [0, 3, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}>
+                        <div className="w-6 h-6 rounded-full flex items-center justify-center"
+                          style={{ background: '#0B1F35', border: `1px solid ${step.color}50` }}>
+                          <ArrowRight className="w-3 h-3" style={{ color: step.color }} />
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
                 </motion.div>
               );
             })}
           </div>
-
-          {/* Animated connector bar under icons */}
-          <div className="relative mt-[-13.5rem] mb-[13.5rem] pointer-events-none">
-            <div className="grid grid-cols-5 gap-4 lg:gap-6">
-              {steps.map((step, i) => (
-                <div key={i} className="flex justify-center">
-                  {i < steps.length - 1 && (
-                    <div className="absolute" style={{ left: `calc(${(i + 1) * 20}% - 12px)`, top: '4.5rem' }}>
-                      <div className="flex items-center gap-[3px]">
-                        {[...Array(5)].map((_, d) => (
-                          <motion.div
-                            key={d}
-                            className="w-2 h-0.5 rounded-full"
-                            style={{ background: `${step.color}50` }}
-                            animate={{ opacity: [0.2, 1, 0.2] }}
-                            transition={{ duration: 1.8, delay: d * 0.18, repeat: Infinity }}
-                          />
-                        ))}
-                        <motion.div
-                          animate={{ x: [0, 6, 0] }}
-                          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                          <ArrowRight className="w-3 h-3" style={{ color: `${step.color}70` }} />
-                        </motion.div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* ── Mobile: Vertical card list ── */}
-        <div className="md:hidden flex flex-col gap-4">
+        {/* ── Mobile: Vertical timeline ── */}
+        <div className="md:hidden flex flex-col gap-0">
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
               <motion.div
                 key={i}
-                className="flex gap-4 p-4 rounded-2xl border bg-white shadow-sm"
-                style={{ borderColor: `${step.color}25` }}
-                initial={{ opacity: 0, x: -16 }}
+                className="flex gap-4"
+                initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.08 }}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
               >
-                {/* Left: number + icon */}
-                <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
-                  <span className="text-[10px] font-black tracking-widest" style={{ color: `${step.color}80` }}>
-                    {step.number}
-                  </span>
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: step.bgAccent }}>
-                    <Icon className="w-5 h-5" style={{ color: step.color }} strokeWidth={1.75} />
+                {/* Timeline spine */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: `linear-gradient(135deg, ${step.color}30, ${step.color}10)`, border: `1px solid ${step.color}40` }}>
+                    <Icon className="w-4.5 h-4.5" style={{ color: step.color }} strokeWidth={1.75} />
                   </div>
                   {i < steps.length - 1 && (
-                    <div className="w-px flex-1 mt-1 min-h-[20px]" style={{ background: `${step.color}20` }} />
+                    <div className="w-px flex-1 my-2 min-h-[32px]" style={{ background: `linear-gradient(${step.color}50, transparent)` }} />
                   )}
                 </div>
 
-                {/* Right: content */}
-                <div className="flex-1 pt-0.5">
-                  <h3 className="text-[14px] font-black leading-tight" style={{ color: S10.navy }}>
-                    {step.title}
-                  </h3>
-                  <p className="text-[11px] font-medium mb-2.5" style={{ color: '#94A3B8' }}>
-                    {step.subtitle}
-                  </p>
+                {/* Content */}
+                <div className="flex-1 pb-6">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[9px] font-black tracking-widest" style={{ color: `${step.color}80` }}>{step.number}</span>
+                    <h3 className="text-[14px] font-black text-white">{step.title}</h3>
+                  </div>
+                  <p className="text-[11px] font-medium mb-3" style={{ color: '#64748B' }}>{step.subtitle}</p>
                   <ul className="flex flex-col gap-1.5">
                     {step.bullets.map((b, j) => (
-                      <li key={j} className="flex items-start gap-2 text-[12px] leading-snug" style={{ color: '#475569' }}>
+                      <li key={j} className="flex items-start gap-2 text-[12px] leading-snug" style={{ color: '#94A3B8' }}>
                         <Check className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: step.color }} strokeWidth={2.5} />
                         {b}
                       </li>
@@ -274,19 +230,16 @@ const WorkflowPipelineSection = () => {
 
         {/* ── Bottom CTA ── */}
         <motion.div
-          className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-16 md:mt-20 flex flex-col sm:flex-row items-center justify-center gap-4"
+          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <p className="text-sm text-center sm:text-left font-medium" style={{ color: '#64748B' }}>
+          <p className="text-sm text-center font-medium" style={{ color: '#64748B' }}>
             Ready to automate your entire clinical workflow?
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[13px] font-bold text-white shadow-md hover:opacity-90 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200"
-            style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-[13px] font-bold text-white shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
+            style={{ background: `linear-gradient(135deg, #387E89, #5192AE)`, boxShadow: '0 8px 28px rgba(56,126,137,0.35)' }}
           >
             <Calendar className="w-4 h-4" />
             Book a Free Demo
