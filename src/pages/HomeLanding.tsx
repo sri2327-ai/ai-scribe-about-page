@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { HeroDemoPanel } from '@/components/landing/FirstSection';
 import ProductShowcaseSection from '@/components/landing/ProductShowcaseSection';
 import WorkflowPipelineSection from '@/components/landing/WorkflowPipelineSection';
+import LiveStatsSection from '@/components/landing/LiveStatsSection';
 
 // ─── Brand Colors ────────────────────────────────────────────────────────────
 const S10 = { navy: '#143151', teal: '#387E89', mid: '#5192AE', light: '#A5CCF3' };
@@ -158,6 +159,7 @@ const HomeLanding = () => {
 
       <ProductShowcaseSection />
       <WorkflowPipelineSection />
+      <LiveStatsSection />
       <Footer />
     </div>
   );
