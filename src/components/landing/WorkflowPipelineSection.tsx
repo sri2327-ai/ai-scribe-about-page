@@ -73,12 +73,12 @@ const WorkflowPipelineSection = () => {
   return (
     <section
       className="relative py-16 md:py-24 overflow-hidden"
-      style={{ background: '#ffffff', borderTop: '1px solid #E2E8F0' }}
+      style={{ background: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}
     >
-      {/* Subtle top accent line matching ProductShowcase */}
+      {/* Top accent */}
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${S10.teal}, ${S10.mid})` }} />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Header ── */}
         <motion.div
@@ -86,19 +86,19 @@ const WorkflowPipelineSection = () => {
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}
         >
           <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase mb-4"
-            style={{ background: `${S10.teal}12`, color: S10.teal, border: `1px solid ${S10.teal}30` }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5"
+            style={{ background: `${S10.teal}15`, color: S10.teal, border: `1px solid ${S10.teal}35` }}
           >
             End-to-End Clinical Workflow
           </div>
           <h2
-            className="font-black leading-tight tracking-tight mb-3"
-            style={{ color: S10.navy, fontSize: 'clamp(1.5rem, 3.5vw, 2.6rem)', letterSpacing: '-0.02em' }}
+            className="font-black leading-tight tracking-tight mb-4"
+            style={{ color: S10.navy, fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', letterSpacing: '-0.02em' }}
           >
             One Platform.{' '}
             <span style={{ color: S10.teal }}>Every Step of the Visit.</span>
           </h2>
-          <p className="max-w-lg mx-auto text-sm sm:text-base leading-relaxed" style={{ color: '#64748B' }}>
+          <p className="max-w-xl mx-auto text-base leading-relaxed" style={{ color: '#475569' }}>
             From the first call to the final claim — fully automated, zero manual work.
           </p>
         </motion.div>
@@ -106,11 +106,6 @@ const WorkflowPipelineSection = () => {
         {/* ── Desktop: 5-column pipeline ── */}
         <div className="hidden md:block">
           <div className="grid grid-cols-5 gap-3 lg:gap-4 relative">
-            {/* Connector line */}
-            <div
-              className="absolute top-[44px] left-[9%] right-[9%] h-px pointer-events-none"
-              style={{ background: `linear-gradient(90deg, transparent, ${S10.teal}40, ${S10.mid}40, ${S10.teal}40, transparent)` }}
-            />
 
             {steps.map((step, i) => {
               const Icon = step.icon;
@@ -118,11 +113,18 @@ const WorkflowPipelineSection = () => {
               return (
                 <motion.div
                   key={i}
-                  className="relative flex flex-col items-center text-center gap-3 rounded-2xl p-4 lg:p-5 cursor-default transition-all duration-300"
+                  className="relative flex flex-col items-center text-center gap-4 rounded-2xl p-5 cursor-default transition-all duration-300"
                   style={{
-                    background: isActive ? `linear-gradient(145deg, ${S10.navy}06, ${step.color}08)` : '#F8FAFC',
-                    border: isActive ? `1.5px solid ${step.color}50` : '1.5px solid #E2E8F0',
-                    boxShadow: isActive ? `0 8px 32px ${step.color}18` : '0 1px 4px rgba(0,0,0,0.04)',
+                    background: isActive
+                      ? `linear-gradient(160deg, #fff 0%, ${step.color}08 100%)`
+                      : '#ffffff',
+                    border: isActive
+                      ? `2px solid ${step.color}60`
+                      : '2px solid #E2E8F0',
+                    boxShadow: isActive
+                      ? `0 12px 40px ${step.color}20`
+                      : '0 2px 8px rgba(0,0,0,0.06)',
+                    transform: isActive ? 'translateY(-2px)' : 'none',
                   }}
                   onMouseEnter={() => setActive(i)}
                   onMouseLeave={() => setActive(null)}
@@ -131,57 +133,59 @@ const WorkflowPipelineSection = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: i * 0.09 }}
                 >
-                  {/* Step number */}
-                  <span
-                    className="text-[9px] font-black tracking-widest absolute top-3 right-3"
-                    style={{ color: isActive ? step.color : '#CBD5E1' }}
+                  {/* Step number badge */}
+                  <div
+                    className="absolute top-3 right-3 text-[11px] font-black tracking-widest px-1.5 py-0.5 rounded-md"
+                    style={{
+                      background: isActive ? `${step.color}18` : '#F1F5F9',
+                      color: isActive ? step.color : '#94A3B8',
+                    }}
                   >
                     {step.number}
-                  </span>
+                  </div>
 
                   {/* Icon circle */}
-                  <motion.div
-                    className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl flex items-center justify-center mt-1"
-                    animate={{
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center mt-1 transition-all duration-300"
+                    style={{
                       background: isActive
                         ? `linear-gradient(135deg, ${step.color}, ${S10.navy})`
-                        : `${step.color}14`,
+                        : `${step.color}18`,
                     }}
-                    transition={{ duration: 0.22 }}
                   >
                     <Icon
-                      className="w-5 h-5 lg:w-6 lg:h-6"
+                      className="w-7 h-7"
                       style={{ color: isActive ? '#fff' : step.color }}
                       strokeWidth={1.75}
                     />
-                  </motion.div>
+                  </div>
 
-                  {/* Title */}
+                  {/* Title & subtitle */}
                   <div>
                     <h3
-                      className="text-[12px] lg:text-[13px] font-black leading-tight"
+                      className="text-[14px] lg:text-[15px] font-bold leading-tight mb-1"
                       style={{ color: S10.navy }}
                     >
                       {step.title}
                     </h3>
-                    <p className="text-[10px] font-medium mt-0.5" style={{ color: '#94A3B8' }}>
+                    <p className="text-[12px] font-medium" style={{ color: '#64748B' }}>
                       {step.subtitle}
                     </p>
                   </div>
 
                   {/* Divider */}
-                  <div className="w-full h-px" style={{ background: '#E2E8F0' }} />
+                  <div className="w-full h-px" style={{ background: '#E8EFF4' }} />
 
                   {/* Bullets */}
-                  <ul className="flex flex-col gap-1.5 w-full text-left">
+                  <ul className="flex flex-col gap-2 w-full text-left">
                     {step.bullets.map((b, j) => (
                       <li
                         key={j}
-                        className="flex items-start gap-1.5 text-[10px] lg:text-[11px] leading-snug"
-                        style={{ color: '#475569' }}
+                        className="flex items-start gap-2 text-[12px] lg:text-[13px] leading-snug"
+                        style={{ color: '#334155' }}
                       >
                         <Check
-                          className="w-3 h-3 flex-shrink-0 mt-0.5"
+                          className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
                           style={{ color: step.color }}
                           strokeWidth={2.5}
                         />
@@ -190,14 +194,17 @@ const WorkflowPipelineSection = () => {
                     ))}
                   </ul>
 
-                  {/* Arrow between cards */}
+                  {/* Connector arrow */}
                   {i < steps.length - 1 && (
-                    <div className="absolute -right-3 lg:-right-[14px] top-[44px] z-10">
+                    <div className="absolute -right-[14px] top-[56px] z-10">
                       <div
-                        className="w-5 h-5 rounded-full flex items-center justify-center"
-                        style={{ background: '#fff', border: `1px solid ${step.color}40` }}
+                        className="w-6 h-6 rounded-full flex items-center justify-center shadow-sm"
+                        style={{
+                          background: '#fff',
+                          border: `1.5px solid ${step.color}50`,
+                        }}
                       >
-                        <ChevronRight className="w-3 h-3" style={{ color: step.color }} strokeWidth={2} />
+                        <ChevronRight className="w-3.5 h-3.5" style={{ color: step.color }} strokeWidth={2.5} />
                       </div>
                     </div>
                   )}
@@ -223,41 +230,47 @@ const WorkflowPipelineSection = () => {
                 {/* Spine */}
                 <div className="flex flex-col items-center flex-shrink-0">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{
-                      background: `${step.color}12`,
-                      border: `1.5px solid ${step.color}35`,
+                      background: `linear-gradient(135deg, ${step.color}20, ${step.color}08)`,
+                      border: `2px solid ${step.color}40`,
                     }}
                   >
-                    <Icon className="w-4.5 h-4.5" style={{ color: step.color }} strokeWidth={1.75} />
+                    <Icon className="w-5 h-5" style={{ color: step.color }} strokeWidth={1.75} />
                   </div>
                   {i < steps.length - 1 && (
                     <div
-                      className="w-px flex-1 my-2 min-h-[28px]"
-                      style={{ background: `linear-gradient(${step.color}40, transparent)` }}
+                      className="w-0.5 flex-1 my-2 min-h-[32px]"
+                      style={{ background: `linear-gradient(${step.color}60, transparent)` }}
                     />
                   )}
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 pb-5">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[9px] font-black tracking-widest" style={{ color: `${step.color}80` }}>
+                <div
+                  className="flex-1 pb-5 rounded-xl p-4 mb-3"
+                  style={{ background: '#fff', border: '1.5px solid #E2E8F0' }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span
+                      className="text-[10px] font-black tracking-widest px-1.5 py-0.5 rounded"
+                      style={{ background: `${step.color}15`, color: step.color }}
+                    >
                       {step.number}
                     </span>
-                    <h3 className="text-[14px] font-black" style={{ color: S10.navy }}>
+                    <h3 className="text-[15px] font-bold" style={{ color: S10.navy }}>
                       {step.title}
                     </h3>
                   </div>
-                  <p className="text-[11px] font-medium mb-2.5" style={{ color: '#94A3B8' }}>{step.subtitle}</p>
-                  <ul className="flex flex-col gap-1.5">
+                  <p className="text-[12px] font-medium mb-3" style={{ color: '#64748B' }}>{step.subtitle}</p>
+                  <ul className="flex flex-col gap-2">
                     {step.bullets.map((b, j) => (
                       <li
                         key={j}
-                        className="flex items-start gap-2 text-[12px] leading-snug"
-                        style={{ color: '#475569' }}
+                        className="flex items-start gap-2 text-[13px] leading-snug"
+                        style={{ color: '#334155' }}
                       >
-                        <Check className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: step.color }} strokeWidth={2.5} />
+                        <Check className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: step.color }} strokeWidth={2.5} />
                         {b}
                       </li>
                     ))}
@@ -270,7 +283,7 @@ const WorkflowPipelineSection = () => {
 
         {/* ── CTA ── */}
         <motion.div
-          className="mt-12 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+          className="mt-12 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
           initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: 0.25 }}
         >
           <p className="text-sm text-center font-medium" style={{ color: '#64748B' }}>
@@ -278,12 +291,12 @@ const WorkflowPipelineSection = () => {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[13px] font-bold text-white shadow-sm hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white shadow-md hover:opacity-90 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200"
             style={{ background: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})` }}
           >
             <Calendar className="w-4 h-4" />
             Book a Free Demo
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </a>
         </motion.div>
       </div>
