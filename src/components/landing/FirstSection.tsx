@@ -1175,13 +1175,13 @@ export const HeroDemoPanel = () => {
                   onClick={() => { setCurrentStep(i); setIsAutoPlaying(false); }}
                   className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-200"
                   style={{
-                    background: isActive ? 'white' : 'transparent',
-                    color: isActive ? S10.navy : '#6b7280',
-                    boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)' : 'none',
+                    background: isActive ? `${s.color}18` : 'transparent',
+                    color: isActive ? s.color : '#9ca3af',
+                    boxShadow: isActive ? `0 0 0 1px ${s.color}30, 0 1px 4px ${s.color}20` : 'none',
                     fontWeight: isActive ? 700 : 500,
                   }}
                 >
-                  <s.icon size={12} style={{ opacity: isActive ? 1 : 0.6 }} />
+                  <s.icon size={12} style={{ color: isActive ? s.color : '#9ca3af', opacity: isActive ? 1 : 0.7 }} />
                   <span className="hidden sm:inline">{s.shortTitle}</span>
                   <span className="sm:hidden">{s.shortTitle.split(' ')[0]}</span>
                 </button>
