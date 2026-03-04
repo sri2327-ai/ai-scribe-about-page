@@ -1154,7 +1154,7 @@ export const HeroDemoPanel = () => {
         {/* ── Headline banner ── */}
         <div
           className="px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #f0f4ff 0%, #eef2f8 50%, #f5f0ff 100%)' }}
+          style={{ background: 'linear-gradient(135deg, rgba(20,49,81,0.07) 0%, rgba(56,126,137,0.10) 40%, rgba(81,146,174,0.08) 70%, rgba(165,204,243,0.12) 100%)' }}
         >
           <p className="text-[15px] sm:text-[17px] font-bold tracking-tight text-center" style={{ color: S10.navy }}>
             One AI Platform.{' '}
