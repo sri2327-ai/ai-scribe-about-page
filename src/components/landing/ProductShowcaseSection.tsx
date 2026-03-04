@@ -192,8 +192,11 @@ const ProductShowcaseSection = () => {
   const { Illustration } = product;
 
   return (
-    <section style={{ background: '#F0F4F8', borderTop: '4px solid #387E89', padding: '60px 0', display: 'block', width: '100%', position: 'relative' }}>
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 max-w-6xl mx-auto">
+    <section className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #F8FAFC 0%, #EEF4F8 100%)', borderTop: '1px solid #E2EBF0', padding: '72px 0' }}>
+      {/* Decorative blob */}
+      <div className="absolute top-0 right-0 w-[600px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(ellipse at 80% 20%, rgba(56,126,137,0.07) 0%, transparent 60%)' }} />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[300px] pointer-events-none" style={{ background: 'radial-gradient(ellipse at 20% 80%, rgba(20,49,81,0.04) 0%, transparent 60%)' }} />
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 max-w-6xl mx-auto relative">
 
         {/* ── Header ── */}
         <div className="flex flex-col items-center mb-8 sm:mb-12 md:mb-16">
@@ -269,16 +272,29 @@ const ProductShowcaseSection = () => {
         </div>
 
         {/* ── Product Detail Card ── */}
-        <div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-gray-100"
-            style={{ background: '#fff' }}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden border"
+            style={{
+              background: '#fff',
+              borderColor: `${product.color}28`,
+              boxShadow: `0 4px 32px ${product.color}14, 0 1px 4px rgba(20,49,81,0.06)`,
+            }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.38 }}
           >
             {/* Left: Illustration */}
-            <div className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-[440px] flex items-center justify-center"
-              style={{ background: `linear-gradient(135deg, ${S10.navy}08 0%, ${product.color}10 100%)` }}>
-              <div className="absolute top-4 left-4 sm:top-5 sm:left-5">
-                <span className="text-[10px] sm:text-[11px] font-black tracking-widest px-2.5 sm:px-3 py-1 rounded-full"
-                  style={{ background: `${product.color}18`, color: product.color }}>
+            <div className="relative min-h-[220px] sm:min-h-[300px] lg:min-h-[460px] flex items-center justify-center overflow-hidden"
+              style={{ background: `linear-gradient(145deg, ${S10.navy}06 0%, ${product.color}12 100%)` }}>
+              {/* Decorative circle */}
+              <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
+                style={{ background: `radial-gradient(circle, ${product.color}12 0%, transparent 70%)` }} />
+              <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10">
+                <span className="text-[10px] sm:text-[11px] font-black tracking-widest px-3 py-1.5 rounded-full backdrop-blur-sm"
+                  style={{ background: `${product.color}20`, color: product.color, border: `1px solid ${product.color}30` }}>
                   {product.tag}
                 </span>
               </div>
@@ -288,21 +304,21 @@ const ProductShowcaseSection = () => {
             </div>
 
             {/* Right: Content */}
-            <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10 gap-4 sm:gap-5">
+            <div className="flex flex-col justify-center p-6 sm:p-9 lg:p-11 gap-5">
               <div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-black leading-tight tracking-tight whitespace-pre-line" style={{ color: S10.navy }}>
+                <h3 className="text-xl sm:text-2xl lg:text-[1.85rem] font-black leading-tight tracking-tight whitespace-pre-line" style={{ color: S10.navy }}>
                   {product.displayName}
                 </h3>
-                <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 leading-relaxed">{product.description}</p>
+                <p className="mt-3 text-[13px] sm:text-sm leading-relaxed" style={{ color: '#64748B' }}>{product.description}</p>
               </div>
 
               {/* Bullets */}
-              <ul className="space-y-2">
+              <ul className="space-y-2.5">
                 {product.bullets.map((b, i) => (
-                  <li key={i} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-[13px] text-gray-700">
-                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{ background: `${product.color}18` }}>
-                      <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3" style={{ color: product.color }} strokeWidth={3} />
+                  <li key={i} className="flex items-start gap-3 text-[13px] leading-snug" style={{ color: '#334155' }}>
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                      style={{ background: `${product.color}15`, border: `1px solid ${product.color}30` }}>
+                      <Check className="w-2.5 h-2.5" style={{ color: product.color }} strokeWidth={3} />
                     </span>
                     {b}
                   </li>
@@ -310,37 +326,39 @@ const ProductShowcaseSection = () => {
               </ul>
 
               {/* Stats */}
-              <div className="flex gap-6 sm:gap-8 py-3 sm:py-4 border-t border-b border-gray-100">
+              <div className="flex gap-8 py-4 border-t border-b" style={{ borderColor: `${product.color}18` }}>
                 {product.stats.map((s, i) => (
                   <div key={i} className="flex flex-col">
-                    <span className="text-2xl sm:text-3xl font-black leading-none" style={{ color: S10.navy }}>{s.value}</span>
-                    <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium mt-1">{s.label}</span>
+                    <span className="text-2xl sm:text-3xl font-black leading-none tracking-tight" style={{ color: S10.navy }}>{s.value}</span>
+                    <span className="text-[11px] font-medium mt-1" style={{ color: '#94A3B8' }}>{s.label}</span>
                   </div>
                 ))}
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 <a href={product.ctaHref}
-                  className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-[13px] font-bold text-white shadow-sm hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-[13px] font-bold text-white shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   style={{ background: product.gradient }}>
                   {product.cta}
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
                 <a href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-[13px] font-bold text-white shadow-sm hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
-                  style={{ background: `linear-gradient(135deg, ${S10.teal}, ${S10.mid})` }}>
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-[13px] font-bold border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  style={{ borderColor: `${product.color}40`, color: product.color, background: `${product.color}06` }}>
                   <Calendar className="w-3.5 h-3.5" /> Book a Demo
                 </a>
                 <button
                   onClick={() => { setActive((active + 1) % products.length); setAutoplay(false); }}
-                  className="inline-flex items-center justify-center gap-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-[13px] font-semibold border border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700 transition-all"
+                  className="inline-flex items-center justify-center gap-1 px-4 py-3 rounded-xl text-[13px] font-semibold border transition-all hover:bg-gray-50"
+                  style={{ borderColor: '#E2E8F0', color: '#64748B' }}
                 >
                   Next <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
+        </AnimatePresence>
 
       </div>
     </section>
