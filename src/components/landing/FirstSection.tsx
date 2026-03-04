@@ -693,151 +693,179 @@ export const CustomAgentsDemo = () => {
 
 // ─── Integrations Demo ────────────────────────────────────────────────────────
 const ehrList = [
-  { name: 'Epic',       abbr: 'EP',  desc: 'HL7 FHIR',  },
-  { name: 'Cerner',     abbr: 'CE',  desc: 'SMART API',  },
-  { name: 'Athena',     abbr: 'ATH', desc: 'REST API',   },
-  { name: 'eClinicals', abbr: 'eC',  desc: 'HL7 v2',    },
-  { name: 'DrChrono',   abbr: 'DC',  desc: 'OAuth 2',    },
-  { name: 'Kareo',      abbr: 'KA',  desc: 'REST API',   },
+  { name: 'Epic',      abbr: 'EP',  desc: 'HL7 FHIR'  },
+  { name: 'Cerner',    abbr: 'CE',  desc: 'SMART API'  },
+  { name: 'Athena',    abbr: 'ATH', desc: 'REST API'   },
+  { name: 'eClinicals',abbr: 'eC',  desc: 'HL7 v2'    },
+  { name: 'DrChrono',  abbr: 'DC',  desc: 'OAuth 2'    },
+  { name: 'Kareo',     abbr: 'KA',  desc: 'REST API'   },
 ];
 const appList = [
-  { name: 'Zoom',       color: S10.teal },
-  { name: 'Twilio',     color: S10.navy },
-  { name: 'Slack',      color: S10.mid },
-  { name: 'AWS',        color: S10.teal },
-  { name: 'Salesforce', color: S10.navy },
-  { name: 'Stripe',     color: S10.mid },
-  { name: 'Doximity',   color: S10.teal },
-  { name: 'G Suite',    color: S10.navy },
+  { name: 'Zoom',       abbr: 'ZM' },
+  { name: 'Twilio',     abbr: 'TW' },
+  { name: 'Slack',      abbr: 'SL' },
+  { name: 'AWS',        abbr: 'AW' },
+  { name: 'Salesforce', abbr: 'SF' },
+  { name: 'Stripe',     abbr: 'ST' },
 ];
 
 export const IntegrationsDemo = () => {
-  const [syncing, setSyncing] = useState(false);
-  const [syncedEHR, setSyncedEHR] = useState<number | null>(null);
-  const [syncStep, setSyncStep] = useState(0);
-  const ehrGlows = [DK.accent, DK.accent2, '#a78bfa', DK.accent, DK.accent2, '#a78bfa'];
+  const [connectedEHRs, setConnectedEHRs] = useState<Set<number>>(new Set());
+  const [connectingIdx, setConnectingIdx] = useState<number | null>(null);
+  const [pulseIdx, setPulseIdx] = useState<number | null>(null);
 
-  const handleSync = (idx: number) => {
-    if (syncing) return;
-    setSyncedEHR(null); setSyncStep(1); setSyncing(true);
-    setTimeout(() => setSyncStep(2), 600);
-    setTimeout(() => setSyncStep(3), 1200);
-    setTimeout(() => { setSyncing(false); setSyncedEHR(idx); setSyncStep(0); }, 1800);
+  const handleConnect = (idx: number) => {
+    if (connectingIdx !== null || connectedEHRs.has(idx)) return;
+    setConnectingIdx(idx);
+    setTimeout(() => {
+      setConnectedEHRs(p => new Set([...p, idx]));
+      setConnectingIdx(null);
+      setPulseIdx(idx);
+      setTimeout(() => setPulseIdx(null), 1200);
+    }, 1100);
   };
 
-  const syncMessages = ['', 'Establishing connection…', 'Handshaking HL7 FHIR…', 'Sync complete ✓'];
-  const EhrIcons = [Globe, Activity, Stethoscope, ClipboardList, PhoneIcon, Layers];
+  const allConnected = connectedEHRs.size === ehrList.length;
 
   return (
-    <div className="flex flex-col gap-2.5 h-[380px] overflow-hidden">
-      {/* Hub */}
-      <div className="flex items-center justify-center gap-3 flex-shrink-0">
-        <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, rgba(56,189,174,0.3))` }} />
-        <div className="flex items-center gap-2 px-3.5 py-2 rounded-full"
-          style={{ background: 'linear-gradient(135deg, rgba(56,189,174,0.2), rgba(88,166,255,0.15))', border: '1px solid rgba(56,189,174,0.3)', boxShadow: '0 0 20px rgba(56,189,174,0.15)' }}>
-          <Network className="w-3.5 h-3.5" style={{ color: DK.accent }} />
-          <span className="text-[11px] font-bold" style={{ color: DK.text }}>S10.AI Hub</span>
-          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: DK.accent, boxShadow: `0 0 6px ${DK.accent}` }} />
-        </div>
-        <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, rgba(56,189,174,0.3))` }} />
-      </div>
+    <div className="flex flex-col h-[380px] overflow-hidden gap-2">
 
-      {/* EHR grid */}
-      <div className="flex-shrink-0">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: DK.muted }}>EHR Systems</span>
-          <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
-            style={{ color: DK.accent, background: 'rgba(56,189,174,0.1)', border: '1px solid rgba(56,189,174,0.2)' }}>
-            Tap any to connect
+      {/* Header stat bar */}
+      <div className="flex items-center gap-2 rounded-xl px-3 py-2 flex-shrink-0"
+        style={{ background: DK.surface, border: `1px solid ${DK.border}` }}>
+        <div className="flex items-center gap-1.5 flex-1">
+          <div className="w-6 h-6 rounded-lg flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+            <Network className="w-3.5 h-3.5 text-white" />
+          </div>
+          <div>
+            <p className="text-[11px] font-bold leading-none" style={{ color: DK.text }}>S10.AI Integration Hub</p>
+            <p className="text-[9px] mt-0.5" style={{ color: DK.muted }}>Connect any EHR or app in minutes</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-1 px-2 py-1 rounded-full"
+          style={{ background: connectedEHRs.size > 0 ? 'rgba(56,126,137,0.12)' : `${DK.border}`, border: `1px solid ${connectedEHRs.size > 0 ? 'rgba(56,126,137,0.3)' : DK.border}` }}>
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: connectedEHRs.size > 0 ? S10.teal : '#cbd5e1', boxShadow: connectedEHRs.size > 0 ? `0 0 5px ${S10.teal}` : 'none' }} />
+          <span className="text-[9.5px] font-bold" style={{ color: connectedEHRs.size > 0 ? S10.teal : DK.muted }}>
+            {connectedEHRs.size}/{ehrList.length} connected
           </span>
         </div>
-        <div className="grid grid-cols-3 gap-1.5">
+      </div>
+
+      {/* Two-column layout: EHRs | Hub | Apps */}
+      <div className="flex-1 flex gap-2 min-h-0 overflow-hidden">
+
+        {/* LEFT: EHR list */}
+        <div className="flex flex-col gap-1.5 flex-1 overflow-y-auto min-h-0">
+          <p className="text-[9px] font-bold uppercase tracking-widest flex-shrink-0" style={{ color: DK.muted }}>EHR Systems</p>
           {ehrList.map((ehr, i) => {
-            const isSynced = syncedEHR === i;
-            const color = ehrGlows[i];
-            const EhrIcon = EhrIcons[i];
+            const isConnected = connectedEHRs.has(i);
+            const isConnecting = connectingIdx === i;
+            const isPulsing = pulseIdx === i;
             return (
-              <motion.button key={i}
-                onClick={() => handleSync(i)}
-                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.96 }}
-                className="flex flex-col items-start gap-1 p-3 rounded-xl text-left transition-all"
+              <motion.button
+                key={i}
+                onClick={() => handleConnect(i)}
+                whileTap={{ scale: 0.97 }}
+                animate={isPulsing ? { boxShadow: [`0 0 0px ${S10.teal}00`, `0 0 12px ${S10.teal}60`, `0 0 0px ${S10.teal}00`] } : {}}
+                transition={{ duration: 0.6 }}
+                className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left transition-all w-full flex-shrink-0"
                 style={{
-                  background: isSynced ? `${color}0c` : DK.elevated,
-                  border: `1px solid ${isSynced ? `${color}35` : DK.border}`,
-                  boxShadow: isSynced ? `0 0 16px ${color}20` : 'none',
-                }}>
-                <div className="flex items-center justify-between w-full">
-                  <EhrIcon className="w-4 h-4" style={{ color: isSynced ? color : DK.muted }} />
-                  {isSynced ? (
-                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 350 }}
-                      className="w-4 h-4 rounded-full flex items-center justify-center"
-                      style={{ background: color, boxShadow: `0 0 8px ${color}50` }}>
-                      <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4l2 2 3-3" stroke={DK.bg} strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
-                    </motion.div>
-                  ) : syncing && syncedEHR === null && (
-                    <motion.div className="w-3 h-3 rounded-full border-2" style={{ borderColor: color, borderTopColor: 'transparent' }}
-                      animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.6, ease: 'linear' }} />
-                  )}
+                  background: isConnected ? `rgba(56,126,137,0.08)` : DK.elevated,
+                  border: `1px solid ${isConnected ? 'rgba(56,126,137,0.3)' : DK.border}`,
+                  cursor: isConnected ? 'default' : 'pointer',
+                }}
+              >
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-[9px] font-black"
+                  style={{
+                    background: isConnected ? 'linear-gradient(135deg, #143151, #387E89)' : `${DK.border}`,
+                    color: isConnected ? '#fff' : DK.muted,
+                    border: `1px solid ${isConnected ? 'transparent' : DK.border}`,
+                  }}>
+                  {isConnecting
+                    ? <motion.div className="w-3.5 h-3.5 rounded-full border-2 border-t-transparent"
+                        style={{ borderColor: S10.teal, borderTopColor: 'transparent' }}
+                        animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.6, ease: 'linear' }} />
+                    : ehr.abbr}
                 </div>
-                <span className="text-[11px] font-bold mt-1" style={{ color: isSynced ? color : DK.text }}>{ehr.name}</span>
-                <span className="text-[9px]" style={{ color: DK.muted }}>{ehr.desc}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10.5px] font-semibold leading-none truncate" style={{ color: isConnected ? S10.navy : DK.text }}>{ehr.name}</p>
+                  <p className="text-[8.5px] mt-0.5" style={{ color: DK.muted }}>{ehr.desc}</p>
+                </div>
+                {isConnected ? (
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300 }}
+                    className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+                    <svg width="7" height="7" viewBox="0 0 8 8"><path d="M1.5 4l2 2 3-3" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
+                  </motion.div>
+                ) : (
+                  <span className="text-[8px] font-semibold px-1.5 py-0.5 rounded-full flex-shrink-0"
+                    style={{ background: 'rgba(56,126,137,0.1)', color: S10.teal, border: '1px solid rgba(56,126,137,0.2)' }}>
+                    {isConnecting ? '…' : 'Connect'}
+                  </span>
+                )}
               </motion.button>
             );
           })}
         </div>
-      </div>
 
-      {/* Sync status */}
-      <AnimatePresence mode="wait">
-        {syncing && (
-          <motion.div key="syncing" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 flex-shrink-0"
-            style={{ background: 'rgba(56,189,174,0.06)', border: '1px solid rgba(56,189,174,0.2)' }}>
-            <motion.div className="w-4 h-4 rounded-full border-2 flex-shrink-0" style={{ borderColor: DK.accent, borderTopColor: 'transparent' }}
-              animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.6, ease: 'linear' }} />
-            <span className="text-[11px] font-semibold" style={{ color: DK.accent }}>{syncMessages[syncStep]}</span>
-            <div className="flex gap-1 ml-auto">
-              {[0,1,2].map(i => (
-                <motion.div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: DK.accent }}
-                  animate={{ opacity: syncStep > i ? 1 : 0.2 }} transition={{ duration: 0.3 }} />
-              ))}
-            </div>
-          </motion.div>
-        )}
-        {syncedEHR !== null && !syncing && (
-          <motion.div key="synced" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 flex-shrink-0"
-            style={{ background: `${ehrGlows[syncedEHR]}08`, border: `1px solid ${ehrGlows[syncedEHR]}25` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: `${ehrGlows[syncedEHR]}18`, border: `1px solid ${ehrGlows[syncedEHR]}25` }}>
-              <CheckCircle className="w-4 h-4" style={{ color: ehrGlows[syncedEHR] }} />
-            </div>
-            <div className="flex-1">
-              <p className="text-[11.5px] font-bold" style={{ color: ehrGlows[syncedEHR] }}>{ehrList[syncedEHR].name} connected</p>
-              <p className="text-[9.5px] mt-0.5" style={{ color: DK.muted }}>Notes · Orders · Charts syncing in real-time</p>
-            </div>
-            <span className="text-[9px] font-bold px-2 py-1 rounded-full animate-pulse"
-              style={{ color: DK.accent, background: 'rgba(56,189,174,0.12)', border: '1px solid rgba(56,189,174,0.25)' }}>Live</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* CENTER: Hub column */}
+        <div className="flex flex-col items-center justify-center gap-1.5 flex-shrink-0 w-10">
+          {/* animated connector lines */}
+          <div className="flex-1 w-px" style={{ background: `linear-gradient(to bottom, transparent, rgba(56,126,137,0.25), transparent)` }} />
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 relative"
+            style={{ background: 'linear-gradient(135deg, #143151, #387E89)', boxShadow: '0 4px 16px rgba(56,126,137,0.35)' }}>
+            <Network className="w-4 h-4 text-white" />
+            <motion.span className="absolute inset-0 rounded-xl"
+              style={{ border: '1px solid rgba(56,126,137,0.6)' }}
+              animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
+              transition={{ repeat: Infinity, duration: 2 }} />
+          </div>
+          <div className="flex-1 w-px" style={{ background: `linear-gradient(to bottom, transparent, rgba(56,126,137,0.25), transparent)` }} />
+        </div>
 
-      {/* Apps */}
-      <div className="flex-1 overflow-y-auto min-h-0">
-        <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: DK.muted }}>+ 7,000 apps via Zapier & API</p>
-        <div className="flex flex-wrap gap-1.5">
+        {/* RIGHT: Apps */}
+        <div className="flex flex-col gap-1.5 flex-1 overflow-y-auto min-h-0">
+          <p className="text-[9px] font-bold uppercase tracking-widest flex-shrink-0" style={{ color: DK.muted }}>Apps & Tools</p>
           {appList.map((app, i) => (
             <motion.div key={i}
-              initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.04 }}
-              whileHover={{ y: -1, scale: 1.04 }}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg cursor-default"
-              style={{ background: `${app.color}0a`, border: `1px solid ${app.color}20` }}>
-              <Puzzle className="w-3 h-3" style={{ color: app.color }} />
-              <span className="text-[10px] font-semibold" style={{ color: app.color }}>{app.name}</span>
+              initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}
+              className="flex items-center gap-2 px-2.5 py-2 rounded-xl flex-shrink-0"
+              style={{ background: DK.elevated, border: `1px solid ${DK.border}` }}>
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-[9px] font-black"
+                style={{ background: `rgba(20,49,81,0.08)`, color: S10.navy, border: `1px solid rgba(20,49,81,0.12)` }}>
+                {app.abbr}
+              </div>
+              <p className="text-[10.5px] font-semibold flex-1 truncate" style={{ color: DK.text }}>{app.name}</p>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#22c55e', boxShadow: '0 0 4px #22c55e80' }} />
             </motion.div>
           ))}
+          {/* +7000 badge */}
+          <div className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl flex-shrink-0"
+            style={{ background: 'rgba(56,126,137,0.06)', border: '1px dashed rgba(56,126,137,0.25)' }}>
+            <Puzzle className="w-3 h-3" style={{ color: S10.teal }} />
+            <span className="text-[9.5px] font-semibold" style={{ color: S10.teal }}>+7,000 via Zapier</span>
+          </div>
         </div>
       </div>
+
+      {/* Bottom CTA */}
+      <AnimatePresence>
+        {allConnected ? (
+          <motion.div key="all-done" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 flex-shrink-0"
+            style={{ background: 'rgba(56,126,137,0.08)', border: '1px solid rgba(56,126,137,0.3)' }}>
+            <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: S10.teal }} />
+            <p className="text-[11px] font-bold flex-1" style={{ color: S10.navy }}>All EHRs connected! Notes & charts sync in real-time.</p>
+            <span className="text-[9px] font-bold px-2 py-1 rounded-full animate-pulse"
+              style={{ background: 'rgba(56,126,137,0.15)', color: S10.teal, border: '1px solid rgba(56,126,137,0.3)' }}>Live</span>
+          </motion.div>
+        ) : (
+          <p key="hint" className="text-center text-[9.5px] flex-shrink-0" style={{ color: DK.muted }}>
+            Tap an EHR to simulate a live connection
+          </p>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
