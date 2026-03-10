@@ -489,7 +489,7 @@ export const HowItWorksSection = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(true);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleNextStep = () => {
     if (activeStep < steps.length - 1) {
       setCompletedSteps(prev => [...prev, activeStep]);

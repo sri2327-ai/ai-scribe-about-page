@@ -38,7 +38,7 @@ const DarkAnimatedHeader = () => {
   const [activeMobileSection, setActiveMobileSection] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     console.log("DarkAnimatedHeader mounted, mobile menu state:", isMobileMenuOpen);

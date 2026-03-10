@@ -190,7 +190,7 @@ export const BravoWorkflowAnimation = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   // Add reference to manage timeout
-  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Clean up on unmount
   useEffect(() => {

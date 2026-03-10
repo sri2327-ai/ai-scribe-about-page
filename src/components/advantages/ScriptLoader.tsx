@@ -9,7 +9,7 @@ export const ScriptLoader: React.FC<ScriptLoaderProps> = ({ children }) => {
   const [scriptsLoaded, setScriptsLoaded] = useState(false);
   
   useEffect(() => {
-    let framerMotionCheckInterval: NodeJS.Timeout | undefined;
+    let framerMotionCheckInterval: ReturnType<typeof setInterval> | undefined;
 
     // Load Font Awesome
     if (!document.getElementById('font-awesome-css')) {
