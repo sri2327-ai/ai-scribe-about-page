@@ -99,15 +99,6 @@ function useCountUp(target: number, duration = 1600, started: boolean) {
   return value;
 }
 
-function formatCompact(n: number): { main: string; suffix: string } {
-  if (n >= 1_000_000) {
-    return { main: (n / 1_000_000).toFixed(2), suffix: 'M' };
-  }
-  if (n >= 1_000) {
-    return { main: (n / 1_000).toFixed(1), suffix: 'K' };
-  }
-  return { main: n.toString(), suffix: '' };
-}
 
 function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: number; started: boolean }) {
   const Icon = stat.icon;
