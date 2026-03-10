@@ -420,7 +420,7 @@ const workflowSteps = [
 export const CAWorkflowAnimation = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {

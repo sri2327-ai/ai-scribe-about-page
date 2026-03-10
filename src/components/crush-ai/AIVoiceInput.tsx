@@ -50,7 +50,7 @@ export function AIVoiceInput({
   useEffect(() => {
     if (!isDemo) return;
 
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
     const runAnimation = () => {
       setSubmitted(true);
       timeoutId = setTimeout(() => {
