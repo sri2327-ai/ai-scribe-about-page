@@ -32,7 +32,7 @@ export function AIVoiceInput({
   }, []);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
+    let intervalId: ReturnType<typeof setInterval>;
 
     if (submitted) {
       onStart?.();
