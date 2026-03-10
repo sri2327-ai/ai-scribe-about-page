@@ -178,27 +178,12 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
-              letterSpacing: '-0.04em',
+              fontSize: 'clamp(1.55rem, 3vw, 2.1rem)',
+              letterSpacing: '-0.03em',
             }}
           >
-            {main}
+            {display.toLocaleString()}
           </span>
-          {suffix && (
-            <span
-              className="font-black leading-none pb-[2px]"
-              style={{
-                background: stat.gradient,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              {suffix}
-            </span>
-          )}
         </div>
 
         {/* Divider */}
