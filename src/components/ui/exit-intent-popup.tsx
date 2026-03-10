@@ -2,7 +2,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Globe, Zap, Calendar, Users, Shield, Database, MessageSquare, PlayCircle } from "lucide-react";
+import { X, Globe, Zap, Calendar, Users, Shield, Database, MessageSquare, PlayCircle, PhoneCall } from "lucide-react";
 
 interface ExitIntentPopupProps {
   isOpen: boolean;
