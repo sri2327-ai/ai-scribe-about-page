@@ -172,14 +172,16 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
         {/* Big number */}
         <div className="flex items-end gap-1.5">
           <span
-            className="font-black tabular-nums leading-none"
+            className="font-black tabular-nums leading-none block"
             style={{
-              background: stat.gradient,
+              backgroundImage: stat.gradient,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
+              color: 'transparent',
               fontSize: 'clamp(1.55rem, 3vw, 2.1rem)',
               letterSpacing: '-0.03em',
+              display: 'inline-block',
             }}
           >
             {display.toLocaleString()}
