@@ -117,7 +117,6 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
   }, [started, stat.tickPerSec]);
 
   const display = countedUp + live;
-  const { main, suffix } = formatCompact(display);
 
   return (
     <motion.div
