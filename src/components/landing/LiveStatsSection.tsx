@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FileText, Code2, Phone, MessageSquare, Bot, Clock } from 'lucide-react';
+import { FileText, Code2, Phone, MessageSquare, Bot, Clock, TrendingUp } from 'lucide-react';
 
 const S10 = { navy: '#143151', teal: '#387E89', mid: '#5192AE', light: '#A5CCF3' };
 
@@ -13,8 +13,9 @@ const STATS = [
     tickPerSec: 18.5,
     color: S10.teal,
     gradient: `linear-gradient(135deg, ${S10.teal}, ${S10.mid})`,
-    bgLight: 'rgba(56,126,137,0.08)',
-    borderColor: 'rgba(56,126,137,0.18)',
+    accentBg: 'rgba(56,126,137,0.10)',
+    borderColor: 'rgba(56,126,137,0.20)',
+    trend: '+18.5/s',
   },
   {
     product: 'AI Medical Coder',
@@ -24,8 +25,9 @@ const STATS = [
     tickPerSec: 4.1,
     color: S10.mid,
     gradient: `linear-gradient(135deg, ${S10.mid}, ${S10.light})`,
-    bgLight: 'rgba(81,146,174,0.08)',
-    borderColor: 'rgba(81,146,174,0.18)',
+    accentBg: 'rgba(81,146,174,0.10)',
+    borderColor: 'rgba(81,146,174,0.20)',
+    trend: '+4.1/s',
   },
   {
     product: 'AI Receptionist',
@@ -35,8 +37,9 @@ const STATS = [
     tickPerSec: 2.4,
     color: S10.navy,
     gradient: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`,
-    bgLight: 'rgba(20,49,81,0.07)',
-    borderColor: 'rgba(20,49,81,0.15)',
+    accentBg: 'rgba(20,49,81,0.08)',
+    borderColor: 'rgba(20,49,81,0.18)',
+    trend: '+2.4/s',
   },
   {
     product: 'AI Chat Agent',
@@ -46,8 +49,9 @@ const STATS = [
     tickPerSec: 6.3,
     color: S10.teal,
     gradient: `linear-gradient(135deg, ${S10.teal}, ${S10.navy})`,
-    bgLight: 'rgba(56,126,137,0.08)',
-    borderColor: 'rgba(56,126,137,0.18)',
+    accentBg: 'rgba(56,126,137,0.10)',
+    borderColor: 'rgba(56,126,137,0.20)',
+    trend: '+6.3/s',
   },
   {
     product: 'Custom AI Agents',
@@ -57,8 +61,9 @@ const STATS = [
     tickPerSec: 9.8,
     color: S10.mid,
     gradient: `linear-gradient(135deg, ${S10.navy}, ${S10.mid})`,
-    bgLight: 'rgba(81,146,174,0.08)',
-    borderColor: 'rgba(81,146,174,0.18)',
+    accentBg: 'rgba(81,146,174,0.10)',
+    borderColor: 'rgba(81,146,174,0.20)',
+    trend: '+9.8/s',
   },
   {
     product: 'S10.AI Platform',
@@ -68,12 +73,13 @@ const STATS = [
     tickPerSec: 45.2,
     color: S10.navy,
     gradient: `linear-gradient(135deg, ${S10.navy}, ${S10.teal})`,
-    bgLight: 'rgba(20,49,81,0.07)',
-    borderColor: 'rgba(20,49,81,0.15)',
+    accentBg: 'rgba(20,49,81,0.08)',
+    borderColor: 'rgba(20,49,81,0.18)',
+    trend: '+45.2/s',
   },
 ];
 
-function useCountUp(target: number, duration = 1800, started: boolean) {
+function useCountUp(target: number, duration = 1600, started: boolean) {
   const [value, setValue] = useState(0);
   useEffect(() => {
     if (!started) return;
@@ -82,7 +88,7 @@ function useCountUp(target: number, duration = 1800, started: boolean) {
     const tick = () => {
       const elapsed = Date.now() - start;
       const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
+      const ease = 1 - Math.pow(1 - progress, 4);
       setValue(Math.floor(ease * target));
       if (progress < 1) rafId = requestAnimationFrame(tick);
       else setValue(target);
@@ -93,84 +99,132 @@ function useCountUp(target: number, duration = 1800, started: boolean) {
   return value;
 }
 
+function formatCompact(n: number): { main: string; suffix: string } {
+  if (n >= 1_000_000) {
+    return { main: (n / 1_000_000).toFixed(2), suffix: 'M' };
+  }
+  if (n >= 1_000) {
+    return { main: (n / 1_000).toFixed(1), suffix: 'K' };
+  }
+  return { main: n.toString(), suffix: '' };
+}
+
 function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: number; started: boolean }) {
   const Icon = stat.icon;
   const [live, setLive] = useState(0);
-  const countedUp = useCountUp(stat.base, 1800, started);
+  const countedUp = useCountUp(stat.base, 1600, started);
 
   useEffect(() => {
     if (!started) return;
     let interval: ReturnType<typeof setInterval>;
     const timeout = setTimeout(() => {
       interval = setInterval(() => {
-        setLive(prev => prev + Math.ceil(stat.tickPerSec * (0.8 + Math.random() * 0.4)));
+        setLive(prev => prev + Math.ceil(stat.tickPerSec * (0.85 + Math.random() * 0.3)));
       }, 1000);
-    }, 1900);
+    }, 1700);
     return () => { clearTimeout(timeout); clearInterval(interval); };
   }, [started, stat.tickPerSec]);
 
   const display = countedUp + live;
+  const { main, suffix } = formatCompact(display);
 
   return (
     <motion.div
-      className="relative flex flex-col bg-white rounded-2xl overflow-hidden"
+      className="relative flex flex-col bg-white rounded-2xl overflow-hidden group cursor-default"
       style={{
         border: `1px solid ${stat.borderColor}`,
-        boxShadow: `0 1px 12px rgba(20,49,81,0.05), 0 0 0 0 transparent`,
+        boxShadow: '0 1px 8px rgba(20,49,81,0.04)',
       }}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.45, delay: index * 0.07 }}
-      whileHover={{ y: -5, boxShadow: `0 16px 40px ${stat.color}20, 0 2px 8px rgba(20,49,81,0.08)` }}
+      transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{
+        y: -4,
+        boxShadow: `0 12px 32px ${stat.color}18, 0 2px 8px rgba(20,49,81,0.06)`,
+        borderColor: stat.color + '44',
+      }}
     >
-      {/* Gradient accent bar */}
-      <div className="h-[3px] w-full flex-shrink-0" style={{ background: stat.gradient }} />
+      {/* Top gradient bar */}
+      <div className="h-[3px] w-full" style={{ background: stat.gradient }} />
 
-      <div className="flex flex-col p-5 flex-1">
-        {/* Product name */}
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[14px] font-black leading-tight tracking-tight" style={{ color: S10.navy }}>
-            {stat.product}
-          </span>
+      <div className="p-5 flex flex-col flex-1 gap-4">
+
+        {/* Header row: icon + product name + live badge */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{ background: stat.accentBg }}
+            >
+              <Icon className="w-4 h-4" style={{ color: stat.color }} strokeWidth={1.8} />
+            </div>
+            <span className="text-[13px] font-bold leading-tight" style={{ color: S10.navy }}>
+              {stat.product}
+            </span>
+          </div>
+
+          {/* Live badge */}
           <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: stat.bgLight, border: `1px solid ${stat.borderColor}` }}
+            className="flex items-center gap-1.5 px-2 py-0.5 rounded-full"
+            style={{ background: stat.accentBg, border: `1px solid ${stat.borderColor}` }}
           >
-            <Icon className="w-[18px] h-[18px]" style={{ color: stat.color }} strokeWidth={1.75} />
+            <span
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse"
+              style={{ background: stat.color }}
+            />
+            <span className="text-[9px] font-extrabold tracking-widest uppercase" style={{ color: stat.color }}>
+              Live
+            </span>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px w-full mb-4" style={{ background: '#EAF1F6' }} />
-
-        {/* Big animated number */}
-        <span
-          className="block font-black tabular-nums leading-none mb-2"
-          style={{
-            background: stat.gradient,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            fontSize: 'clamp(1.6rem, 3vw, 2.1rem)',
-            letterSpacing: '-0.03em',
-          }}
-        >
-          {display.toLocaleString()}
-        </span>
-
-        {/* Metric label */}
-        <p className="text-[12px] font-semibold leading-snug" style={{ color: '#64748B' }}>
-          {stat.label}
-        </p>
-
-        {/* Live indicator */}
-        <div className="flex items-center gap-1.5 mt-auto pt-4">
-          <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{ background: stat.color }} />
-          <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: stat.color }}>
-            Live
+        {/* Big number */}
+        <div className="flex items-end gap-1.5">
+          <span
+            className="font-black tabular-nums leading-none"
+            style={{
+              background: stat.gradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
+              letterSpacing: '-0.04em',
+            }}
+          >
+            {main}
           </span>
+          {suffix && (
+            <span
+              className="font-black leading-none pb-[2px]"
+              style={{
+                background: stat.gradient,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {suffix}
+            </span>
+          )}
         </div>
+
+        {/* Divider */}
+        <div className="h-px" style={{ background: 'rgba(20,49,81,0.07)' }} />
+
+        {/* Footer: label + trend */}
+        <div className="flex items-center justify-between">
+          <p className="text-[11px] font-semibold leading-snug" style={{ color: '#64748B' }}>
+            {stat.label}
+          </p>
+          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <TrendingUp className="w-3 h-3" style={{ color: stat.color }} strokeWidth={2} />
+            <span className="text-[10px] font-bold" style={{ color: stat.color }}>{stat.trend}</span>
+          </div>
+        </div>
+
       </div>
     </motion.div>
   );
@@ -178,52 +232,117 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
 
 const LiveStatsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+
+  const totalHours = 42_139_694;
+  const totalNotes = 12_810_470;
 
   return (
     <section
       ref={ref}
       className="relative py-16 md:py-24 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #EEF4F8 0%, #E6EFF5 100%)', borderTop: '1px solid #D8E6EF' }}
+      style={{
+        background: 'linear-gradient(180deg, #F7FAFB 0%, #EEF4F8 50%, #E8F0F6 100%)',
+        borderTop: '1px solid rgba(20,49,81,0.07)',
+      }}
     >
-      {/* Decorative background */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(20,49,81,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(56,126,137,0.06) 0%, transparent 60%)' }} />
+      {/* Subtle radial glows */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 70% 50% at 15% 80%, rgba(56,126,137,0.05) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 85% 20%, rgba(20,49,81,0.04) 0%, transparent 60%)',
+        }}
+      />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
-        {/* Header */}
+        {/* ── Header ── */}
         <motion.div
-          className="mb-10 md:mb-14"
-          initial={{ opacity: 0, y: 16 }}
+          className="mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          {/* Eyebrow */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
-            style={{ background: `rgba(56,126,137,0.08)`, color: S10.teal, border: `1px solid rgba(56,126,137,0.2)` }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-extrabold tracking-[0.12em] uppercase mb-5"
+            style={{
+              background: 'rgba(56,126,137,0.08)',
+              color: S10.teal,
+              border: '1px solid rgba(56,126,137,0.18)',
+            }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
             Live Platform Metrics
           </div>
-          <h2
-            className="font-black leading-tight tracking-tight"
-            style={{ color: S10.navy, fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', letterSpacing: '-0.02em' }}
-          >
-            Real impact.{' '}
-            <span style={{ color: S10.teal }}>Delivered every second.</span>
-          </h2>
-          <p className="mt-3 text-[15px] leading-relaxed max-w-xl" style={{ color: '#475569' }}>
-            Numbers updated in real time — across every practice, every product, every day.
-          </p>
+
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div>
+              <h2
+                className="font-black leading-[1.05] tracking-[-0.025em] mb-3"
+                style={{ color: S10.navy, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}
+              >
+                Real impact.{' '}
+                <span
+                  style={{
+                    background: `linear-gradient(90deg, ${S10.teal}, ${S10.mid})`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  Delivered every second.
+                </span>
+              </h2>
+              <p className="text-[14px] leading-relaxed max-w-md" style={{ color: '#64748B' }}>
+                Numbers updating live — across every practice, every product, every day.
+              </p>
+            </div>
+
+            {/* Summary callouts */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div
+                className="px-4 py-3 rounded-xl text-center"
+                style={{ background: 'rgba(56,126,137,0.07)', border: '1px solid rgba(56,126,137,0.14)' }}
+              >
+                <p className="text-[11px] font-bold tracking-wide uppercase mb-0.5" style={{ color: S10.teal }}>Total Notes</p>
+                <p className="font-black text-[1.3rem] leading-none tracking-tight" style={{ color: S10.navy }}>
+                  {(totalNotes / 1_000_000).toFixed(1)}M+
+                </p>
+              </div>
+              <div
+                className="px-4 py-3 rounded-xl text-center"
+                style={{ background: 'rgba(20,49,81,0.06)', border: '1px solid rgba(20,49,81,0.12)' }}
+              >
+                <p className="text-[11px] font-bold tracking-wide uppercase mb-0.5" style={{ color: S10.navy }}>Hours Saved</p>
+                <p className="font-black text-[1.3rem] leading-none tracking-tight" style={{ color: S10.navy }}>
+                  {(totalHours / 1_000_000).toFixed(1)}M+
+                </p>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Stats grid: 3 cols desktop, 2 tablet, 1 mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
+        {/* ── Stats Grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {STATS.map((stat, i) => (
             <AnimatedStat key={i} stat={stat} index={i} started={inView} />
           ))}
         </div>
+
+        {/* ── Bottom note ── */}
+        <motion.p
+          className="mt-8 text-center text-[11px] font-medium"
+          style={{ color: 'rgba(20,49,81,0.35)' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          Metrics are estimated based on platform usage and update continuously.
+        </motion.p>
+
       </div>
     </section>
   );
