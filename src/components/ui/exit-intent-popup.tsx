@@ -73,17 +73,17 @@ const getVariantContent = (variant: string) => {
             color: "blue"
           },
           {
+            icon: PhoneCall,
+            title: "AI Receptionist (BRAVO)",
+            description: "Automate inbound/outbound calls, scheduling, refills, and patient follow-ups — 24/7, in 60+ languages, without hiring extra staff.",
+            highlight: "24/7 Front Office",
+            color: "purple"
+          },
+          {
             icon: Database,
             title: "Works With Your Current EHR",
             description: "Agentic technology integrates directly with Epic, Cerner, athenahealth, NextGen, and more — no APIs, no IT headaches.",
             highlight: "No Disruption",
-            color: "purple"
-          },
-          {
-            icon: Globe,
-            title: "Serve Every Patient",
-            description: "60+ languages included out of the box, from Spanish and Chinese to Welsh and Vietnamese. Improve access instantly.",
-            highlight: "60+ Languages",
             color: "teal"
           }
         ],
