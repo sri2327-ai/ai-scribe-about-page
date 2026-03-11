@@ -174,11 +174,7 @@ function AnimatedStat({ stat, index, started }: { stat: typeof STATS[0]; index: 
           <span
             className="font-black tabular-nums leading-none block"
             style={{
-              backgroundImage: stat.gradient,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              color: 'transparent',
+              color: S10.navy,
               fontSize: 'clamp(1.55rem, 3vw, 2.1rem)',
               letterSpacing: '-0.03em',
               display: 'inline-block',
