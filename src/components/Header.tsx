@@ -5,7 +5,7 @@ import classNames from "classnames";
 import styles from "@/styles/header.module.css";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Phone, ChevronDown } from "lucide-react";
+import { Phone, ChevronDown, FileText, Languages, Zap, PhoneCall, Calendar, Bot, Stethoscope, Video } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
