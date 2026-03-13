@@ -89,101 +89,176 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
-                  className="w-[500px] bg-white border border-gray-200 shadow-xl rounded-lg p-6 z-[9999]"
+                  className="w-[860px] bg-white border border-gray-200 shadow-2xl rounded-xl p-0 z-[9999] overflow-hidden"
                   sideOffset={8}
                   align="center"
                 >
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <h3 className="font-semibold text-lg text-gray-900 mb-4">Solutions</h3>
-                      <div className="space-y-2">
+                  {/* Top row: Solutions + Who we're for */}
+                  <div className="grid grid-cols-3 gap-0 border-b border-gray-100">
+                    {/* Solutions column */}
+                    <div className="p-5 border-r border-gray-100">
+                      <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400 mb-3">Solutions</h3>
+                      <div className="space-y-1">
                         <DropdownMenuItem asChild>
-                          <Link
-                            to="/crush-ai"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                          >
-                            <div className="font-medium text-gray-900">CRUSH</div>
-                            <div className="text-sm text-gray-600">AI Medical Scribe Assistant</div>
+                          <Link to="/crush-ai" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors w-full text-left focus:bg-blue-50 focus:outline-none group">
+                            <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 transition-colors">
+                              <Stethoscope className="w-4 h-4 text-blue-600" />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-gray-900 text-sm">CRUSH</div>
+                              <div className="text-xs text-gray-500">AI Medical Scribe</div>
+                            </div>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link
-                            to="/bravo"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                          >
-                            <div className="font-medium text-gray-900">BRAVO</div>
-                            <div className="text-sm text-gray-600">AI Staffing Agent</div>
+                          <Link to="/bravo" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-purple-50 transition-colors w-full text-left focus:bg-purple-50 focus:outline-none group">
+                            <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0 group-hover:bg-purple-200 transition-colors">
+                              <PhoneCall className="w-4 h-4 text-purple-600" />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-gray-900 text-sm">BRAVO</div>
+                              <div className="text-xs text-gray-500">AI Phone Agent</div>
+                            </div>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link
-                            to="/custom-ai-agent"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                          >
-                            <div className="font-medium text-gray-900">Custom AI</div>
-                            <div className="text-sm text-gray-600">Tailored AI Solutions</div>
+                          <Link to="/custom-ai-agent" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-teal-50 transition-colors w-full text-left focus:bg-teal-50 focus:outline-none group">
+                            <div className="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0 group-hover:bg-teal-200 transition-colors">
+                              <Bot className="w-4 h-4 text-teal-600" />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-gray-900 text-sm">Custom AI Agents</div>
+                              <div className="text-xs text-gray-500">Tailored AI Solutions</div>
+                            </div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link to="/cheer" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-green-50 transition-colors w-full text-left focus:bg-green-50 focus:outline-none group">
+                            <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-colors">
+                              <Video className="w-4 h-4 text-green-600" />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div>
+                                <div className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
+                                  Telemedicine Platform
+                                  <span className="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full">New</span>
+                                </div>
+                                <div className="text-xs text-gray-500">CHEER — Virtual care, anytime</div>
+                              </div>
+                            </div>
                           </Link>
                         </DropdownMenuItem>
                       </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-lg text-gray-900 mb-4">Who we're for</h3>
-                        <div className="space-y-2">
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/customer"
-                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                            >
-                              <div className="font-medium text-gray-900">New clinics & startups</div>
-                              <div className="text-sm text-gray-600">Launch quickly. Automate admin. Scale what works.</div>
+
+                    {/* Who we're for column */}
+                    <div className="p-5 border-r border-gray-100">
+                      <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400 mb-3">Who we're for</h3>
+                      <div className="space-y-1">
+                        {[
+                          { label: "New clinics & startups", desc: "Launch quickly. Automate admin." },
+                          { label: "Independent clinicians", desc: "Work smart. Stay patient-focused." },
+                          { label: "Group practices", desc: "Grow efficiently. Build loyalty." },
+                          { label: "Specialty care", desc: "Tailored workflows. Better outcomes.", to: "/specialty" },
+                          { label: "Virtual care", desc: "Consistent visits. Engage patients." },
+                          { label: "Hospitals & health systems", desc: "Scale capacity. Align teams." },
+                        ].map(({ label, desc, to }) => (
+                          <DropdownMenuItem key={label} asChild>
+                            <Link to={to || "/customer"} className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none">
+                              <div className="font-medium text-gray-900 text-sm">{label}</div>
+                              <div className="text-xs text-gray-500">{desc}</div>
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/customer"
-                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                            >
-                              <div className="font-medium text-gray-900">Independent clinicians</div>
-                              <div className="text-sm text-gray-600">Work smart. Save time. Stay patient-focused.</div>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/customer"
-                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                            >
-                              <div className="font-medium text-gray-900">Group practices</div>
-                              <div className="text-sm text-gray-600">Grow efficiently. Standardize care. Build loyalty.</div>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/specialty"
-                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                            >
-                              <div className="font-medium text-gray-900">Specialty care</div>
-                              <div className="text-sm text-gray-600">Tailored workflows. Fewer handoffs. Better outcomes.</div>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/customer"
-                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                            >
-                              <div className="font-medium text-gray-900">Virtual care</div>
-                              <div className="text-sm text-gray-600">Launch fast. Consistent visits. Keep patients engaged.</div>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/customer"
-                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                            >
-                              <div className="font-medium text-gray-900">Hospitals & health systems</div>
-                              <div className="text-sm text-gray-600">Scale capacity. Align teams. Attract talent.</div>
-                            </Link>
-                          </DropdownMenuItem>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Popular Features column — segregated by solution */}
+                    <div className="p-5 bg-gray-50">
+                      <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400 mb-3">Popular Features</h3>
+                      <div className="space-y-3">
+                        {/* CRUSH features */}
+                        <div>
+                          <div className="flex items-center gap-1.5 mb-1.5">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wide">CRUSH</span>
+                          </div>
+                          <div className="space-y-1 pl-3.5">
+                            <DropdownMenuItem asChild>
+                              <Link to="/crush-ai" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-blue-50 transition-colors w-full text-left focus:bg-blue-50 focus:outline-none">
+                                <FileText className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">Ambient Documentation</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link to="/ai-accuracy" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-blue-50 transition-colors w-full text-left focus:bg-blue-50 focus:outline-none">
+                                <Zap className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">AI Accuracy Engine</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link to="/specialty" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-blue-50 transition-colors w-full text-left focus:bg-blue-50 focus:outline-none">
+                                <Stethoscope className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">80+ Specialty Templates</span>
+                              </Link>
+                            </DropdownMenuItem>
+                          </div>
                         </div>
+
+                        <div className="border-t border-gray-200"></div>
+
+                        {/* BRAVO features */}
+                        <div>
+                          <div className="flex items-center gap-1.5 mb-1.5">
+                            <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                            <span className="text-xs font-bold text-purple-600 uppercase tracking-wide">BRAVO</span>
+                          </div>
+                          <div className="space-y-1 pl-3.5">
+                            <DropdownMenuItem asChild>
+                              <Link to="/bravo" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-purple-50 transition-colors w-full text-left focus:bg-purple-50 focus:outline-none">
+                                <PhoneCall className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">24/7 AI Phone Calls</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link to="/bravo" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-purple-50 transition-colors w-full text-left focus:bg-purple-50 focus:outline-none">
+                                <Calendar className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">Smart Scheduling</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link to="/bravo" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-purple-50 transition-colors w-full text-left focus:bg-purple-50 focus:outline-none">
+                                <Languages className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">60+ Languages</span>
+                              </Link>
+                            </DropdownMenuItem>
+                          </div>
+                        </div>
+
+                        <div className="border-t border-gray-200"></div>
+
+                        {/* Custom AI features */}
+                        <div>
+                          <div className="flex items-center gap-1.5 mb-1.5">
+                            <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                            <span className="text-xs font-bold text-teal-600 uppercase tracking-wide">Custom AI</span>
+                          </div>
+                          <div className="space-y-1 pl-3.5">
+                            <DropdownMenuItem asChild>
+                              <Link to="/custom-ai-agent" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-teal-50 transition-colors w-full text-left focus:bg-teal-50 focus:outline-none">
+                                <Bot className="w-3.5 h-3.5 text-teal-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">Custom Workflows</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link to="/integration" className="flex items-center gap-2 p-1.5 rounded-md hover:bg-teal-50 transition-colors w-full text-left focus:bg-teal-50 focus:outline-none">
+                                <Zap className="w-3.5 h-3.5 text-teal-500 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">EHR Integrations</span>
+                              </Link>
+                            </DropdownMenuItem>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </DropdownMenuContent>
