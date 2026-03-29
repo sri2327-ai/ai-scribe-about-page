@@ -94,7 +94,7 @@ const BravoTrySection = memo(() => {
                 <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#143151]">Call BRAVO Directly</h3>
               </div>
               <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed">
-                Experience BRAVO as your patients would — fill in your details to get the number.
+                Call BRAVO right now and experience it as your patients would — schedule an appointment, ask a question, or request a refill.
               </p>
 
               {!showNumber ? (
