@@ -1,21 +1,20 @@
 import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, Square, Volume2, Calendar, MessageSquare } from 'lucide-react';
+import { Play, Pause, PhoneOutgoing, PhoneIncoming } from 'lucide-react';
 
 interface AudioDemoProps {
   title: string;
   description: string;
-  icon: React.ElementType;
+  direction: 'inbound' | 'outbound';
   transcript: { speaker: 'bravo' | 'caller'; text: string }[];
 }
 
-const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: AudioDemoProps) => {
+const AudioDemoCard = memo(({ title, description, direction, transcript }: AudioDemoProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentLine, setCurrentLine] = useState(-1);
   const [progress, setProgress] = useState(0);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
-  const lineIndexRef = useRef(0);
+  const [currentLine, setCurrentLine] = useState(-1);
   const isCancelledRef = useRef(false);
+  const lineIndexRef = useRef(0);
 
   const stopSpeaking = useCallback(() => {
     isCancelledRef.current = true;
@@ -26,11 +25,8 @@ const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: Audi
     lineIndexRef.current = 0;
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
-    return () => {
-      window.speechSynthesis.cancel();
-    };
+    return () => { window.speechSynthesis.cancel(); };
   }, []);
 
   const speakLine = useCallback((index: number) => {
@@ -38,18 +34,15 @@ const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: Audi
       setIsPlaying(false);
       setCurrentLine(-1);
       setProgress(100);
+      setTimeout(() => setProgress(0), 1500);
       return;
     }
 
     const line = transcript[index];
     const utterance = new SpeechSynthesisUtterance(line.text);
-    utteranceRef.current = utterance;
-
-    // Different voice characteristics for BRAVO vs caller
     utterance.rate = line.speaker === 'bravo' ? 1.0 : 0.95;
     utterance.pitch = line.speaker === 'bravo' ? 1.1 : 0.9;
 
-    // Try to pick different voices
     const voices = window.speechSynthesis.getVoices();
     if (voices.length > 1) {
       const femaleVoice = voices.find(v => v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Google US English'));
@@ -62,16 +55,10 @@ const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: Audi
     setProgress(Math.round(((index + 1) / transcript.length) * 100));
 
     utterance.onend = () => {
-      if (!isCancelledRef.current) {
-        speakLine(index + 1);
-      }
+      if (!isCancelledRef.current) speakLine(index + 1);
     };
-
     utterance.onerror = (e) => {
-      if (e.error !== 'canceled') {
-        console.error('Speech error:', e.error);
-        setIsPlaying(false);
-      }
+      if (e.error !== 'canceled') setIsPlaying(false);
     };
 
     window.speechSynthesis.speak(utterance);
@@ -84,7 +71,6 @@ const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: Audi
       isCancelledRef.current = false;
       setIsPlaying(true);
       setProgress(0);
-      // Ensure voices are loaded
       if (window.speechSynthesis.getVoices().length === 0) {
         window.speechSynthesis.onvoiceschanged = () => speakLine(0);
       } else {
@@ -93,89 +79,65 @@ const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: Audi
     }
   }, [isPlaying, speakLine, stopSpeaking]);
 
+  const isOutbound = direction === 'outbound';
+  const DirectionIcon = isOutbound ? PhoneOutgoing : PhoneIncoming;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="flex-1 min-w-[300px]"
+      className="group"
     >
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden h-full">
-        {/* Header */}
-        <div className="p-6 pb-4 border-b border-gray-50">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#143151]/10 to-[#387E89]/10">
-              <Icon className="w-5 h-5 text-[#387E89]" />
-            </div>
-            <h3 className="text-lg font-bold text-gray-900">{title}</h3>
-          </div>
-          <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
-        </div>
+      <div className="relative bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
+        {/* Top accent bar */}
+        <div className={`h-1 w-full ${isOutbound ? 'bg-gradient-to-r from-[#143151] to-[#387E89]' : 'bg-gradient-to-r from-[#387E89] to-[#5192AE]'}`} />
 
-        {/* Audio Player Controls */}
-        <div className="px-6 py-4 bg-gradient-to-r from-[#143151]/[0.03] to-[#387E89]/[0.03]">
-          <div className="flex items-center gap-4">
+        <div className="p-5 sm:p-6">
+          {/* Direction badge */}
+          <div className="flex items-center justify-between mb-4">
+            <span className={`inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full ${
+              isOutbound
+                ? 'bg-[#143151]/10 text-[#143151]'
+                : 'bg-[#387E89]/10 text-[#387E89]'
+            }`}>
+              <DirectionIcon className="w-3 h-3" />
+              {direction}
+            </span>
+          </div>
+
+          {/* Title & description */}
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1.5 leading-snug">{title}</h3>
+          <p className="text-sm text-gray-500 leading-relaxed mb-5">{description}</p>
+
+          {/* Minimal player */}
+          <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
-              className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:shadow-lg hover:scale-105 cursor-pointer"
+              className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 cursor-pointer ${
+                isPlaying
+                  ? 'bg-gray-900 text-white scale-95'
+                  : 'bg-gradient-to-br from-[#143151] to-[#387E89] text-white hover:shadow-lg hover:scale-105'
+              }`}
             >
-              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
             </button>
             <div className="flex-1">
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full transition-all duration-300"
+                  className={`h-full rounded-full transition-all duration-300 ${
+                    isOutbound
+                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89]'
+                      : 'bg-gradient-to-r from-[#387E89] to-[#5192AE]'
+                  }`}
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <div className="flex justify-between mt-1.5">
-                <span className="text-xs text-gray-400">
-                  {isPlaying ? `Line ${currentLine + 1} of ${transcript.length}` : 'Click to listen'}
-                </span>
-                <span className="text-xs text-gray-400">
-                  🔊 Browser TTS
-                </span>
-              </div>
+              <p className="text-[11px] text-gray-400 mt-1.5">
+                {isPlaying ? 'Playing…' : 'Tap to listen'}
+              </p>
             </div>
-            {isPlaying && (
-              <button onClick={stopSpeaking} className="p-2 text-gray-400 hover:text-gray-600">
-                <Square className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Transcript */}
-        <div className="px-6 py-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Conversation Transcript</p>
-          <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
-            {transcript.map((line, i) => (
-              <div
-                key={i}
-                className={`flex gap-2 p-2 rounded-lg transition-all duration-300 ${
-                  currentLine === i ? 'bg-[#387E89]/10 scale-[1.01]' : ''
-                }`}
-              >
-                <span className={`text-xs font-medium flex-shrink-0 mt-0.5 ${
-                  line.speaker === 'bravo' ? 'text-[#387E89]' : 'text-gray-600'
-                }`}>
-                  {line.speaker === 'bravo' ? '🤖' : '👤'}
-                </span>
-                <div>
-                  <span className={`text-[10px] font-semibold uppercase tracking-wider ${
-                    line.speaker === 'bravo' ? 'text-[#387E89]' : 'text-gray-400'
-                  }`}>
-                    {line.speaker === 'bravo' ? 'BRAVO' : 'Caller'}
-                  </span>
-                  <p className={`text-sm leading-relaxed ${
-                    line.speaker === 'bravo' ? 'text-gray-700' : 'text-gray-500'
-                  }`}>
-                    {line.text}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -185,59 +147,113 @@ const AudioDemoCard = memo(({ title, description, icon: Icon, transcript }: Audi
 
 AudioDemoCard.displayName = 'AudioDemoCard';
 
+// ── Transcripts ──
+
+const prechartingTranscript = [
+  { speaker: 'bravo' as const, text: "Hi, this is BRAVO calling from Greenfield Medical on behalf of Dr. Patel. I'm reaching out ahead of your appointment tomorrow at 10:30 AM." },
+  { speaker: 'caller' as const, text: "Oh hi, yes I have that appointment." },
+  { speaker: 'bravo' as const, text: "Great! I'd like to quickly go over a few things so Dr. Patel can be fully prepared. Have there been any changes to your medications since your last visit?" },
+  { speaker: 'caller' as const, text: "Actually yes, my cardiologist added lisinopril about two weeks ago." },
+  { speaker: 'bravo' as const, text: "Got it — lisinopril added two weeks ago. And are you experiencing any new symptoms or concerns you'd like Dr. Patel to address?" },
+  { speaker: 'caller' as const, text: "I've been having some occasional dizziness, especially when I stand up." },
+  { speaker: 'bravo' as const, text: "Thank you for sharing that. I've noted the dizziness and the new medication for Dr. Patel's review. Your chart will be updated before your visit. See you tomorrow!" },
+];
+
+const followupTranscript = [
+  { speaker: 'bravo' as const, text: "Hi Sarah, this is BRAVO calling from Lakewood Family Practice. I'm following up on your visit with Dr. Chen three days ago. How are you feeling?" },
+  { speaker: 'caller' as const, text: "Much better actually. The new medication seems to be helping with the pain." },
+  { speaker: 'bravo' as const, text: "That's wonderful to hear! Any side effects from the medication — nausea, drowsiness, anything like that?" },
+  { speaker: 'caller' as const, text: "A little drowsy the first day but that's gone now." },
+  { speaker: 'bravo' as const, text: "Good, that's common and usually resolves quickly. Dr. Chen also wanted me to confirm — have you been able to schedule your physical therapy referral?" },
+  { speaker: 'caller' as const, text: "Not yet, I lost the referral details." },
+  { speaker: 'bravo' as const, text: "No problem! I'll have our care team resend the referral information to your email and phone. Dr. Chen recommended starting within the next two weeks for the best outcome." },
+  { speaker: 'caller' as const, text: "That would be great, thank you." },
+  { speaker: 'bravo' as const, text: "Done! You'll receive it shortly. Your follow-up with Dr. Chen is in four weeks. We'll send a reminder beforehand. Take care, Sarah!" },
+];
+
 const schedulingTranscript = [
   { speaker: 'bravo' as const, text: "Good morning! Thank you for calling Greenfield Medical. How can I help you today?" },
   { speaker: 'caller' as const, text: "Hi, I'd like to schedule an appointment with Dr. Patel." },
   { speaker: 'bravo' as const, text: "Of course! I can see Dr. Patel has availability this Thursday at 10:30 AM or Friday at 2:00 PM. Which works better for you?" },
   { speaker: 'caller' as const, text: "Thursday at 10:30 works great." },
-  { speaker: 'bravo' as const, text: "Perfect. I also see you mentioned chest tightness — I've flagged this as priority for Dr. Patel's review. Can you confirm your date of birth for verification?" },
+  { speaker: 'bravo' as const, text: "I also noticed you mentioned some chest tightness — I've flagged this as priority for Dr. Patel's review. Can you confirm your date of birth?" },
   { speaker: 'caller' as const, text: "March 15, 1985." },
   { speaker: 'bravo' as const, text: "You're all set! Appointment confirmed for Thursday at 10:30 AM. You'll receive a confirmation text shortly." },
 ];
 
-const feedbackTranscript = [
-  { speaker: 'bravo' as const, text: "Hi Sarah, this is a follow-up call from Lakewood Family Practice. How are you feeling after your visit last week?" },
-  { speaker: 'caller' as const, text: "Much better, thank you! The new medication is really helping." },
-  { speaker: 'bravo' as const, text: "That's wonderful to hear! On a scale of 1 to 10, how would you rate your overall experience with Dr. Chen?" },
-  { speaker: 'caller' as const, text: "I'd say a 9. She was very thorough." },
-  { speaker: 'bravo' as const, text: "Great feedback — I'll pass that along. Dr. Chen recommended a follow-up in 4 weeks. I have openings on March 12th at 3 PM or March 14th at 11 AM. Would either work?" },
-  { speaker: 'caller' as const, text: "March 14th at 11 AM, please." },
-  { speaker: 'bravo' as const, text: "Done! Your follow-up is booked. We'll send a reminder 48 hours before. Is there anything else I can help with?" },
+const medicationRefillTranscript = [
+  { speaker: 'bravo' as const, text: "Thank you for calling Lakewood Family Practice. How can I assist you?" },
+  { speaker: 'caller' as const, text: "Hi, I need to refill my blood pressure medication — amlodipine." },
+  { speaker: 'bravo' as const, text: "I can help with that. Can I get your name and date of birth for verification?" },
+  { speaker: 'caller' as const, text: "James Rivera, July 22, 1978." },
+  { speaker: 'bravo' as const, text: "Thank you, James. I see your amlodipine 5mg prescription. It looks like you're due for a refill. I'll send this request to Dr. Chen for approval." },
+  { speaker: 'caller' as const, text: "How long will that take?" },
+  { speaker: 'bravo' as const, text: "Typically within a few hours. Once approved, it'll be sent directly to your pharmacy on file — CVS on Oak Street. You'll get a text confirmation." },
+  { speaker: 'caller' as const, text: "Perfect, that's my pharmacy. Thanks!" },
+  { speaker: 'bravo' as const, text: "You're welcome, James! Is there anything else I can help with today?" },
 ];
 
 export const BravoAudioDemoSection = memo(() => {
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white pointer-events-none" />
-      <div className="container mx-auto px-4 relative">
+    <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-14"
+          className="text-center max-w-3xl mx-auto mb-12 sm:mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             Hear BRAVO in Action
           </h2>
-          <p className="text-lg text-gray-500">
-            Listen to how BRAVO handles real clinic scenarios — from appointment scheduling and triage to patient feedback and follow-ups.
+          <p className="text-base sm:text-lg text-gray-500 max-w-2xl mx-auto">
+            Listen to how BRAVO handles real clinic calls — outbound pre-charting and follow-ups, plus inbound scheduling and refill requests.
           </p>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
-          <AudioDemoCard
-            title="Appointment Scheduling & Triage"
-            description="BRAVO intelligently schedules appointments while identifying urgent symptoms for clinical triage."
-            icon={Calendar}
-            transcript={schedulingTranscript}
-          />
-          <AudioDemoCard
-            title="Feedback & Follow-Up Booking"
-            description="BRAVO collects patient feedback and seamlessly schedules follow-up appointments."
-            icon={MessageSquare}
-            transcript={feedbackTranscript}
-          />
+        {/* Outbound */}
+        <div className="max-w-5xl mx-auto mb-10">
+          <div className="flex items-center gap-2 mb-5">
+            <PhoneOutgoing className="w-4 h-4 text-[#143151]" />
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-[#143151]">Outbound Calls</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AudioDemoCard
+              title="Pre-Charting Call"
+              description="BRAVO calls patients ahead of appointments to gather medication changes, new symptoms, and update the chart before the visit."
+              direction="outbound"
+              transcript={prechartingTranscript}
+            />
+            <AudioDemoCard
+              title="Post-Visit Follow-Up & Care Coordination"
+              description="3 days after a visit, BRAVO checks on recovery, side effects, and coordinates pending referrals or care tasks."
+              direction="outbound"
+              transcript={followupTranscript}
+            />
+          </div>
+        </div>
+
+        {/* Inbound */}
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-2 mb-5">
+            <PhoneIncoming className="w-4 h-4 text-[#387E89]" />
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-[#387E89]">Inbound Calls</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AudioDemoCard
+              title="Appointment Scheduling"
+              description="BRAVO answers calls, checks provider availability, flags urgent symptoms, and confirms bookings — all in one conversation."
+              direction="inbound"
+              transcript={schedulingTranscript}
+            />
+            <AudioDemoCard
+              title="Medication Refill Request"
+              description="BRAVO verifies patient identity, checks prescriptions, and routes refill requests to the provider for quick approval."
+              direction="inbound"
+              transcript={medicationRefillTranscript}
+            />
+          </div>
         </div>
       </div>
     </section>
