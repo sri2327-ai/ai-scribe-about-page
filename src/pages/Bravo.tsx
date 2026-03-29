@@ -349,6 +349,12 @@ const Bravo = () => {
       
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <Suspense fallback={<LoadingIndicator />}>
+          <BravoTrySection />
+        </Suspense>
+      </LazyLoad>
+      
+      <LazyLoad rootMargin="400px" threshold={0.01}>
+        <Suspense fallback={<LoadingIndicator />}>
           <BravoAudioDemoSection />
         </Suspense>
       </LazyLoad>
