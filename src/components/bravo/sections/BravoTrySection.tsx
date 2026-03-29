@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const outcomes = [
-  { icon: Clock, title: '70% Less Hold Time', description: 'Patients connect instantly — no more waiting on hold.' },
-  { icon: TrendingUp, title: '40% Fewer No-Shows', description: 'Automated reminders keep your schedule full.' },
-  { icon: DollarSign, title: '$150K+ Annual Savings', description: 'Reduce overhead while handling 3× more interactions.' },
-  { icon: Users, title: '24/7 Patient Access', description: 'Every call answered — nights, weekends & holidays.' },
-  { icon: HeartPulse, title: 'Higher Satisfaction', description: 'Faster responses lead to happier, loyal patients.' },
-  { icon: ShieldCheck, title: 'HIPAA-Compliant', description: 'Enterprise-grade security meets compliance standards.' },
+  { icon: Clock, title: '70% Less Hold Time', description: 'Zero hold music. Patients get answers in seconds, not minutes.' },
+  { icon: TrendingUp, title: '40% Fewer No-Shows', description: 'Smart reminders + easy rescheduling keep your chairs filled.' },
+  { icon: DollarSign, title: '$150K+ Saved Per Year', description: 'Handle 3× more calls without adding a single FTE.' },
+  { icon: Users, title: '24/7 — Never Miss a Call', description: 'Nights, weekends, holidays. Every call answered, every time.' },
+  { icon: HeartPulse, title: '4.8★ Patient Satisfaction', description: 'Faster service = happier patients who stay and refer.' },
+  { icon: ShieldCheck, title: 'HIPAA-Compliant & Secure', description: 'SOC 2 Type II certified. Your data stays protected.' },
 ];
 
 const BravoTrySection = memo(() => {
