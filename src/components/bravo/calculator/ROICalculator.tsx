@@ -192,14 +192,14 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           </motion.div>
         ))}
 
-        {/* FTE callout */}
+        {/* Hours per week callout */}
         <div className="rounded-2xl bg-gradient-to-r from-[#143151] to-[#387E89] p-5 sm:p-6 text-white mt-2">
-          <p className="text-sm text-white/70 mb-1">That's equivalent to</p>
+          <p className="text-sm text-white/70 mb-1">Your team gets back</p>
           <p className="text-2xl sm:text-3xl font-bold">
-            {roi.fteFraction.toFixed(1)} full-time staff
+            {roi.hoursPerWeek < 1 ? roi.hoursPerWeek.toFixed(1) : Math.round(roi.hoursPerWeek)} hours every week
           </p>
           <p className="text-sm text-white/60 mt-1">
-            worth of call-handling capacity — without hiring anyone.
+            of call-handling time — reinvested in patient care, not phone lines.
           </p>
         </div>
       </div>
