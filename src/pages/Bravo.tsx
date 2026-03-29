@@ -46,6 +46,10 @@ const featuresData = [
 ];
 
 // Use dynamic imports with prefetch to improve loading performance
+const BravoTrySection = lazy(() => 
+  import("@/components/bravo/sections/BravoTrySection").then(module => ({ default: module.BravoTrySection }))
+);
+
 const CompatibilitySection = lazy(() => {
   const module = import("@/components/bravo/sections/CompatibilitySection").then(module => ({ default: module.CompatibilitySection }));
   return module;
@@ -346,6 +350,12 @@ const Bravo = () => {
       style={{ scrollBehavior: 'smooth' }}
     >
       <BravoHeroSection />
+      
+      <LazyLoad rootMargin="400px" threshold={0.01}>
+        <Suspense fallback={<LoadingIndicator />}>
+          <BravoTrySection />
+        </Suspense>
+      </LazyLoad>
       
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <Suspense fallback={<LoadingIndicator />}>
