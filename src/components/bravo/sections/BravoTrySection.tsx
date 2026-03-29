@@ -45,13 +45,13 @@ const BravoTrySection = memo(() => {
           className="text-center mb-8 sm:mb-10 md:mb-14"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-[#387E89] text-xs sm:text-sm font-medium mb-3 sm:mb-4">
-            Get Started Today
+            No Commitment · See Results in Minutes
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-3 sm:mb-4">
-            Two Ways to Try S10.AI
+            Experience BRAVO — Your Way
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-[#387E89] max-w-2xl mx-auto">
-            See how BRAVO transforms your front office — book a personalized demo or call us directly.
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+            Whether you prefer a guided walkthrough or want to hear BRAVO in action yourself, getting started takes under 2 minutes.
           </p>
         </motion.div>
 
