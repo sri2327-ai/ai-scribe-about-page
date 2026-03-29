@@ -10,6 +10,7 @@ import { Phone, Check, BarChart3, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // Define feature data outside component to prevent recreation on render
 const featuresData = [
@@ -504,7 +505,76 @@ const Bravo = () => {
           </div>
         </div>
       </section>
-      
+
+      {/* FAQ Section */}
+      <section className="py-20 sm:py-28 bg-white">
+        <div className="container max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#143151] mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              Everything clinicians and practice administrators ask before going live with BRAVO.
+            </p>
+          </motion.div>
+
+          <Accordion type="single" collapsible className="space-y-3">
+            {[
+              {
+                q: "Will patients know they're talking to an AI?",
+                a: "BRAVO uses natural, human-like voices and conversational flow. Most patients feel they're speaking with a friendly receptionist. You can also customize the greeting and tone to match your practice's brand."
+              },
+              {
+                q: "Can BRAVO handle complex scheduling rules like multi-provider, multi-location, or procedure-specific slots?",
+                a: "Yes. BRAVO syncs with your EHR/PMS calendar in real time and respects provider availability, appointment types, location constraints, and buffer times. It handles rescheduling, waitlists, and cancellation policies automatically."
+              },
+              {
+                q: "What happens if a patient has an urgent or emergency situation?",
+                a: "BRAVO is trained to recognize urgency cues. It immediately escalates critical calls to your on-call staff or directs patients to 911. You define the escalation rules — BRAVO follows them every time, 24/7."
+              },
+              {
+                q: "How does BRAVO integrate with our existing EHR system?",
+                a: "BRAVO integrates with 50+ EHR/PMS platforms including Epic, Athena, eClinicalWorks, DrChrono, Kareo, and NextGen. Setup typically takes under a week with dedicated onboarding support — no IT overhaul required."
+              },
+              {
+                q: "Is patient data secure and HIPAA-compliant?",
+                a: "Absolutely. BRAVO is fully HIPAA-compliant with SOC 2 Type II certification, end-to-end encryption, and BAA agreements. Patient data is never used for model training and is stored in accordance with healthcare data regulations."
+              },
+              {
+                q: "How much staff time does BRAVO actually save?",
+                a: "On average, practices reclaim 10+ hours per provider per week. BRAVO handles 75% of routine calls — scheduling, refills, intake, reminders, and follow-ups — freeing your team to focus on in-office patient care."
+              },
+              {
+                q: "What if BRAVO can't answer a patient's question?",
+                a: "BRAVO gracefully transfers the call to your staff with full context — the patient never has to repeat themselves. You can configure fallback rules by topic, urgency, or time of day."
+              },
+              {
+                q: "How long does it take to go live?",
+                a: "Most practices are fully live within 5–7 business days. Our team handles configuration, calendar sync, and voice customization. We run a pilot period so you can fine-tune before full deployment."
+              },
+            ].map((faq, i) => (
+              <AccordionItem
+                key={i}
+                value={`faq-${i}`}
+                className="border border-gray-200 rounded-xl px-5 sm:px-6 data-[state=open]:shadow-md transition-shadow"
+              >
+                <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-[#143151] py-5 hover:no-underline">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-sm sm:text-base leading-relaxed pb-5">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
       {/* Exit Intent Popup - only render on client */}
       {isClient && (
         <ExitIntentPopup
