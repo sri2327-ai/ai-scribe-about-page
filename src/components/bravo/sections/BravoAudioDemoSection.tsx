@@ -204,11 +204,14 @@ export const BravoAudioDemoSection = memo(() => {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-12 sm:mb-14"
         >
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#143151]/10 text-[#143151] text-xs sm:text-sm font-semibold mb-3">
+            🎧 Live Call Samples
+          </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            Hear BRAVO in Action
+            This Is What Your Patients Will Hear
           </h2>
           <p className="text-base sm:text-lg text-gray-500 max-w-2xl mx-auto">
-            Listen to how BRAVO handles real clinic calls — outbound pre-charting and follow-ups, plus inbound scheduling and refill requests.
+            Real conversations. Real scenarios. Hit play and hear how BRAVO handles everything from pre-visit prep to medication refills — so your staff doesn't have to.
           </p>
         </motion.div>
 

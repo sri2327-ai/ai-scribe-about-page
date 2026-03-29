@@ -147,10 +147,10 @@ const BravoTrySection = memo(() => {
           >
             <div className="bg-gradient-to-br from-[#143151] to-[#387E89] rounded-2xl p-6 sm:p-8 md:p-10 text-white h-full flex flex-col">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1.5 sm:mb-2">
-                Why Automate Patient Communication?
+                What Changes When BRAVO Answers Your Phones
               </h3>
               <p className="text-white/60 mb-6 sm:mb-8 text-xs sm:text-sm">
-                Practices using BRAVO see measurable improvements across the board.
+                Real outcomes from practices that switched — measured within 90 days.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
                 {outcomes.map((item, i) => (
