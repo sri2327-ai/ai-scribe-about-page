@@ -604,13 +604,13 @@ const automationPanels = [
     bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
   {
-    title: "Patient Registration & Check-In",
-    description: "Fast digital onboarding solution for seamless patient experience",
+    title: "Patient Triaging",
+    description: "AI-powered urgency assessment that routes patients to the right provider, faster",
     illustration: <RegistrationIllustration />,
     details: [
-      "Guides patients through efficient registration", 
-      "Handles insurance & demographic updates", 
-      "Integrates directly with practice EHR"
+      "Assesses symptom urgency & prioritizes cases in real time", 
+      "Routes patients to the appropriate provider or department", 
+      "Escalates critical cases instantly — no calls left waiting"
     ],
     bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
