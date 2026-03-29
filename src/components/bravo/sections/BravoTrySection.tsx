@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const outcomes = [
-  { icon: Clock, title: '70% Less Hold Time', description: 'Patients connect instantly — no more waiting on hold.' },
-  { icon: TrendingUp, title: '40% Fewer No-Shows', description: 'Automated reminders keep your schedule full.' },
-  { icon: DollarSign, title: '$150K+ Annual Savings', description: 'Reduce overhead while handling 3× more interactions.' },
-  { icon: Users, title: '24/7 Patient Access', description: 'Every call answered — nights, weekends & holidays.' },
-  { icon: HeartPulse, title: 'Higher Satisfaction', description: 'Faster responses lead to happier, loyal patients.' },
-  { icon: ShieldCheck, title: 'HIPAA-Compliant', description: 'Enterprise-grade security meets compliance standards.' },
+  { icon: Clock, title: '70% Less Hold Time', description: 'Zero hold music. Patients get answers in seconds, not minutes.' },
+  { icon: TrendingUp, title: '40% Fewer No-Shows', description: 'Smart reminders + easy rescheduling keep your chairs filled.' },
+  { icon: DollarSign, title: '$150K+ Saved Per Year', description: 'Handle 3× more calls without adding a single FTE.' },
+  { icon: Users, title: '24/7 — Never Miss a Call', description: 'Nights, weekends, holidays. Every call answered, every time.' },
+  { icon: HeartPulse, title: '4.8★ Patient Satisfaction', description: 'Faster service = happier patients who stay and refer.' },
+  { icon: ShieldCheck, title: 'HIPAA-Compliant & Secure', description: 'SOC 2 Type II certified. Your data stays protected.' },
 ];
 
 const BravoTrySection = memo(() => {
@@ -45,13 +45,13 @@ const BravoTrySection = memo(() => {
           className="text-center mb-8 sm:mb-10 md:mb-14"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-[#387E89] text-xs sm:text-sm font-medium mb-3 sm:mb-4">
-            Get Started Today
+            No Commitment · See Results in Minutes
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-3 sm:mb-4">
-            Two Ways to Try S10.AI
+            Experience BRAVO — Your Way
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-[#387E89] max-w-2xl mx-auto">
-            See how BRAVO transforms your front office — book a personalized demo or call us directly.
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+            Whether you prefer a guided walkthrough or want to hear BRAVO in action yourself, getting started takes under 2 minutes.
           </p>
         </motion.div>
 
@@ -71,7 +71,7 @@ const BravoTrySection = memo(() => {
                 <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#143151]">Book a Live Demo</h3>
               </div>
               <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed">
-                Get a personalized 15-minute walkthrough. See BRAVO handle real patient scenarios.
+                A 15-minute call with our team. We'll show you BRAVO handling real patient scenarios tailored to your specialty.
               </p>
               <ul className="space-y-2 mb-5 text-xs sm:text-sm text-gray-600">
                 <li className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] shrink-0" /> Free 15-minute consultation</li>
@@ -94,7 +94,7 @@ const BravoTrySection = memo(() => {
                 <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#143151]">Call BRAVO Directly</h3>
               </div>
               <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed">
-                Experience BRAVO as your patients would — fill in your details to get the number.
+                Call BRAVO right now and experience it as your patients would — schedule an appointment, ask a question, or request a refill.
               </p>
 
               {!showNumber ? (
@@ -147,10 +147,10 @@ const BravoTrySection = memo(() => {
           >
             <div className="bg-gradient-to-br from-[#143151] to-[#387E89] rounded-2xl p-6 sm:p-8 md:p-10 text-white h-full flex flex-col">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1.5 sm:mb-2">
-                Why Automate Patient Communication?
+                What Changes When BRAVO Answers Your Phones
               </h3>
               <p className="text-white/60 mb-6 sm:mb-8 text-xs sm:text-sm">
-                Practices using BRAVO see measurable improvements across the board.
+                Real outcomes from practices that switched — measured within 90 days.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
                 {outcomes.map((item, i) => (
