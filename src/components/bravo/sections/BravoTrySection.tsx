@@ -71,7 +71,7 @@ const BravoTrySection = memo(() => {
                 <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#143151]">Book a Live Demo</h3>
               </div>
               <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed">
-                Get a personalized 15-minute walkthrough. See BRAVO handle real patient scenarios.
+                A 15-minute call with our team. We'll show you BRAVO handling real patient scenarios tailored to your specialty.
               </p>
               <ul className="space-y-2 mb-5 text-xs sm:text-sm text-gray-600">
                 <li className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] shrink-0" /> Free 15-minute consultation</li>
