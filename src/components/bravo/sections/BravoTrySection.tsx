@@ -1,17 +1,16 @@
 import React, { memo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Phone, Calendar, TrendingUp, Clock, Users, DollarSign, ShieldCheck, HeartPulse } from 'lucide-react';
+import { ArrowRight, Phone, Calendar, TrendingUp, Clock, Users, DollarSign, ShieldCheck, HeartPulse, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
 
 const outcomes = [
-  { icon: Clock, title: '70% Less Hold Time', description: 'Patients connect instantly — no more waiting on hold for scheduling or questions.' },
-  { icon: TrendingUp, title: '40% Fewer No-Shows', description: 'Automated reminders & confirmations keep your schedule full and predictable.' },
-  { icon: DollarSign, title: '$150K+ Annual Savings', description: 'Reduce front-desk overhead while handling 3× more patient interactions.' },
-  { icon: Users, title: '24/7 Patient Access', description: 'Every call answered, every message replied — even nights, weekends & holidays.' },
-  { icon: HeartPulse, title: 'Higher Patient Satisfaction', description: 'Faster responses and seamless scheduling lead to happier, loyal patients.' },
-  { icon: ShieldCheck, title: 'HIPAA-Compliant AI', description: 'Enterprise-grade security ensures every interaction meets compliance standards.' },
+  { icon: Clock, title: '70% Less Hold Time', description: 'Patients connect instantly — no more waiting on hold.' },
+  { icon: TrendingUp, title: '40% Fewer No-Shows', description: 'Automated reminders keep your schedule full.' },
+  { icon: DollarSign, title: '$150K+ Annual Savings', description: 'Reduce overhead while handling 3× more interactions.' },
+  { icon: Users, title: '24/7 Patient Access', description: 'Every call answered — nights, weekends & holidays.' },
+  { icon: HeartPulse, title: 'Higher Satisfaction', description: 'Faster responses lead to happier, loyal patients.' },
+  { icon: ShieldCheck, title: 'HIPAA-Compliant', description: 'Enterprise-grade security meets compliance standards.' },
 ];
 
 const BravoTrySection = memo(() => {
@@ -34,157 +33,155 @@ const BravoTrySection = memo(() => {
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[#143151]/[0.02] to-[#387E89]/[0.04]" />
-      <div className="container mx-auto px-4 relative">
+      <div className="container mx-auto px-4 sm:px-6 relative">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-8 sm:mb-10 md:mb-14"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-[#387E89] text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+            Get Started Today
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-3 sm:mb-4">
             Two Ways to Try S10.AI
           </h2>
-          <p className="text-lg text-[#387E89] max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-[#387E89] max-w-2xl mx-auto">
             See how BRAVO transforms your front office — book a personalized demo or call us directly.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto items-start">
-          {/* Left: Two ways */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 max-w-6xl mx-auto items-stretch">
+          {/* Left: Two ways — takes 2 of 5 cols */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="lg:col-span-2 space-y-4 sm:space-y-6"
           >
             {/* Option A */}
-            <Card className="border border-[#387E89]/20 shadow-lg hover:shadow-xl transition-shadow bg-white">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-[#143151] flex items-center justify-center text-white font-bold text-lg">A</div>
-                  <h3 className="text-xl font-bold text-[#143151]">Book a Live Demo</h3>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Get a personalized 15-minute walkthrough with our team. See BRAVO handle real patient scenarios tailored to your specialty.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm text-gray-600">
-                  <li className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#387E89]" /> Free 15-minute consultation</li>
-                  <li className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#387E89]" /> Custom implementation plan</li>
-                  <li className="flex items-center gap-2"><DollarSign className="w-4 h-4 text-[#387E89]" /> No setup fees or contracts</li>
-                </ul>
-                <Button
-                  size="lg"
-                  className="w-full rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white"
-                  onClick={() => window.open('/contact', '_blank')}
-                >
-                  Book a Demo <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
+            <div className="group rounded-2xl border border-[#387E89]/15 p-5 sm:p-6 md:p-7 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:border-[#387E89]/30">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#143151] flex items-center justify-center text-white font-bold text-sm sm:text-base shrink-0">A</div>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#143151]">Book a Live Demo</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed">
+                Get a personalized 15-minute walkthrough. See BRAVO handle real patient scenarios.
+              </p>
+              <ul className="space-y-2 mb-5 text-xs sm:text-sm text-gray-600">
+                <li className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] shrink-0" /> Free 15-minute consultation</li>
+                <li className="flex items-center gap-2"><ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] shrink-0" /> Custom implementation plan</li>
+                <li className="flex items-center gap-2"><DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] shrink-0" /> No setup fees or contracts</li>
+              </ul>
+              <Button
+                size="lg"
+                className="w-full rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white text-sm sm:text-base h-10 sm:h-11"
+                onClick={() => window.open('/contact', '_blank')}
+              >
+                Book a Demo <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
 
             {/* Option B */}
-            <Card className="border border-[#387E89]/20 shadow-lg hover:shadow-xl transition-shadow bg-white">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-[#387E89] flex items-center justify-center text-white font-bold text-lg">B</div>
-                  <h3 className="text-xl font-bold text-[#143151]">Call BRAVO Directly</h3>
-                </div>
-                <p className="text-gray-600 mb-5">
-                  Experience BRAVO as your patients would — fill in your details and we'll reveal the number to call our AI receptionist live.
-                </p>
+            <div className="group rounded-2xl border border-[#387E89]/15 p-5 sm:p-6 md:p-7 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:border-[#387E89]/30">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#387E89] flex items-center justify-center text-white font-bold text-sm sm:text-base shrink-0">B</div>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#143151]">Call BRAVO Directly</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed">
+                Experience BRAVO as your patients would — fill in your details to get the number.
+              </p>
 
-                {!showNumber ? (
-                  <form onSubmit={handleRevealNumber} className="space-y-3">
-                    <div>
+              {!showNumber ? (
+                <form onSubmit={handleRevealNumber} className="space-y-2.5 sm:space-y-3">
+                  {(['name', 'email', 'practice'] as const).map((field) => (
+                    <div key={field}>
                       <Input
-                        placeholder="Your Name"
-                        value={formData.name}
-                        onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
-                        className={errors.name ? 'border-red-400' : ''}
+                        placeholder={field === 'name' ? 'Your Name' : field === 'email' ? 'Email Address' : 'Practice Name'}
+                        type={field === 'email' ? 'email' : 'text'}
+                        value={formData[field]}
+                        onChange={e => setFormData(p => ({ ...p, [field]: e.target.value }))}
+                        className={`h-9 sm:h-10 text-sm ${errors[field] ? 'border-red-400 focus-visible:ring-red-300' : 'border-gray-200'}`}
                       />
-                      {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
+                      {errors[field] && <p className="text-[11px] text-red-500 mt-0.5">{errors[field]}</p>}
                     </div>
-                    <div>
-                      <Input
-                        placeholder="Email Address"
-                        type="email"
-                        value={formData.email}
-                        onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
-                        className={errors.email ? 'border-red-400' : ''}
-                      />
-                      {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
-                    </div>
-                    <div>
-                      <Input
-                        placeholder="Practice Name"
-                        value={formData.practice}
-                        onChange={e => setFormData(p => ({ ...p, practice: e.target.value }))}
-                        className={errors.practice ? 'border-red-400' : ''}
-                      />
-                      {errors.practice && <p className="text-xs text-red-500 mt-1">{errors.practice}</p>}
-                    </div>
-                    <Button type="submit" size="lg" className="w-full rounded-full bg-[#387E89] hover:bg-[#2c6269] text-white">
-                      <Phone className="mr-2 h-4 w-4" /> Reveal Phone Number
-                    </Button>
-                  </form>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center p-6 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/10 border border-[#387E89]/20"
+                  ))}
+                  <Button type="submit" size="lg" className="w-full rounded-full bg-[#387E89] hover:bg-[#2c6269] text-white text-sm sm:text-base h-10 sm:h-11">
+                    <Phone className="mr-2 h-4 w-4" /> Reveal Phone Number
+                  </Button>
+                </form>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-5 sm:py-6 px-4 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/10 border border-[#387E89]/20"
+                >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#387E89]/10 flex items-center justify-center mx-auto mb-3">
+                    <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-[#387E89]" />
+                  </div>
+                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Call BRAVO Now</p>
+                  <a
+                    href="tel:+14155551234"
+                    className="text-2xl sm:text-3xl font-bold text-[#143151] hover:text-[#387E89] transition-colors"
                   >
-                    <Phone className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                    <p className="text-sm text-gray-500 mb-1">Call BRAVO Now</p>
-                    <a
-                      href="tel:+14155551234"
-                      className="text-3xl font-bold text-[#143151] hover:text-[#387E89] transition-colors"
-                    >
-                      (415) 555-1234
-                    </a>
-                    <p className="text-xs text-gray-400 mt-2">Available 24/7 · HIPAA Compliant</p>
-                  </motion.div>
-                )}
-              </CardContent>
-            </Card>
+                    (415) 555-1234
+                  </a>
+                  <p className="text-[10px] sm:text-xs text-gray-400 mt-2">Available 24/7 · HIPAA Compliant</p>
+                </motion.div>
+              )}
+            </div>
           </motion.div>
 
-          {/* Right: Outcomes */}
+          {/* Right: Outcomes — takes 3 of 5 cols */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
+            className="lg:col-span-3"
           >
-            <div className="bg-gradient-to-br from-[#143151] to-[#387E89] rounded-2xl p-8 md:p-10 text-white h-full">
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">
+            <div className="bg-gradient-to-br from-[#143151] to-[#387E89] rounded-2xl p-6 sm:p-8 md:p-10 text-white h-full flex flex-col">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1.5 sm:mb-2">
                 Why Automate Patient Communication?
               </h3>
-              <p className="text-white/70 mb-8 text-sm">
+              <p className="text-white/60 mb-6 sm:mb-8 text-xs sm:text-sm">
                 Practices using BRAVO see measurable improvements across the board.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
                 {outcomes.map((item, i) => (
                   <motion.div
                     key={item.title}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 + i * 0.08 }}
+                    transition={{ duration: 0.3, delay: 0.3 + i * 0.06 }}
                     viewport={{ once: true }}
-                    className="flex gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/15 transition-colors"
+                    className="flex gap-3 p-3 sm:p-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] transition-all duration-200 backdrop-blur-sm"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
+                      <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-sm mb-0.5">{item.title}</h4>
-                      <p className="text-xs text-white/70 leading-relaxed">{item.description}</p>
+                    <div className="min-w-0">
+                      <h4 className="font-semibold text-xs sm:text-sm mb-0.5 truncate">{item.title}</h4>
+                      <p className="text-[10px] sm:text-xs text-white/65 leading-relaxed">{item.description}</p>
                     </div>
                   </motion.div>
                 ))}
+              </div>
+              <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                <div className="flex items-center gap-2 text-white/70 text-xs sm:text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
+                  <span>Trusted by 100+ practices</span>
+                </div>
+                <div className="hidden sm:block w-1 h-1 rounded-full bg-white/30" />
+                <div className="flex items-center gap-2 text-white/70 text-xs sm:text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
+                  <span>Setup in under 48 hours</span>
+                </div>
               </div>
             </div>
           </motion.div>
