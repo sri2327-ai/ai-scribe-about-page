@@ -11,8 +11,6 @@ import { motion } from "framer-motion";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useExitIntent } from "@/hooks/useExitIntent";
-import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 
 // Define feature data outside component to prevent recreation on render
 const featuresData = [
