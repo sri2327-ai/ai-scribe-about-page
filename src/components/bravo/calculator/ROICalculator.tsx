@@ -50,9 +50,9 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     const annualROI = Math.round(staffCostSaved + noShowRevenue);
     const totalCostSaved = Math.round(staffCostSaved);
     const totalHoursSaved = Math.round(hoursAutomated);
-    const fteFraction = hoursAutomated / FTE_HOURS_PER_YEAR;
+    const hoursPerWeek = hoursAutomated / 50; // 50 working weeks
 
-    return { annualROI, totalCostSaved, totalHoursSaved, recoveredAppts, fteFraction, automatedCalls };
+    return { annualROI, totalCostSaved, totalHoursSaved, recoveredAppts, hoursPerWeek, automatedCalls };
   }, [callsPerDay, clinicians, avgCallDuration]);
 
   useEffect(() => {
