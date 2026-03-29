@@ -402,6 +402,108 @@ const Bravo = () => {
           <BravoAutomationBentoGrid />
         </Suspense>
       </LazyLoad>
+
+      {/* Final CTA Section */}
+      <section className="relative py-20 sm:py-28 lg:py-36 overflow-hidden bg-[#FAF8F6]">
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left: Hub illustration */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+              className="relative flex justify-center"
+            >
+              <div className="relative w-72 h-72 sm:w-80 sm:h-80">
+                {/* Outer ring */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/20" />
+                {/* Inner ring */}
+                <div className="absolute inset-8 rounded-full bg-gradient-to-br from-[#143151]/15 to-[#387E89]/15" />
+                {/* Core */}
+                <div className="absolute inset-16 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-xl">
+                  <span className="text-white font-bold text-2xl sm:text-3xl tracking-tight">BRAVO</span>
+                </div>
+                {/* Orbiting integration icons */}
+                {[
+                  { label: 'EHR', angle: -30, color: 'bg-blue-100 text-blue-600' },
+                  { label: 'PMS', angle: 30, color: 'bg-teal-100 text-teal-600' },
+                  { label: 'CRM', angle: 90, color: 'bg-purple-100 text-purple-600' },
+                  { label: 'SIP', angle: 150, color: 'bg-amber-100 text-amber-600' },
+                  { label: 'Cal', angle: 210, color: 'bg-green-100 text-green-600' },
+                  { label: '+', angle: 270, color: 'bg-gray-100 text-gray-600' },
+                ].map((item) => {
+                  const rad = (item.angle * Math.PI) / 180;
+                  const r = 140;
+                  const x = Math.cos(rad) * r;
+                  const y = Math.sin(rad) * r;
+                  return (
+                    <motion.div
+                      key={item.label}
+                      className={`absolute w-11 h-11 rounded-full ${item.color} flex items-center justify-center text-xs font-bold shadow-md border border-white`}
+                      style={{ left: `calc(50% + ${x}px - 22px)`, top: `calc(50% + ${y}px - 22px)` }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3 + item.angle / 500, duration: 0.4 }}
+                      viewport={{ once: true }}
+                    >
+                      {item.label}
+                    </motion.div>
+                  );
+                })}
+                {/* Connecting lines (SVG) */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 320 320">
+                  {[
+                    { angle: -30 }, { angle: 30 }, { angle: 90 },
+                    { angle: 150 }, { angle: 210 }, { angle: 270 },
+                  ].map((item) => {
+                    const rad = (item.angle * Math.PI) / 180;
+                    const x2 = 160 + Math.cos(rad) * 120;
+                    const y2 = 160 + Math.sin(rad) * 120;
+                    return (
+                      <line
+                        key={item.angle}
+                        x1="160" y1="160" x2={x2} y2={y2}
+                        stroke="#387E89" strokeWidth="1" opacity="0.2"
+                      />
+                    );
+                  })}
+                </svg>
+              </div>
+            </motion.div>
+
+            {/* Right: Copy + CTA */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#143151] mb-6 leading-tight">
+                Built to fit{' '}
+                <span className="italic text-[#387E89]">your practice</span>
+              </h2>
+              <div className="space-y-4 text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+                <p>Every practice runs differently.</p>
+                <p>
+                  BRAVO is configured around your existing workflows and systems, with or without deep integration. We offer dedicated support to ensure reliable performance at scale.
+                </p>
+                <p>
+                  Here are some of the leading EHR/PMS systems we seamlessly integrate with:{' '}
+                  <strong className="text-[#143151]">Epic, Athena, eClinicalWorks, DrChrono, Kareo, NextGen</strong> and more.
+                </p>
+              </div>
+              <Button
+                size="lg"
+                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+                onClick={() => window.open('/contact', '_blank')}
+              >
+                Book a Demo
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       
       {/* Exit Intent Popup - only render on client */}
       {isClient && (
