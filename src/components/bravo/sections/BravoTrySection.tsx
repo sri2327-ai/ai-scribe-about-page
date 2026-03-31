@@ -35,7 +35,7 @@ const BravoTrySection = memo(() => {
   return (
     <section className="py-16 sm:py-20 md:py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[#143151]/[0.02] to-[#387E89]/[0.04]" />
-      <div className="container mx-auto px-4 sm:px-6 relative h-full flex flex-col justify-center py-6">
+      <div className="container mx-auto px-4 sm:px-6 relative">
         {/* Compact Header */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
