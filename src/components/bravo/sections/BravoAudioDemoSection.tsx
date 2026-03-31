@@ -90,32 +90,23 @@ const AudioDemoCard = memo(({ title, description, direction, transcript }: Audio
       viewport={{ once: true }}
       className="group"
     >
-      <div className="relative bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
-        {/* Top accent bar */}
+      <div className="relative bg-white rounded-xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
         <div className={`h-1 w-full ${isOutbound ? 'bg-gradient-to-r from-[#143151] to-[#387E89]' : 'bg-gradient-to-r from-[#387E89] to-[#5192AE]'}`} />
-
-        <div className="p-5 sm:p-6">
-          {/* Direction badge */}
-          <div className="flex items-center justify-between mb-4">
-            <span className={`inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full ${
-              isOutbound
-                ? 'bg-[#143151]/10 text-[#143151]'
-                : 'bg-[#387E89]/10 text-[#387E89]'
+        <div className="p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-2">
+            <span className={`inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest px-2.5 py-0.5 rounded-full ${
+              isOutbound ? 'bg-[#143151]/10 text-[#143151]' : 'bg-[#387E89]/10 text-[#387E89]'
             }`}>
               <DirectionIcon className="w-3 h-3" />
               {direction}
             </span>
           </div>
-
-          {/* Title & description */}
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1.5 leading-snug">{title}</h3>
-          <p className="text-sm text-gray-500 leading-relaxed mb-5">{description}</p>
-
-          {/* Minimal player */}
+          <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1 leading-snug">{title}</h3>
+          <p className="text-xs sm:text-sm text-gray-500 leading-relaxed mb-3">{description}</p>
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
-              className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 cursor-pointer ${
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 cursor-pointer ${
                 isPlaying
                   ? 'bg-gray-900 text-white scale-95'
                   : 'bg-gradient-to-br from-[#143151] to-[#387E89] text-white hover:shadow-lg hover:scale-105'
@@ -127,14 +118,12 @@ const AudioDemoCard = memo(({ title, description, direction, transcript }: Audio
               <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-300 ${
-                    isOutbound
-                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89]'
-                      : 'bg-gradient-to-r from-[#387E89] to-[#5192AE]'
+                    isOutbound ? 'bg-gradient-to-r from-[#143151] to-[#387E89]' : 'bg-gradient-to-r from-[#387E89] to-[#5192AE]'
                   }`}
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <p className="text-[11px] text-gray-400 mt-1.5">
+              <p className="text-[11px] text-gray-400 mt-1">
                 {isPlaying ? 'Playing…' : 'Tap to listen'}
               </p>
             </div>
