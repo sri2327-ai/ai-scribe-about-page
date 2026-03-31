@@ -13,7 +13,7 @@ export const ROISection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-12 sm:mb-16 max-w-2xl"
+          className="mb-8 sm:mb-10 max-w-2xl"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#143151] mb-3 leading-tight">
             See what BRAVO can{' '}
