@@ -33,7 +33,7 @@ const BravoTrySection = memo(() => {
   };
 
   return (
-    <section className="h-screen min-h-[600px] max-h-[900px] bg-white relative overflow-hidden flex items-center">
+    <section className="py-16 sm:py-20 md:py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[#143151]/[0.02] to-[#387E89]/[0.04]" />
       <div className="container mx-auto px-4 sm:px-6 relative h-full flex flex-col justify-center py-6">
         {/* Compact Header */}
