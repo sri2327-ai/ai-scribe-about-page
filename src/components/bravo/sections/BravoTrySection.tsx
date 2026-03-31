@@ -42,15 +42,15 @@ const BravoTrySection = memo(() => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mb-4 sm:mb-6"
+          className="text-center mb-8 sm:mb-10"
         >
-          <span className="inline-block px-3 py-1 rounded-full bg-[#387E89]/10 text-[#387E89] text-xs font-medium mb-2">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-[#387E89] text-sm font-medium mb-3">
             No Commitment · Results in Minutes
           </span>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#143151] mb-1.5">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-3">
             Experience BRAVO — Your Way
           </h2>
-          <p className="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Guided walkthrough or hear BRAVO live — getting started takes under 2 minutes.
           </p>
         </motion.div>
