@@ -105,17 +105,17 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
   ];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
       {/* Left: Sliders */}
       <div>
-        <h3 className="text-xl sm:text-2xl font-bold text-[#143151] mb-2">Adjust for your practice</h3>
-        <p className="text-sm text-gray-500 mb-8">
-          Move the sliders to match your clinic. The calculator updates in real time.
+        <h3 className="text-lg sm:text-xl font-bold text-[#143151] mb-1">Adjust for your practice</h3>
+        <p className="text-sm text-gray-500 mb-6">
+          Move the sliders to match your clinic. Results update in real time.
         </p>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {sliders.map((s) => (
-            <div key={s.label} className="space-y-3">
+            <div key={s.label} className="space-y-2">
               <div className="flex justify-between items-baseline">
                 <span className="text-sm font-medium text-gray-700">{s.label}</span>
                 <span className="text-lg font-bold text-[#143151]">{s.value}</span>
@@ -136,27 +136,23 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           ))}
         </div>
 
-        {/* Additional convincing factors */}
-        <div className="mt-10 pt-8 border-t border-gray-100 space-y-4">
-          <h4 className="text-sm font-semibold text-[#143151] uppercase tracking-wider">How we calculate this</h4>
-          <ul className="space-y-3 text-sm text-gray-600">
-            <li className="flex items-start gap-2.5">
-              <PhoneCall className="w-4 h-4 mt-0.5 text-[#387E89] shrink-0" />
-              <span>BRAVO automates <strong className="text-[#143151]">75% of routine calls</strong> — scheduling, refills, follow-ups, and intake.</span>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <Users className="w-4 h-4 mt-0.5 text-[#387E89] shrink-0" />
-              <span>Staff cost based on <strong className="text-[#143151]">$22/hr</strong> national average for medical receptionists (BLS 2024).</span>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <CalendarCheck className="w-4 h-4 mt-0.5 text-[#387E89] shrink-0" />
-              <span>Practices see a <strong className="text-[#143151]">40% reduction in no-shows</strong> with automated reminders & follow-ups.</span>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <DollarSign className="w-4 h-4 mt-0.5 text-[#387E89] shrink-0" />
-              <span>Each recovered appointment worth <strong className="text-[#143151]">~$150</strong> in average revenue.</span>
-            </li>
-          </ul>
+        <div className="mt-6 pt-5 border-t border-gray-100 grid grid-cols-2 gap-3 text-xs text-gray-600">
+          <div className="flex items-start gap-2">
+            <PhoneCall className="w-3.5 h-3.5 mt-0.5 text-[#387E89] shrink-0" />
+            <span><strong className="text-[#143151]">75%</strong> of calls automated</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <Users className="w-3.5 h-3.5 mt-0.5 text-[#387E89] shrink-0" />
+            <span><strong className="text-[#143151]">$22/hr</strong> staff cost avg</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <CalendarCheck className="w-3.5 h-3.5 mt-0.5 text-[#387E89] shrink-0" />
+            <span><strong className="text-[#143151]">40%</strong> fewer no-shows</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <DollarSign className="w-3.5 h-3.5 mt-0.5 text-[#387E89] shrink-0" />
+            <span><strong className="text-[#143151]">~$150</strong> per recovered appt</span>
+          </div>
         </div>
       </div>
 
