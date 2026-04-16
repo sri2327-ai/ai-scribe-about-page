@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Video, Users, Monitor, Mic, Phone, MessageSquare, Settings, Calendar, FileText, Activity, User, LayoutDashboard, BarChart3, HelpCircle, LogOut } from 'lucide-react';
-import doctorSarahImg from '@/assets/doctor-sarah.jpg';
+import doctorSarahImg from '@/assets/doctor-sarah-videocall.jpg';
 import { cheerColors } from '@/theme/cheer-theme';
 type ViewType = 'patient' | 'dashboard' | 'clinician';
 const PatientViewAnimation = () => <motion.div initial={{
@@ -15,15 +15,12 @@ const PatientViewAnimation = () => <motion.div initial={{
     {/* Video call interface */}
     <div className="flex-1 relative p-3 md:p-4">
       {/* Main doctor video */}
-      <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#143151] to-[#387E89]">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto mb-2 md:mb-3 overflow-hidden shadow-lg border-2 border-white/30">
-              <img src={doctorSarahImg} alt="Dr. Sarah Johnson" className="w-full h-full object-cover" />
-            </div>
-            <p className="font-semibold text-xs md:text-sm">Dr. Sarah Johnson</p>
-            <p className="text-[10px] md:text-xs text-white/70">Internal Medicine</p>
-          </div>
+      <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden">
+        <img src={doctorSarahImg} alt="Dr. Sarah Johnson - Video Call" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 text-white">
+          <p className="font-semibold text-xs md:text-sm">Dr. Sarah Johnson</p>
+          <p className="text-[10px] md:text-xs text-white/70">Internal Medicine</p>
         </div>
         {/* Live indicator */}
         <div className="absolute top-2 md:top-4 left-2 md:left-4 flex items-center gap-1.5 md:gap-2 bg-red-500/90 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium">
