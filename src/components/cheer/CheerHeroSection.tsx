@@ -18,8 +18,8 @@ const PatientViewAnimation = () => <motion.div initial={{
       <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#143151] to-[#387E89]">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/20 mx-auto mb-2 md:mb-3 flex items-center justify-center backdrop-blur-sm">
-              <Users className="w-8 h-8 md:w-10 md:h-10 text-white" />
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto mb-2 md:mb-3 overflow-hidden shadow-lg border-2 border-white/30">
+              <img src={doctorSarahImg} alt="Dr. Sarah Johnson" className="w-full h-full object-cover" />
             </div>
             <p className="font-semibold text-xs md:text-sm">Dr. Sarah Johnson</p>
             <p className="text-[10px] md:text-xs text-white/70">Internal Medicine</p>
