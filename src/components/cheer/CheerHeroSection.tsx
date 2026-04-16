@@ -16,7 +16,7 @@ const PatientViewAnimation = () => <motion.div initial={{
     <div className="flex-1 relative p-3 md:p-4">
       {/* Main doctor video */}
       <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden">
-        <img src={doctorSarahImg} alt="Dr. Sarah Johnson - Video Call" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={doctorSarahImg} alt="Dr. Sarah Johnson - Video Call" className="absolute inset-0 w-full h-full object-cover object-top" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 text-white">
           <p className="font-semibold text-xs md:text-sm">Dr. Sarah Johnson</p>
