@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Video, Users, Monitor, Mic, Phone, MessageSquare, Settings, Calendar, FileText, Activity, User, LayoutDashboard, BarChart3, HelpCircle, LogOut } from 'lucide-react';
+import doctorSarahImg from '@/assets/doctor-sarah.jpg';
 import { cheerColors } from '@/theme/cheer-theme';
 type ViewType = 'patient' | 'dashboard' | 'clinician';
 const PatientViewAnimation = () => <motion.div initial={{
