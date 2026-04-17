@@ -1,5 +1,5 @@
 
-// Theme file specific for CHEER Telemedicine section
+// Theme file specific for CHEER Telehealth section
 // Uses same color palette as Custom AI Agent for consistency
 
 export const cheerColors = {

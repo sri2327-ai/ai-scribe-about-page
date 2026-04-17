@@ -93,7 +93,7 @@ export const CheerFeaturesSection = () => {
             <span className="block text-[#387E89]">Modern Virtual Care</span>
           </h2>
           <p className="text-base md:text-lg text-[#5192AE] leading-relaxed">
-            CHEER combines powerful telemedicine tools with intuitive design, 
+            CHEER combines powerful telehealth tools with intuitive design, 
             so you can focus on what matters most—your patients.
           </p>
         </motion.div>

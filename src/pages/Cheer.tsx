@@ -13,9 +13,9 @@ const Cheer = () => {
   return (
     <div className="bg-white min-h-screen overflow-x-hidden">
       <Helmet>
-        <title>CHEER Telemedicine | S10.AI</title>
-        <meta name="description" content="CHEER - Telemedicine platform for modern clinicians. Deliver secure, seamless, and scalable virtual care across every setting." />
-        <meta name="keywords" content="telemedicine, virtual care, telehealth, video consultation, healthcare, HIPAA compliant" />
+        <title>CHEER Telehealth | S10.AI</title>
+        <meta name="description" content="CHEER - Telehealth platform for modern clinicians. Deliver secure, seamless, and scalable virtual care across every setting." />
+        <meta name="keywords" content="telehealth, virtual care, video consultation, healthcare, HIPAA compliant" />
       </Helmet>
 
       <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
