@@ -89,8 +89,8 @@ const Landing = () => {
               <a href="/cheer" className="underline underline-offset-2 hover:text-yellow-200 transition-colors font-semibold">
                 CHEER
               </a>
-              <span className="hidden sm:inline"> — Our New Telemedicine Platform!</span>
-              <span className="sm:hidden"> — New Telemedicine Platform!</span>
+              <span className="hidden sm:inline"> — Our New Telehealth Platform!</span>
+              <span className="sm:hidden"> — New Telehealth Platform!</span>
             </span>
             <a href="/cheer" className="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs font-medium transition-colors">
               Learn More

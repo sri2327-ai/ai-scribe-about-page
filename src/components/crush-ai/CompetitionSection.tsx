@@ -50,8 +50,8 @@ const crushFeatures: CrushFeature[] = [
     color: "#F59E0B" // Orange
   },
   {
-    id: "telemedicine",
-    title: "Telemedicine Compatible",
+    id: "telehealth",
+    title: "Telehealth Compatible",
     description: "Works in-person and via telehealth, maintaining full functionality anywhere.",
     icon: <Globe size={20} />,
     keyPoints: ["Works in-person and via telehealth", "Maintains full functionality anywhere", "Supports hybrid workflows"],

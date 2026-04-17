@@ -5,7 +5,7 @@ import { ArrowRight, Video, Shield, Globe, Calendar, Layers, CheckCircle2, Spark
 import { cheerColors } from '@/theme/cheer-theme';
 const benefits = [{
   icon: Video,
-  title: 'All-in-One Telemedicine',
+  title: 'All-in-One Telehealth',
   description: 'Built for end-to-end virtual care delivery'
 }, {
   icon: Shield,
@@ -128,7 +128,7 @@ export const CheerWhyChooseSection = () => {
                     Transform Your Virtual Care Experience
                   </h3>
                   <p className="text-blue-100 mb-8 leading-relaxed">
-                    CHEER puts modern telemedicine tools into clinicians' hands—scalable, secure, and simple. 
+                    CHEER puts modern telehealth tools into clinicians' hands—scalable, secure, and simple. 
                     Whether you're a solo provider or part of a larger health network, 
                     CHEER helps you focus on patients, not technology.
                   </p>

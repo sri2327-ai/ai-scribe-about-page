@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                             <div className="flex items-center gap-2">
                               <div>
                                 <div className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
-                                  Telemedicine Platform
+                                  Telehealth Platform
                                   <span className="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full">New</span>
                                 </div>
                                 <div className="text-xs text-gray-500">CHEER — Virtual care, anytime</div>

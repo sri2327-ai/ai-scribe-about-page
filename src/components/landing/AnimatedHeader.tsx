@@ -154,7 +154,7 @@ const AnimatedHeader = () => {
         )
       },
       {
-        title: 'Telemedicine Platform',
+        title: 'Telehealth Platform',
         description: 'CHEER - Simple, secure virtual care—anytime, anywhere',
         label: 'New',
         icon: <Video className="w-6 h-6 text-[#387E89]" />,

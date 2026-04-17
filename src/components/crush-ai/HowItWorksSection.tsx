@@ -129,7 +129,7 @@ const steps = [{
     icon: <Languages className="h-6 w-6" style={{
       color: stepAnimationColors.startSpeaking.primary
     }} />,
-    title: "Telemedicine-Ready",
+    title: "Telehealth-Ready",
     description: "Works for in-person, video, chat, or phone consultations."
   }],
   animation: (active, onNext) => <motion.div initial={{
