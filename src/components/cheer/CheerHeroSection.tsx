@@ -17,7 +17,7 @@ const PatientViewAnimation = () => {
   const ss = String(seconds % 60).padStart(2, '0');
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex flex-col bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex flex-col bg-gradient-to-br from-[#143151] via-[#1f4a6b] to-[#387E89] rounded-lg overflow-hidden">
       <div className="flex-1 relative p-3 md:p-4">
         {/* Main patient video (real footage) */}
         <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden bg-black">
@@ -33,11 +33,11 @@ const PatientViewAnimation = () => {
             animate={{ opacity: [0.85, 1, 0.9] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Scan line for video feel */}
+          {/* Soft ambient pulse for video feel */}
           <motion.div
-            className="absolute left-0 right-0 h-[2px] bg-white/10"
-            animate={{ top: ['0%', '100%'] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            className="absolute inset-0 bg-gradient-to-tr from-[#387E89]/10 via-transparent to-[#5192AE]/10 pointer-events-none"
+            animate={{ opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
           <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 text-white">
             <p className="font-semibold text-xs md:text-sm">Emily Carter</p>
@@ -64,21 +64,21 @@ const PatientViewAnimation = () => {
         </div>
       </div>
 
-      <div className="p-3 md:p-4 bg-gray-900/80 backdrop-blur-sm">
+      <div className="p-3 md:p-4 bg-[#143151]/90 backdrop-blur-sm border-t border-white/10">
         <div className="flex items-center justify-center gap-2 md:gap-3">
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <Mic className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <Video className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
           <button className="p-2.5 md:p-4 rounded-full bg-red-500 hover:bg-red-600 transition-colors">
             <Phone className="w-4 h-4 md:w-5 md:h-5 text-white rotate-[135deg]" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <Settings className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
         </div>
@@ -220,7 +220,7 @@ const ClinicianViewAnimation = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex bg-white rounded-lg overflow-hidden">
       {/* Sidebar */}
-      <div className="w-10 md:w-14 bg-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
+      <div className="w-10 md:w-14 bg-gradient-to-b from-[#387E89] to-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
         <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/20 flex items-center justify-center">
           <Activity className="w-3 h-3 md:w-4 md:h-4 text-white" />
         </div>
@@ -262,7 +262,7 @@ const ClinicianViewAnimation = () => {
           </div>
           <div className="flex items-center gap-1 mt-1.5">
             <Copy className="w-2.5 h-2.5 text-black" />
-            <span className="text-[7px] md:text-[9px] text-black truncate">cheer.health/join/8K2-9X4</span>
+            <span className="text-[7px] md:text-[9px] text-black truncate">cheer.s10.ai/join/8K2-9X4</span>
           </div>
         </div>
 
@@ -447,7 +447,7 @@ export const CheerHeroSection = () => {
                     </div>
                     <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/80 border border-[#387E89]/15">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#28C840] animate-pulse" />
-                      <span className="text-[9px] md:text-[10px] font-medium text-[#143151]">cheer.health</span>
+                      <span className="text-[9px] md:text-[10px] font-medium text-[#143151]">cheer.s10.ai</span>
                     </div>
                     <div className="w-10" />
                   </div>
