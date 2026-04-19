@@ -43,7 +43,7 @@ export const CheerFAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-8 md:mb-10"
+          className="mb-8 md:mb-10 text-center"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black">
             FAQ
