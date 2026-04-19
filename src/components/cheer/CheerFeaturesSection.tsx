@@ -5,69 +5,83 @@ import {
   Shield, 
   Globe, 
   Calendar, 
-  FileText, 
-  Zap,
+  Palette,
+  Layers,
   Lock,
   Smartphone,
   Clock,
   Users,
   MessageSquare,
   BarChart,
-  Palette,
-  Layers
 } from 'lucide-react';
-import { Card, CardContent } from "@/components/ui/card";
-import { cheerColors } from '@/theme/cheer-theme';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
-const features = [
+// Bento grid features - varied sizes for visual interest
+const bentoFeatures = [
   {
     icon: Video,
     title: 'HD Video Consultations',
     description: 'Crystal-clear video calls with adaptive quality that adjusts to network conditions for natural conversations.',
-    gradient: 'from-[#143151] to-[#387E89]',
+    span: 'md:col-span-2 md:row-span-2',
+    accent: 'from-[#143151]/5 to-[#387E89]/10',
+    featured: true,
   },
   {
     icon: Shield,
     title: 'HIPAA & GDPR Compliant',
-    description: 'End-to-end encryption with comprehensive audit trails. Built for enterprise-grade security.',
-    gradient: 'from-[#387E89] to-[#5192AE]',
+    description: 'End-to-end encryption with comprehensive audit trails.',
+    span: 'md:col-span-2',
+    accent: 'from-[#387E89]/5 to-[#5192AE]/10',
   },
   {
     icon: Globe,
     title: 'Browser-Based Access',
-    description: 'No downloads required. Patients join with a single click from any device, anywhere.',
-    gradient: 'from-[#5192AE] to-[#A5CCF3]',
+    description: 'No downloads required. One-click join from any device.',
+    span: 'md:col-span-1',
+    accent: 'from-[#5192AE]/5 to-[#A5CCF3]/10',
   },
   {
     icon: Calendar,
     title: 'Smart Scheduling',
-    description: 'Automated reminders and waitlist management reduce no-shows by up to 40%.',
-    gradient: 'from-[#143151] to-[#5192AE]',
+    description: 'Automated reminders reduce no-shows by 40%.',
+    span: 'md:col-span-1',
+    accent: 'from-[#143151]/5 to-[#5192AE]/10',
   },
   {
     icon: Palette,
     title: 'Custom Waiting Rooms',
-    description: 'Brand your virtual waiting room with custom content, logos, and patient education materials.',
-    gradient: 'from-[#387E89] to-[#A5CCF3]',
+    description: 'Brand your virtual waiting room with logos and patient education materials.',
+    span: 'md:col-span-2',
+    accent: 'from-[#387E89]/5 to-[#A5CCF3]/10',
   },
   {
     icon: Layers,
     title: 'S10.AI Integration',
-    description: 'Seamlessly connects with CRUSH and BRAVO for a complete AI-powered clinical workflow.',
-    gradient: 'from-[#143151] to-[#387E89]',
+    description: 'Connects with CRUSH and BRAVO for a complete AI-powered workflow.',
+    span: 'md:col-span-2',
+    accent: 'from-[#143151]/5 to-[#387E89]/10',
   },
 ];
 
-const additionalFeatures = [
-  { icon: Lock, text: 'End-to-End Encryption' },
-  { icon: Smartphone, text: 'Mobile Responsive' },
-  { icon: Clock, text: '24/7 Availability' },
-  { icon: Users, text: 'Multi-Party Calls' },
-  { icon: MessageSquare, text: 'Secure Messaging' },
-  { icon: BarChart, text: 'Analytics Dashboard' },
+const carouselFeatures = [
+  { icon: Lock, title: 'End-to-End Encryption', description: 'Every session is encrypted from device to device.' },
+  { icon: Smartphone, title: 'Mobile Responsive', description: 'Works seamlessly on phones, tablets, and desktops.' },
+  { icon: Clock, title: '24/7 Availability', description: 'Reliable uptime so you never miss a patient.' },
+  { icon: Users, title: 'Multi-Party Calls', description: 'Bring family members and specialists into one call.' },
+  { icon: MessageSquare, title: 'Secure Messaging', description: 'HIPAA-safe chat before, during, and after visits.' },
+  { icon: BarChart, title: 'Analytics Dashboard', description: 'Track visit volume, no-shows, and patient outcomes.' },
 ];
 
 export const CheerFeaturesSection = () => {
+  const autoplay = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
+
   return (
     <section className="py-16 md:py-24 lg:py-28 relative overflow-hidden bg-white">
       {/* Background decoration */}
@@ -85,7 +99,7 @@ export const CheerFeaturesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-black text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-black/5 text-black text-sm font-medium mb-4">
             Platform Features
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 md:mb-6">
@@ -93,60 +107,78 @@ export const CheerFeaturesSection = () => {
             <span className="block text-black">Modern Virtual Care</span>
           </h2>
           <p className="text-base md:text-lg text-black leading-relaxed">
-            CHEER combines powerful telehealth tools with intuitive design, 
+            CHEER combines powerful telehealth tools with intuitive design,
             so you can focus on what matters most—your patients.
           </p>
         </motion.div>
 
-        {/* Feature cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16 max-w-6xl mx-auto">
-          {features.map((feature, index) => (
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[200px] gap-4 md:gap-5 max-w-6xl mx-auto mb-16 md:mb-20">
+          {bentoFeatures.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 ${feature.span}`}
             >
-              <Card className="h-full bg-white border-gray-100 hover:border-[#387E89]/30 shadow-sm hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-5 md:p-6">
-                  {/* Icon */}
-                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.gradient} mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
-                    <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-lg md:text-xl font-bold text-black mb-2 group-hover:text-black transition-colors">
+              {/* Gradient accent layer */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${feature.accent} opacity-60 group-hover:opacity-100 transition-opacity`} />
+
+              <div className="relative h-full p-5 md:p-6 flex flex-col justify-between">
+                <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-5 h-5 text-black" strokeWidth={1.75} />
+                </div>
+
+                <div>
+                  <h3 className={`font-bold text-black mb-1.5 ${feature.featured ? 'text-xl md:text-2xl' : 'text-base md:text-lg'}`}>
                     {feature.title}
                   </h3>
-                  <p className="text-sm md:text-base text-black leading-relaxed">
+                  <p className={`text-black/80 leading-relaxed ${feature.featured ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
                     {feature.description}
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Additional features strip */}
+        {/* Carousel - more capabilities */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-r from-[#143151] to-[#387E89] rounded-2xl p-6 md:p-8 lg:p-10 max-w-6xl mx-auto"
+          transition={{ duration: 0.6 }}
+          className="max-w-6xl mx-auto"
         >
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {additionalFeatures.map((item, index) => (
-              <div key={index} className="flex flex-col items-center text-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 md:mb-3 backdrop-blur-sm">
-                  <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                </div>
-                <span className="text-xs md:text-sm font-medium text-white/90">{item.text}</span>
-              </div>
-            ))}
+          <div className="text-center mb-6 md:mb-8">
+            <h3 className="text-xl md:text-2xl font-bold text-black mb-2">More built-in capabilities</h3>
+            <p className="text-sm md:text-base text-black/70">Everything you'd expect from an enterprise telehealth platform.</p>
           </div>
+
+          <Carousel
+            opts={{ align: 'start', loop: true, dragFree: true }}
+            plugins={[autoplay.current]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-3 md:-ml-4">
+              {carouselFeatures.map((item, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-3 md:pl-4 basis-[80%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                >
+                  <div className="h-full p-5 md:p-6 rounded-2xl bg-white border border-black/10 hover:border-black/30 hover:shadow-lg transition-all duration-300 group">
+                    <div className="inline-flex p-2.5 rounded-xl bg-black/5 mb-4 group-hover:bg-black/10 transition-colors">
+                      <item.icon className="w-5 h-5 text-black" strokeWidth={1.75} />
+                    </div>
+                    <h4 className="text-base md:text-lg font-semibold text-black mb-1.5">{item.title}</h4>
+                    <p className="text-xs md:text-sm text-black/70 leading-relaxed">{item.description}</p>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </motion.div>
       </div>
     </section>
