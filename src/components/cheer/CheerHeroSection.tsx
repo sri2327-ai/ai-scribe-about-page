@@ -64,21 +64,21 @@ const PatientViewAnimation = () => {
         </div>
       </div>
 
-      <div className="p-3 md:p-4 bg-gray-900/80 backdrop-blur-sm">
+      <div className="p-3 md:p-4 bg-[#143151]/90 backdrop-blur-sm border-t border-white/10">
         <div className="flex items-center justify-center gap-2 md:gap-3">
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <Mic className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <Video className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
           <button className="p-2.5 md:p-4 rounded-full bg-red-500 hover:bg-red-600 transition-colors">
             <Phone className="w-4 h-4 md:w-5 md:h-5 text-white rotate-[135deg]" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
             <Settings className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
         </div>
