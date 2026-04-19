@@ -50,13 +50,13 @@ export const CheerWhyChooseSection = () => {
         }} transition={{
           duration: 0.6
         }} className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#143151]/10 text-[#143151] text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#143151]/10 text-black text-sm font-medium mb-4">
               Why CHEER
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
               Built for Clinicians Who Care
             </h2>
-            <p className="text-lg text-[#5192AE] max-w-2xl mx-auto">
+            <p className="text-lg text-black max-w-2xl mx-auto">
               Join thousands of healthcare providers who trust CHEER for their virtual care needs
             </p>
           </motion.div>
@@ -90,12 +90,12 @@ export const CheerWhyChooseSection = () => {
                     <benefit.icon className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#143151] text-lg group-hover:text-[#387E89] transition-colors">
+                    <h4 className="font-bold text-black text-lg group-hover:text-black transition-colors">
                       {benefit.title}
                     </h4>
-                    <p className="text-[#5192AE] text-sm">{benefit.description}</p>
+                    <p className="text-black text-sm">{benefit.description}</p>
                   </div>
-                  <CheckCircle2 className="ml-auto h-5 w-5 text-[#387E89] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                  <CheckCircle2 className="ml-auto h-5 w-5 text-black opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </motion.div>)}
             </motion.div>
 
@@ -127,7 +127,7 @@ export const CheerWhyChooseSection = () => {
                   <h3 className="text-2xl md:text-3xl font-bold mb-4">
                     Transform Your Virtual Care Experience
                   </h3>
-                  <p className="text-blue-100 mb-8 leading-relaxed">
+                  <p className="text-black mb-8 leading-relaxed">
                     CHEER puts modern telehealth tools into clinicians' hands—scalable, secure, and simple. 
                     Whether you're a solo provider or part of a larger health network, 
                     CHEER helps you focus on patients, not technology.
@@ -137,12 +137,12 @@ export const CheerWhyChooseSection = () => {
                   <div className="grid grid-cols-3 gap-4 mb-8 p-4 rounded-2xl bg-white/10 backdrop-blur-sm">
                     {stats.map((stat, i) => <div key={i} className="text-center">
                         <p className="text-2xl md:text-3xl font-bold">{stat.value}</p>
-                        <p className="text-xs text-blue-200">{stat.label}</p>
+                        <p className="text-xs text-black">{stat.label}</p>
                       </div>)}
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Button size="lg" className="rounded-full px-8 py-6 bg-white text-[#143151] hover:bg-gray-100 font-semibold shadow-xl transition-all hover:scale-105">
+                    <Button size="lg" className="rounded-full px-8 py-6 bg-white text-black hover:bg-gray-100 font-semibold shadow-xl transition-all hover:scale-105">
                       Request a Demo
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>

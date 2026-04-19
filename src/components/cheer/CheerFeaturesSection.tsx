@@ -85,14 +85,14 @@ export const CheerFeaturesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-[#387E89] text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-black text-sm font-medium mb-4">
             Platform Features
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-4 md:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 md:mb-6">
             Everything You Need for
-            <span className="block text-[#387E89]">Modern Virtual Care</span>
+            <span className="block text-black">Modern Virtual Care</span>
           </h2>
-          <p className="text-base md:text-lg text-[#5192AE] leading-relaxed">
+          <p className="text-base md:text-lg text-black leading-relaxed">
             CHEER combines powerful telehealth tools with intuitive design, 
             so you can focus on what matters most—your patients.
           </p>
@@ -117,10 +117,10 @@ export const CheerFeaturesSection = () => {
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-lg md:text-xl font-bold text-[#143151] mb-2 group-hover:text-[#387E89] transition-colors">
+                  <h3 className="text-lg md:text-xl font-bold text-black mb-2 group-hover:text-black transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-sm md:text-base text-[#5192AE] leading-relaxed">
+                  <p className="text-sm md:text-base text-black leading-relaxed">
                     {feature.description}
                   </p>
                 </CardContent>

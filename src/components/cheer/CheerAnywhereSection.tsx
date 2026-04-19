@@ -21,7 +21,7 @@ export const CheerAnywhereSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-black max-w-2xl mx-auto mb-12 leading-relaxed"
         >
           One secure room link for every patient. No app installs, no logins, no waiting room confusion. Just one tap and they're in care.
         </motion.p>
