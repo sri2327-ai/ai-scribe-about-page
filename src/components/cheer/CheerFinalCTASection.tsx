@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const CheerFinalCTASection = () => {
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden bg-white">
+    <section className="py-16 md:py-24 relative overflow-hidden bg-[#F5F5F2]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#A5CCF3]/10 blur-3xl" />
       </div>

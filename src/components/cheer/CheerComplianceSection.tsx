@@ -27,7 +27,7 @@ const compliances = [
 
 export const CheerComplianceSection = () => {
   return (
-    <section className="py-12 md:py-16 relative overflow-hidden bg-white">
+    <section className="py-12 md:py-16 relative overflow-hidden bg-[#F5F5F2]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-72 h-72 rounded-full bg-[#A5CCF3]/15 blur-3xl" />
         <div className="absolute bottom-1/4 -right-32 w-72 h-72 rounded-full bg-[#387E89]/10 blur-3xl" />
