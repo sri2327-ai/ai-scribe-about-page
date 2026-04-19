@@ -262,7 +262,7 @@ const ClinicianViewAnimation = () => {
           </div>
           <div className="flex items-center gap-1 mt-1.5">
             <Copy className="w-2.5 h-2.5 text-black" />
-            <span className="text-[7px] md:text-[9px] text-black truncate">cheer.health/join/8K2-9X4</span>
+            <span className="text-[7px] md:text-[9px] text-black truncate">cheer.s10.ai/join/8K2-9X4</span>
           </div>
         </div>
 
@@ -447,7 +447,7 @@ export const CheerHeroSection = () => {
                     </div>
                     <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/80 border border-[#387E89]/15">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#28C840] animate-pulse" />
-                      <span className="text-[9px] md:text-[10px] font-medium text-[#143151]">cheer.health</span>
+                      <span className="text-[9px] md:text-[10px] font-medium text-[#143151]">cheer.s10.ai</span>
                     </div>
                     <div className="w-10" />
                   </div>
