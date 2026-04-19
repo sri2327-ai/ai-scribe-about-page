@@ -1,5 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Autoplay from 'embla-carousel-autoplay';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import {
   FileText,
   PhoneCall,
@@ -56,6 +64,11 @@ const addOns = [
 ];
 
 export const CheerAddOnsSection = () => {
+  const autoplay = React.useMemo(
+    () => Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }),
+    []
+  );
+
   return (
     <section className="py-12 md:py-16 relative overflow-hidden bg-white">
       {/* Subtle brand background blurs */}
@@ -86,51 +99,69 @@ export const CheerAddOnsSection = () => {
           </p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 max-w-6xl mx-auto">
-          {addOns.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="group relative h-full bg-white rounded-2xl border border-black/10 p-5 md:p-6 hover:shadow-xl hover:border-[#387E89]/30 hover:-translate-y-1 transition-all duration-300"
-            >
-              {/* Animated gradient accent line */}
-              <div className="absolute top-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-[#387E89]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="max-w-6xl mx-auto"
+        >
+          <Carousel
+            opts={{ align: 'start', loop: true }}
+            plugins={[autoplay]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-3 md:-ml-4">
+              {addOns.map((item, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-3 md:pl-4 basis-[85%] sm:basis-1/2 lg:basis-1/3"
+                >
+                  <div className="group relative h-full bg-white rounded-2xl border border-black/10 p-5 md:p-6 hover:shadow-xl hover:border-[#387E89]/30 hover:-translate-y-1 transition-all duration-300">
+                    {/* Animated gradient accent line */}
+                    <div className="absolute top-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-[#387E89]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Icon badge */}
-              <div className="relative mb-4 w-fit">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full blur-md opacity-20 group-hover:opacity-50 transition-opacity duration-300" />
-                <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <item.Icon className="w-5 h-5 text-white" strokeWidth={2} />
-                </div>
-              </div>
+                    {/* Icon badge */}
+                    <div className="relative mb-4 w-fit">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full blur-md opacity-20 group-hover:opacity-50 transition-opacity duration-300" />
+                      <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <item.Icon className="w-5 h-5 text-white" strokeWidth={2} />
+                      </div>
+                    </div>
 
-              {/* Tag */}
-              <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-[#387E89] mb-2">
-                {item.tag}
-              </span>
+                    {/* Tag */}
+                    <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-[#387E89] mb-2">
+                      {item.tag}
+                    </span>
 
-              {/* Title */}
-              <h3 className="font-bold text-black text-base md:text-lg mb-1.5">
-                {item.title}
-              </h3>
+                    {/* Title */}
+                    <h3 className="font-bold text-black text-base md:text-lg mb-1.5">
+                      {item.title}
+                    </h3>
 
-              {/* Description */}
-              <p className="text-sm text-black/70 leading-relaxed">
-                {item.description}
-              </p>
+                    {/* Description */}
+                    <p className="text-sm text-black/70 leading-relaxed">
+                      {item.description}
+                    </p>
 
-              {/* Bottom hover indicator */}
-              <div className="mt-4 pt-4 border-t border-black/5 flex items-center gap-2 text-xs font-medium text-black/40 group-hover:text-[#387E89] transition-colors duration-300">
-                <span>Available add-on</span>
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#387E89] animate-pulse" />
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                    {/* Bottom hover indicator */}
+                    <div className="mt-4 pt-4 border-t border-black/5 flex items-center gap-2 text-xs font-medium text-black/40 group-hover:text-[#387E89] transition-colors duration-300">
+                      <span>Available add-on</span>
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#387E89] animate-pulse" />
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Controls below */}
+            <div className="flex justify-center gap-3 mt-6">
+              <CarouselPrevious className="static translate-y-0 h-11 w-11 rounded-full bg-white border border-black/10 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 text-black hover:text-[#387E89]" />
+              <CarouselNext className="static translate-y-0 h-11 w-11 rounded-full bg-white border border-black/10 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 text-black hover:text-[#387E89]" />
+            </div>
+          </Carousel>
+        </motion.div>
       </div>
     </section>
   );
