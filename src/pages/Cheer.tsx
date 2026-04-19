@@ -6,6 +6,7 @@ import { CheerFeaturesSection } from '@/components/cheer/CheerFeaturesSection';
 import { CheerWorkflowSection } from '@/components/cheer/CheerWorkflowSection';
 import { CheerWhyChooseSection } from '@/components/cheer/CheerWhyChooseSection';
 import { CheerTestimonialsSection } from '@/components/cheer/CheerTestimonialsSection';
+import { CheerCallExperienceSection } from '@/components/cheer/CheerCallExperienceSection';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -28,6 +29,7 @@ const Cheer = () => {
         <CheerFeaturesSection />
         <CheerWorkflowSection />
         <CheerTestimonialsSection />
+        <CheerCallExperienceSection />
         <CheerWhyChooseSection />
       </main>
 
