@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { CheerHeroSection } from '@/components/cheer/CheerHeroSection';
+import { CheerAnywhereSection } from '@/components/cheer/CheerAnywhereSection';
 import { CheerFeaturesSection } from '@/components/cheer/CheerFeaturesSection';
 import { CheerWhyChooseSection } from '@/components/cheer/CheerWhyChooseSection';
 import { CheerTestimonialsSection } from '@/components/cheer/CheerTestimonialsSection';
@@ -22,6 +23,7 @@ const Cheer = () => {
 
       <main>
         <CheerHeroSection />
+        <CheerAnywhereSection />
         <CheerFeaturesSection />
         <CheerTestimonialsSection />
         <CheerWhyChooseSection />
