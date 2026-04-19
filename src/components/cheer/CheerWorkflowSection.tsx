@@ -35,7 +35,7 @@ const steps = [
 
 export const CheerWorkflowSection = () => {
   return (
-    <section className="py-12 md:py-16 relative overflow-hidden bg-white">
+    <section className="py-12 md:py-16 relative overflow-hidden bg-[#F5F5F2]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 -left-32 w-64 h-64 rounded-full bg-[#A5CCF3]/15 blur-3xl" />
         <div className="absolute bottom-1/3 -right-32 w-64 h-64 rounded-full bg-[#387E89]/10 blur-3xl" />
