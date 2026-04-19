@@ -94,7 +94,7 @@ export const CheerCallExperienceSection = () => {
   );
 
   return (
-    <section className="py-12 md:py-16 relative overflow-hidden bg-white">
+    <section className="py-12 md:py-16 relative overflow-hidden bg-[#F5F5F2]">
       {/* Subtle brand background blurs */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-72 h-72 rounded-full bg-[#A5CCF3]/15 blur-3xl" />
