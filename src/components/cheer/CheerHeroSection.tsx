@@ -117,7 +117,7 @@ const ClinicianDashboardAnimation = () => {
             Connected
           </div>
           <div className="absolute bottom-2 left-2 text-white">
-            <p className="text-[10px] md:text-xs font-semibold">Michael Reynolds</p>
+            <p className="text-[10px] md:text-xs font-semibold">Emily Carter</p>
             <p className="text-[8px] md:text-[10px] text-white/80">In consultation</p>
           </div>
           <div className="absolute top-2 right-2 w-12 md:w-16 aspect-video rounded overflow-hidden border border-white/40">
