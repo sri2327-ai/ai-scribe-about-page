@@ -56,12 +56,12 @@ export const CheerFAQSection = () => {
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <Accordion type="single" collapsible className="w-full border-t border-black/10">
+          <Accordion type="single" collapsible className="w-full rounded-2xl border border-black/10 bg-white overflow-hidden divide-y divide-black/10">
             {faqs.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border-b border-black/10"
+                className="border-0 px-5 md:px-6"
               >
                 <AccordionTrigger className="text-center justify-center gap-3 text-base md:text-lg font-semibold text-black hover:no-underline py-5 md:py-6 hover:text-[#387E89] transition-colors [&>svg]:ml-0">
                   {faq.q}
