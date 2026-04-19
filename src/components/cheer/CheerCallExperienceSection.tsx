@@ -111,14 +111,14 @@ export const CheerCallExperienceSection = () => {
           className="text-center max-w-2xl mx-auto mb-10 md:mb-12"
         >
           <span className="inline-block px-3 py-1 rounded-full bg-black/5 text-black text-xs font-medium mb-2">
-            Call Experience
+            Inside the Visit
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-2">
-            Close, even when you're not.
+            Every tool a real consultation needs.
           </h2>
           <p className="text-sm md:text-base text-black/70">
-            Our call experience feels like an engaging, in-person visit — keeping the focus
-            on what really matters.
+            From the first hello to the final note, CHEER gives you the same presence,
+            clarity, and control as a face-to-face visit — without the room.
           </p>
         </motion.div>
 
