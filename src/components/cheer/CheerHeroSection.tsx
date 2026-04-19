@@ -17,68 +17,69 @@ const PatientViewAnimation = () => {
   const ss = String(seconds % 60).padStart(2, '0');
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex flex-col bg-gradient-to-br from-[#387E89] via-[#5192AE] to-[#A5CCF3] rounded-lg overflow-hidden">
-      <div className="flex-1 relative p-3 md:p-4">
-        {/* Main patient video (real footage) */}
-        <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden bg-black">
-          <img
-            src={patientImg}
-            alt="Patient on video call"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: 'center 30%' }}
-          />
-          {/* Subtle live "video" feel */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10"
-            animate={{ opacity: [0.85, 1, 0.9] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          {/* Soft ambient pulse for video feel */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-tr from-[#387E89]/10 via-transparent to-[#5192AE]/10 pointer-events-none"
-            animate={{ opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 text-white">
-            <p className="font-semibold text-xs md:text-sm">Emily Carter</p>
-            <p className="text-[10px] md:text-xs text-white/70">Patient · Home</p>
-          </div>
-          <div className="absolute top-2 md:top-4 left-2 md:left-4 flex items-center gap-1.5 md:gap-2 bg-red-500/90 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium">
-            <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full animate-pulse" />
-            LIVE
-          </div>
-          <div className="absolute top-2 md:top-4 right-2 md:right-4 bg-black/50 backdrop-blur-sm text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-mono">
-            {mm}:{ss}
-          </div>
-        </div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full relative bg-black rounded-lg overflow-hidden">
+      {/* Full-bleed patient video */}
+      <img
+        src={patientImg}
+        alt="Patient on video call"
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: 'center 30%' }}
+      />
+      {/* Subtle vignette for legibility */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15"
+        animate={{ opacity: [0.85, 1, 0.9] }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-tr from-[#387E89]/10 via-transparent to-[#5192AE]/10 pointer-events-none"
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      />
 
-        {/* Self-view: real clinician */}
-        <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 w-20 md:w-32 aspect-video rounded-lg overflow-hidden border-2 border-white/40 shadow-2xl">
-          <img
-            src={doctorSarahImg}
-            alt="Dr. Sarah Johnson"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: 'center 18%' }}
-          />
-          <div className="absolute bottom-0.5 left-1 text-[8px] md:text-[10px] text-white font-medium drop-shadow">You</div>
-        </div>
+      {/* LIVE badge */}
+      <div className="absolute top-3 md:top-4 left-3 md:left-4 flex items-center gap-1.5 md:gap-2 bg-red-500/90 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium">
+        <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full animate-pulse" />
+        LIVE
+      </div>
+      {/* Timer */}
+      <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-black/50 backdrop-blur-sm text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-mono">
+        {mm}:{ss}
       </div>
 
-      <div className="p-3 md:p-4 bg-[#387E89]/90 backdrop-blur-sm border-t border-white/10">
-        <div className="flex items-center justify-center gap-2 md:gap-3">
-          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+      {/* Patient name */}
+      <div className="absolute bottom-20 md:bottom-24 left-3 md:left-5 text-white drop-shadow-lg">
+        <p className="font-semibold text-xs md:text-sm">Emily Carter</p>
+        <p className="text-[10px] md:text-xs text-white/80">Patient · Home</p>
+      </div>
+
+      {/* Self-view */}
+      <div className="absolute bottom-20 md:bottom-24 right-3 md:right-5 w-20 md:w-32 aspect-video rounded-lg overflow-hidden border-2 border-white/50 shadow-2xl">
+        <img
+          src={doctorSarahImg}
+          alt="Dr. Sarah Johnson"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: 'center 18%' }}
+        />
+        <div className="absolute bottom-0.5 left-1 text-[8px] md:text-[10px] text-white font-medium drop-shadow">You</div>
+      </div>
+
+      {/* Floating glassy controls overlay */}
+      <div className="absolute bottom-3 md:bottom-5 left-1/2 -translate-x-1/2">
+        <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-2.5 rounded-full bg-black/40 backdrop-blur-xl border border-white/15 shadow-2xl">
+          <button className="p-2 md:p-2.5 rounded-full bg-white/15 hover:bg-white/25 transition-colors">
             <Mic className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+          <button className="p-2 md:p-2.5 rounded-full bg-white/15 hover:bg-white/25 transition-colors">
             <Video className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2.5 md:p-4 rounded-full bg-red-500 hover:bg-red-600 transition-colors">
+          <button className="p-2.5 md:p-3.5 rounded-full bg-red-500 hover:bg-red-600 transition-colors shadow-lg shadow-red-500/40">
             <Phone className="w-4 h-4 md:w-5 md:h-5 text-white rotate-[135deg]" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+          <button className="p-2 md:p-2.5 rounded-full bg-white/15 hover:bg-white/25 transition-colors">
             <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
-          <button className="p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+          <button className="p-2 md:p-2.5 rounded-full bg-white/15 hover:bg-white/25 transition-colors">
             <Settings className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
         </div>
