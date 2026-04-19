@@ -220,7 +220,7 @@ const ClinicianViewAnimation = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex bg-white rounded-lg overflow-hidden">
       {/* Sidebar */}
-      <div className="w-10 md:w-14 bg-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
+      <div className="w-10 md:w-14 bg-gradient-to-b from-[#387E89] to-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
         <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/20 flex items-center justify-center">
           <Activity className="w-3 h-3 md:w-4 md:h-4 text-white" />
         </div>
