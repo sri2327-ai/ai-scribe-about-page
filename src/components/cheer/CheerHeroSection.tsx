@@ -379,9 +379,9 @@ export const CheerHeroSection = () => {
                   className="relative group cursor-pointer text-black transition-all duration-300"
                 >
                   {item.letter}
-                  <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 bg-[#143151] text-white text-xs md:text-sm font-normal rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
+                  <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white text-xs md:text-sm font-normal rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
                     <span className="font-semibold">{item.letter}</span> – {item.meaning}
-                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#143151] rotate-45" />
+                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#387E89] rotate-45" />
                   </span>
                 </span>
               ))}
@@ -399,10 +399,6 @@ export const CheerHeroSection = () => {
               <Button size="lg" className="rounded-full px-6 md:px-8 py-5 md:py-6 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#1a3d63] hover:to-[#438f9b] text-white font-semibold text-base md:text-lg shadow-xl shadow-[#143151]/20 transition-all hover:scale-105">
                 Request a Demo
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-6 md:px-8 py-5 md:py-6 border-2 border-[#387E89] text-black hover:bg-[#387E89]/10 font-semibold text-base md:text-lg transition-all">
-                <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                Watch Demo
               </Button>
             </div>
 
@@ -424,7 +420,7 @@ export const CheerHeroSection = () => {
             </div>
           </motion.div>
 
-          {/* Right - Laptop mockup */}
+          {/* Right - Modern device mockup */}
           <motion.div initial={{
           opacity: 0,
           x: 40
@@ -435,29 +431,43 @@ export const CheerHeroSection = () => {
           duration: 0.7,
           delay: 0.3
         }} className="relative">
-            {/* Laptop frame */}
             <div className="relative mx-auto max-w-[500px] lg:max-w-[600px]">
-              {/* Screen bezel */}
-              <div className="bg-gray-800 rounded-t-2xl p-2 pt-3 md:pt-4">
-                {/* Camera notch */}
-                <div className="absolute top-1 md:top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600" />
-                
-                {/* Screen content */}
-                <div className="bg-white rounded-lg overflow-hidden aspect-[16/10] shadow-inner">
-                  <AnimatePresence mode="wait">
-                    {renderAnimation()}
-                  </AnimatePresence>
+              {/* Ambient glow */}
+              <div className="absolute -inset-8 bg-gradient-to-tr from-[#387E89]/20 via-[#5192AE]/15 to-[#A5CCF3]/20 rounded-[2.5rem] blur-3xl opacity-70" />
+
+              {/* Sleek glass device frame */}
+              <div className="relative rounded-[1.75rem] p-[1px] bg-gradient-to-br from-white/80 via-[#A5CCF3]/40 to-[#387E89]/30 shadow-[0_30px_80px_-20px_rgba(20,49,81,0.35)] backdrop-blur-xl">
+                <div className="rounded-[1.7rem] bg-white/70 backdrop-blur-2xl p-2.5 md:p-3 border border-white/60">
+                  {/* Top status bar */}
+                  <div className="flex items-center justify-between px-2 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/80 border border-[#387E89]/15">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#28C840] animate-pulse" />
+                      <span className="text-[9px] md:text-[10px] font-medium text-[#143151]">cheer.health</span>
+                    </div>
+                    <div className="w-10" />
+                  </div>
+
+                  {/* Screen content */}
+                  <div className="bg-white rounded-[1.25rem] overflow-hidden aspect-[16/10] ring-1 ring-[#143151]/5 shadow-inner">
+                    <AnimatePresence mode="wait">
+                      {renderAnimation()}
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
-              
-              {/* Laptop base */}
-              <div className="bg-gradient-to-b from-gray-700 to-gray-800 h-3 md:h-4 rounded-b-xl mx-4" />
-              <div className="bg-gray-800 h-1.5 md:h-2 rounded-b-lg mx-16" />
+
+              {/* Floating reflection */}
+              <div className="absolute -bottom-6 left-8 right-8 h-12 bg-gradient-to-b from-[#143151]/20 to-transparent blur-2xl rounded-full" />
             </div>
 
             {/* View toggle buttons */}
-            <div className="flex justify-center gap-1.5 md:gap-2 mt-4 md:mt-6">
-              {viewButtons.map(btn => <button key={btn.id} onClick={() => setActiveView(btn.id)} className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${activeView === btn.id ? 'bg-[#143151] text-white shadow-lg shadow-[#143151]/20' : 'bg-gray-100 text-black hover:bg-gray-200'}`}>
+            <div className="flex justify-center gap-1.5 md:gap-2 mt-8 md:mt-10">
+              {viewButtons.map(btn => <button key={btn.id} onClick={() => setActiveView(btn.id)} className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${activeView === btn.id ? 'bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white shadow-lg shadow-[#387E89]/25' : 'bg-white/70 backdrop-blur border border-[#387E89]/15 text-[#143151] hover:bg-white'}`}>
                   <btn.icon className="w-3 h-3 md:w-4 md:h-4" />
                   <span className="hidden sm:inline">{btn.label}</span>
                   <span className="sm:hidden">{btn.shortLabel}</span>
