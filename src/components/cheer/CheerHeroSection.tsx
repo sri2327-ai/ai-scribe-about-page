@@ -17,7 +17,7 @@ const PatientViewAnimation = () => {
   const ss = String(seconds % 60).padStart(2, '0');
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex flex-col bg-gradient-to-br from-[#143151] via-[#1f4a6b] to-[#387E89] rounded-lg overflow-hidden">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex flex-col bg-gradient-to-br from-[#387E89] via-[#5192AE] to-[#A5CCF3] rounded-lg overflow-hidden">
       <div className="flex-1 relative p-3 md:p-4">
         {/* Main patient video (real footage) */}
         <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden bg-black">
