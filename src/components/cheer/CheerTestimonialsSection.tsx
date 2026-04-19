@@ -4,120 +4,104 @@ import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "CHEER has revolutionized how we deliver care. The platform is intuitive, and our patients love the seamless experience.",
-    author: "Dr. Sarah Mitchell",
-    role: "Family Medicine Physician",
-    avatar: "SM",
+    quote:
+      "CHEER has revolutionized how we deliver care. The platform is intuitive, and our patients love the seamless experience.",
+    author: 'Dr. Sarah Mitchell',
+    role: 'Family Medicine Physician',
+    avatar: 'SM',
     rating: 5,
   },
   {
-    quote: "The integration with our EHR is flawless. I can focus on my patients instead of wrestling with technology.",
-    author: "Dr. James Chen",
-    role: "Cardiologist",
-    avatar: "JC",
+    quote:
+      'The integration with our EHR is flawless. I can focus on my patients instead of wrestling with technology.',
+    author: 'Dr. James Chen',
+    role: 'Cardiologist',
+    avatar: 'JC',
     rating: 5,
   },
   {
-    quote: "Our no-show rate dropped by 35% after implementing CHEER. The automated reminders are a game-changer.",
-    author: "Maria Rodriguez",
-    role: "Practice Manager",
-    avatar: "MR",
+    quote:
+      'Our no-show rate dropped by 35% after implementing CHEER. The automated reminders are a game-changer.',
+    author: 'Maria Rodriguez',
+    role: 'Practice Manager',
+    avatar: 'MR',
     rating: 5,
   },
 ];
 
 export const CheerTestimonialsSection = () => {
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden bg-[#F5F9FF]">
-      {/* Background pattern */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #387E89 1px, transparent 0)`,
-          backgroundSize: '40px 40px',
-        }} />
+    <section className="py-12 md:py-16 relative overflow-hidden bg-white">
+      {/* Subtle brand background blurs - matches workflow section */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 -right-32 w-64 h-64 rounded-full bg-[#A5CCF3]/15 blur-3xl" />
+        <div className="absolute bottom-1/3 -left-32 w-64 h-64 rounded-full bg-[#387E89]/10 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section header */}
+        {/* Header — matches workflow section style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-2xl mx-auto mb-10 md:mb-12"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-black text-sm font-medium mb-4">
+          <span className="inline-block px-3 py-1 rounded-full bg-black/5 text-black text-xs font-medium mb-2">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-2">
             Trusted by Healthcare Professionals
           </h2>
-          <p className="text-lg text-black">
-            See what clinicians are saying about their experience with CHEER
+          <p className="text-sm md:text-base text-black/70">
+            See what clinicians are saying about their experience with CHEER.
           </p>
         </motion.div>
 
         {/* Testimonial cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="group"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative h-full bg-white rounded-2xl border border-black/10 p-5 md:p-6 hover:shadow-xl hover:border-[#387E89]/30 transition-all duration-300"
             >
-              <div className="h-full p-6 md:p-8 rounded-2xl bg-white border border-gray-100 hover:border-[#387E89]/30 shadow-sm hover:shadow-xl transition-all duration-300 relative">
-                {/* Quote icon */}
-                <div className="absolute -top-4 -left-2 w-10 h-10 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg">
-                  <Quote className="w-4 h-4 text-white" />
+              {/* Quote badge — brand gradient */}
+              <div className="relative mb-4 w-fit">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
+                <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg">
+                  <Quote className="w-5 h-5 text-white" strokeWidth={2} />
                 </div>
+              </div>
 
-                {/* Rating */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
+              {/* Rating */}
+              <div className="flex gap-0.5 mb-3">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+
+              {/* Quote */}
+              <p className="text-sm md:text-[15px] text-black/80 leading-relaxed mb-5">
+                "{testimonial.quote}"
+              </p>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-4 border-t border-black/5">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md flex-shrink-0">
+                  <span className="text-white font-bold text-xs">{testimonial.avatar}</span>
                 </div>
-
-                {/* Quote text */}
-                <p className="text-black leading-relaxed mb-6 italic">
-                  "{testimonial.quote}"
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md">
-                    <span className="text-white font-bold text-sm">{testimonial.avatar}</span>
-                  </div>
-                  <div>
-                    <p className="font-bold text-black">{testimonial.author}</p>
-                    <p className="text-sm text-black">{testimonial.role}</p>
-                  </div>
+                <div className="min-w-0">
+                  <p className="font-bold text-black text-sm truncate">{testimonial.author}</p>
+                  <p className="text-xs text-black/60 truncate">{testimonial.role}</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Trust badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <p className="text-sm text-black mb-6">Trusted by leading healthcare organizations</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            {['Healthcare System A', 'Medical Group B', 'Clinic Network C', 'Health Partners D'].map((name, i) => (
-              <div key={i} className="px-6 py-3 bg-white rounded-lg shadow-sm border border-gray-100">
-                <span className="font-semibold text-black text-sm">{name}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
