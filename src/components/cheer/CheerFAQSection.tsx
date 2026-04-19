@@ -63,10 +63,10 @@ export const CheerFAQSection = () => {
                 value={`item-${i}`}
                 className="border-b border-black/10"
               >
-                <AccordionTrigger className="text-left text-base md:text-lg font-semibold text-black hover:no-underline py-5 md:py-6 hover:text-[#387E89] transition-colors">
+                <AccordionTrigger className="text-center justify-center gap-3 text-base md:text-lg font-semibold text-black hover:no-underline py-5 md:py-6 hover:text-[#387E89] transition-colors [&>svg]:ml-0">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm md:text-base text-black/70 leading-relaxed pb-5 md:pb-6">
+                <AccordionContent className="text-center text-sm md:text-base text-black/70 leading-relaxed pb-5 md:pb-6">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
