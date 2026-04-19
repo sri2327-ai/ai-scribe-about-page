@@ -8,15 +8,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import {
-  FileText,
-  PhoneCall,
-  Languages,
-  Pencil,
-  ClipboardCheck,
-  BookOpen,
-  Sparkles,
-} from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import scribeImg from '@/assets/cheer-addon-scribe.jpg';
+import receptionistImg from '@/assets/cheer-addon-receptionist.jpg';
+import interpreterImg from '@/assets/cheer-addon-interpreter.jpg';
+import whiteboardImg from '@/assets/cheer-addon-whiteboard.jpg';
+import assessmentsImg from '@/assets/cheer-addon-assessments.jpg';
+import instructionsImg from '@/assets/cheer-addon-instructions.jpg';
 
 const addOns = [
   {
@@ -24,42 +22,42 @@ const addOns = [
     tag: 'Documentation',
     description:
       'Ambient AI captures the conversation and drafts your clinical note in real time — no typing, no catch-up.',
-    Icon: FileText,
+    image: scribeImg,
   },
   {
     title: 'AI Receptionist',
     tag: 'Front Office',
     description:
       'Answers calls, books appointments, and triages requests 24/7 so your team can focus on patients in the room.',
-    Icon: PhoneCall,
+    image: receptionistImg,
   },
   {
     title: 'Interpreter',
     tag: 'Language',
     description:
       'On-demand medical interpretation in 50+ languages, built directly into the visit — no third-party dial-in.',
-    Icon: Languages,
+    image: interpreterImg,
   },
   {
     title: 'Whiteboard',
     tag: 'Visual Teaching',
     description:
       'Draw, sketch, and annotate live to explain anatomy, procedures, or treatment plans clearly.',
-    Icon: Pencil,
+    image: whiteboardImg,
   },
   {
     title: 'Assessments',
     tag: 'Clinical Tools',
     description:
       'Send PHQ-9, GAD-7, intake forms, and custom questionnaires — scored automatically and saved to the chart.',
-    Icon: ClipboardCheck,
+    image: assessmentsImg,
   },
   {
     title: 'Patient Instructions',
     tag: 'After-Visit',
     description:
       'Generate clear, personalized after-visit summaries and care plans your patients can actually follow.',
-    Icon: BookOpen,
+    image: instructionsImg,
   },
 ];
 
@@ -71,14 +69,12 @@ export const CheerAddOnsSection = () => {
 
   return (
     <section className="py-12 md:py-16 relative overflow-hidden bg-white">
-      {/* Subtle brand background blurs */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 -right-32 w-72 h-72 rounded-full bg-[#A5CCF3]/15 blur-3xl" />
         <div className="absolute bottom-1/4 -left-32 w-72 h-72 rounded-full bg-[#387E89]/10 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +95,6 @@ export const CheerAddOnsSection = () => {
           </p>
         </motion.div>
 
-        {/* Carousel */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -118,44 +113,47 @@ export const CheerAddOnsSection = () => {
                   key={index}
                   className="pl-3 md:pl-4 basis-[85%] sm:basis-1/2 lg:basis-1/3"
                 >
-                  <div className="group relative h-full bg-white rounded-2xl border border-black/10 p-5 md:p-6 hover:shadow-xl hover:border-[#387E89]/30 hover:-translate-y-1 transition-all duration-300">
-                    {/* Animated gradient accent line */}
-                    <div className="absolute top-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-[#387E89]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    {/* Icon badge */}
-                    <div className="relative mb-4 w-fit">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full blur-md opacity-20 group-hover:opacity-50 transition-opacity duration-300" />
-                      <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <item.Icon className="w-5 h-5 text-white" strokeWidth={2} />
+                  <div className="group relative h-full bg-white rounded-2xl border border-black/10 overflow-hidden hover:shadow-xl hover:border-[#387E89]/30 hover:-translate-y-1 transition-all duration-300">
+                    {/* Image with brand gradient overlay */}
+                    <div className="relative aspect-[4/3] overflow-hidden bg-black/5">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        loading="lazy"
+                        width={800}
+                        height={640}
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Brand gradient tint */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#143151]/55 via-[#387E89]/25 to-[#A5CCF3]/15 mix-blend-multiply" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      {/* Tag overlay */}
+                      <div className="absolute top-3 left-3">
+                        <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-white bg-white/15 backdrop-blur-md border border-white/25 px-2.5 py-1 rounded-full">
+                          {item.tag}
+                        </span>
                       </div>
                     </div>
 
-                    {/* Tag */}
-                    <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-[#387E89] mb-2">
-                      {item.tag}
-                    </span>
+                    {/* Body */}
+                    <div className="p-5 md:p-6">
+                      <h3 className="font-bold text-black text-base md:text-lg mb-1.5">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-black/70 leading-relaxed">
+                        {item.description}
+                      </p>
 
-                    {/* Title */}
-                    <h3 className="font-bold text-black text-base md:text-lg mb-1.5">
-                      {item.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm text-black/70 leading-relaxed">
-                      {item.description}
-                    </p>
-
-                    {/* Bottom hover indicator */}
-                    <div className="mt-4 pt-4 border-t border-black/5 flex items-center gap-2 text-xs font-medium text-black/40 group-hover:text-[#387E89] transition-colors duration-300">
-                      <span>Available add-on</span>
-                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#387E89] animate-pulse" />
+                      <div className="mt-4 pt-4 border-t border-black/5 flex items-center gap-2 text-xs font-medium text-black/40 group-hover:text-[#387E89] transition-colors duration-300">
+                        <span>Available add-on</span>
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#387E89] animate-pulse" />
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
 
-            {/* Controls below */}
             <div className="flex justify-center gap-3 mt-6">
               <CarouselPrevious className="static translate-y-0 h-11 w-11 rounded-full bg-white border border-black/10 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 text-black hover:text-[#387E89]" />
               <CarouselNext className="static translate-y-0 h-11 w-11 rounded-full bg-white border border-black/10 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 text-black hover:text-[#387E89]" />

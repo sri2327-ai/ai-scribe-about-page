@@ -5,26 +5,23 @@ import { Star, Quote } from 'lucide-react';
 const testimonials = [
   {
     quote:
-      "CHEER has revolutionized how we deliver care. The platform is intuitive, and our patients love the seamless experience.",
-    author: 'Dr. Sarah Mitchell',
-    role: 'Family Medicine Physician',
-    avatar: 'SM',
+      "CHEER has transformed how we deliver virtual care. The platform is intuitive, and our patients love how easy it is — no app, no friction.",
+    author: 'Dr. Priya Ramachandran',
+    role: 'Family Medicine, Austin TX',
     rating: 5,
   },
   {
     quote:
-      'The integration with our EHR is flawless. I can focus on my patients instead of wrestling with technology.',
-    author: 'Dr. James Chen',
-    role: 'Cardiologist',
-    avatar: 'JC',
+      'The EHR integration is flawless. I can focus on my patients instead of wrestling with technology between visits.',
+    author: 'Dr. Marcus Bennett',
+    role: 'Cardiology, Mount Sinai',
     rating: 5,
   },
   {
     quote:
-      'Our no-show rate dropped by 35% after implementing CHEER. The automated reminders are a game-changer.',
-    author: 'Maria Rodriguez',
-    role: 'Practice Manager',
-    avatar: 'MR',
+      'Our no-show rate dropped 35% after switching to CHEER. The reminders and one-tap join link are game-changers for our practice.',
+    author: 'Dr. Hannah Kowalski',
+    role: 'Behavioral Health, Chicago',
     rating: 5,
   },
 ];
@@ -90,14 +87,9 @@ export const CheerTestimonialsSection = () => {
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-3 pt-4 border-t border-black/5">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md flex-shrink-0">
-                  <span className="text-white font-bold text-xs">{testimonial.avatar}</span>
-                </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-black text-sm truncate">{testimonial.author}</p>
-                  <p className="text-xs text-black/60 truncate">{testimonial.role}</p>
-                </div>
+              <div className="pt-4 border-t border-black/5">
+                <p className="font-bold text-black text-sm">{testimonial.author}</p>
+                <p className="text-xs text-black/60">{testimonial.role}</p>
               </div>
             </motion.div>
           ))}
