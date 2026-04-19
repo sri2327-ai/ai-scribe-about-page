@@ -35,7 +35,7 @@ const stats = [{
   label: 'Uptime SLA'
 }];
 export const CheerWhyChooseSection = () => {
-  return <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-b from-white to-[#F5F9FF]">
+  return <section className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-b from-white to-[#F5F9FF]">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           {/* Section header */}
