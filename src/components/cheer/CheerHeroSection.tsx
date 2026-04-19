@@ -263,11 +263,11 @@ export const CheerHeroSection = () => {
                 </span>
               ))}
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-[#387E89] font-medium mb-6 md:mb-8">
+            <p className="text-lg md:text-xl lg:text-2xl text-black font-medium mb-6 md:mb-8">
               Telehealth platform for modern clinicians
             </p>
 
-            <p className="text-base md:text-lg lg:text-xl text-[#387E89] mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl text-black mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
               CHEER brings seamless, secure telehealth to clinicians and patients. 
               No downloads, no hassle—just exceptional virtual care.
             </p>
