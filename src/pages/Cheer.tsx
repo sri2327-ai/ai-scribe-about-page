@@ -26,6 +26,7 @@ const Cheer = () => {
         <CheerHeroSection />
         <CheerAnywhereSection />
         <CheerFeaturesSection />
+        <CheerWorkflowSection />
         <CheerTestimonialsSection />
         <CheerWhyChooseSection />
       </main>
