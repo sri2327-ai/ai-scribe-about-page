@@ -192,22 +192,20 @@ export const CheerFeaturesSection = () => {
               loading="lazy"
               width={1024}
               height={1024}
-              className="absolute right-0 top-0 h-full w-1/2 object-contain object-right opacity-90 group-hover:scale-105 transition-transform duration-500"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/85 to-transparent" />
 
-            <div className="relative h-full p-4 md:p-5 flex flex-col justify-between">
-              <div className="inline-flex p-2 rounded-lg bg-white border border-black/10 shadow-sm w-fit">
+            <div className="relative h-full p-4 md:p-5 flex flex-col justify-end">
+              <div className="inline-flex p-2 rounded-lg bg-white border border-black/10 shadow-sm w-fit mb-2">
                 <Globe className="w-4 h-4 text-black" strokeWidth={1.75} />
               </div>
-              <div className="max-w-[60%]">
-                <h3 className="font-bold text-black text-base md:text-lg mb-0.5">
-                  One link is all they need
-                </h3>
-                <p className="text-black/80 text-xs leading-snug">
-                  Browser-based join from any device. No downloads, no logins, no friction.
-                </p>
-              </div>
+              <h3 className="font-bold text-black text-base md:text-lg mb-0.5">
+                One link is all they need
+              </h3>
+              <p className="text-black/80 text-xs leading-snug max-w-md">
+                Browser-based join from any device. No downloads, no logins, no friction.
+              </p>
             </div>
           </motion.div>
 
