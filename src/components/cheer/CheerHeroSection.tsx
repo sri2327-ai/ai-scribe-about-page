@@ -134,8 +134,8 @@ const ClinicianDashboardAnimation = () => {
             <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
               <Sparkles className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" />
             </div>
-            <p className="text-[9px] md:text-[11px] font-bold text-[#143151]">AI Scribe</p>
-            <span className="ml-auto text-[7px] md:text-[9px] text-[#387E89] flex items-center gap-1">
+            <p className="text-[9px] md:text-[11px] font-bold text-black">AI Scribe</p>
+            <span className="ml-auto text-[7px] md:text-[9px] text-black flex items-center gap-1">
               <motion.span className="w-1 h-1 bg-[#387E89] rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.2, repeat: Infinity }} />
               Listening
             </span>
@@ -149,8 +149,8 @@ const ClinicianDashboardAnimation = () => {
               transition={{ duration: 0.3 }}
               className="text-[8px] md:text-[10px] min-h-[24px]"
             >
-              <span className="font-semibold text-[#143151]">{transcriptLines[scribeLine].speaker}: </span>
-              <span className="text-gray-700">{transcriptLines[scribeLine].text}</span>
+              <span className="font-semibold text-black">{transcriptLines[scribeLine].speaker}: </span>
+              <span className="text-black">{transcriptLines[scribeLine].text}</span>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -161,8 +161,8 @@ const ClinicianDashboardAnimation = () => {
             <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-[#143151] flex items-center justify-center">
               <Languages className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" />
             </div>
-            <p className="text-[9px] md:text-[11px] font-bold text-[#143151]">Interpreter</p>
-            <span className="ml-auto text-[7px] md:text-[9px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-600">EN → ES</span>
+            <p className="text-[9px] md:text-[11px] font-bold text-black">Interpreter</p>
+            <span className="ml-auto text-[7px] md:text-[9px] px-1.5 py-0.5 rounded-full bg-gray-100 text-black">EN → ES</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="flex items-end gap-0.5 h-3 md:h-4">
@@ -175,7 +175,7 @@ const ClinicianDashboardAnimation = () => {
                 />
               ))}
             </div>
-            <p className="text-[8px] md:text-[10px] text-gray-700 italic truncate">"Las luces brillantes lo empeoran."</p>
+            <p className="text-[8px] md:text-[10px] text-black italic truncate">"Las luces brillantes lo empeoran."</p>
           </div>
         </div>
 
@@ -185,9 +185,9 @@ const ClinicianDashboardAnimation = () => {
             <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-[#5192AE] flex items-center justify-center">
               <FileText className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" />
             </div>
-            <p className="text-[9px] md:text-[11px] font-bold text-[#143151]">Send Patient Instructions</p>
+            <p className="text-[9px] md:text-[11px] font-bold text-black">Send Patient Instructions</p>
           </div>
-          <div className="text-[8px] md:text-[10px] text-gray-600 bg-gray-50 rounded px-1.5 py-1 mb-1.5">
+          <div className="text-[8px] md:text-[10px] text-black bg-gray-50 rounded px-1.5 py-1 mb-1.5">
             • Hydrate · • Sumatriptan 50mg PRN · • Follow-up in 7 days
           </div>
           <motion.button
@@ -235,8 +235,8 @@ const ClinicianViewAnimation = () => {
       <div className="flex-1 p-2.5 md:p-3 flex flex-col gap-2 md:gap-3 overflow-hidden">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-xs md:text-sm font-bold text-[#143151]">Dashboard</h3>
-            <p className="text-[8px] md:text-[10px] text-gray-500">Welcome back, Dr. Johnson</p>
+            <h3 className="text-xs md:text-sm font-bold text-black">Dashboard</h3>
+            <p className="text-[8px] md:text-[10px] text-black">Welcome back, Dr. Johnson</p>
           </div>
         </div>
 
@@ -246,12 +246,12 @@ const ClinicianViewAnimation = () => {
             <div className="w-5 h-5 md:w-6 md:h-6 rounded-md bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
               <UserPlus className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" />
             </div>
-            <p className="text-[10px] md:text-xs font-bold text-[#143151]">Send Quick Invite</p>
+            <p className="text-[10px] md:text-xs font-bold text-black">Send Quick Invite</p>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="flex-1 flex items-center gap-1 bg-white border border-gray-200 rounded-md px-1.5 py-1 md:py-1.5">
-              <Mail className="w-2.5 h-2.5 md:w-3 md:h-3 text-gray-400" />
-              <span className="text-[8px] md:text-[10px] text-gray-700 truncate">michael.r@email.com</span>
+              <Mail className="w-2.5 h-2.5 md:w-3 md:h-3 text-black" />
+              <span className="text-[8px] md:text-[10px] text-black truncate">michael.r@email.com</span>
             </div>
             <motion.button
               className="text-[8px] md:text-[10px] px-2 md:px-2.5 py-1 md:py-1.5 rounded-md bg-[#143151] text-white font-medium flex items-center gap-1"
@@ -261,8 +261,8 @@ const ClinicianViewAnimation = () => {
             </motion.button>
           </div>
           <div className="flex items-center gap-1 mt-1.5">
-            <Copy className="w-2.5 h-2.5 text-[#387E89]" />
-            <span className="text-[7px] md:text-[9px] text-[#387E89] truncate">cheer.health/join/8K2-9X4</span>
+            <Copy className="w-2.5 h-2.5 text-black" />
+            <span className="text-[7px] md:text-[9px] text-black truncate">cheer.health/join/8K2-9X4</span>
           </div>
         </div>
 
@@ -273,9 +273,9 @@ const ClinicianViewAnimation = () => {
               <div className="w-5 h-5 md:w-6 md:h-6 rounded-md bg-[#5192AE] flex items-center justify-center">
                 <CalendarPlus className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" />
               </div>
-              <p className="text-[10px] md:text-xs font-bold text-[#143151]">Schedule</p>
+              <p className="text-[10px] md:text-xs font-bold text-black">Schedule</p>
             </div>
-            <span className="text-[8px] md:text-[10px] text-gray-500">Today</span>
+            <span className="text-[8px] md:text-[10px] text-black">Today</span>
           </div>
           <div className="space-y-1 md:space-y-1.5 overflow-hidden">
             {[
@@ -294,14 +294,14 @@ const ClinicianViewAnimation = () => {
                   <span className="text-white text-[7px] md:text-[9px] font-bold">{apt.name.split(' ').map(n => n[0]).join('')}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[9px] md:text-[11px] font-semibold text-gray-900 truncate">{apt.name}</p>
-                  <p className="text-[7px] md:text-[9px] text-gray-500">{apt.type}</p>
+                  <p className="text-[9px] md:text-[11px] font-semibold text-black truncate">{apt.name}</p>
+                  <p className="text-[7px] md:text-[9px] text-black">{apt.type}</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Clock className="w-2.5 h-2.5 text-gray-400" />
-                  <span className="text-[8px] md:text-[10px] font-medium text-gray-900">{apt.time}</span>
+                  <Clock className="w-2.5 h-2.5 text-black" />
+                  <span className="text-[8px] md:text-[10px] font-medium text-black">{apt.time}</span>
                 </div>
-                <span className={`text-[7px] md:text-[9px] px-1 py-0.5 rounded-full ${apt.status === 'waiting' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                <span className={`text-[7px] md:text-[9px] px-1 py-0.5 rounded-full ${apt.status === 'waiting' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-black'}`}>
                   {apt.status}
                 </span>
               </motion.div>
@@ -376,7 +376,7 @@ export const CheerHeroSection = () => {
               ].map((item, index) => (
                 <span
                   key={index}
-                  className="relative group cursor-pointer bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent hover:from-[#387E89] hover:to-[#143151] transition-all duration-300"
+                  className="relative group cursor-pointer text-black transition-all duration-300"
                 >
                   {item.letter}
                   <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 bg-[#143151] text-white text-xs md:text-sm font-normal rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
@@ -400,7 +400,7 @@ export const CheerHeroSection = () => {
                 Request a Demo
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-6 md:px-8 py-5 md:py-6 border-2 border-[#387E89] text-[#387E89] hover:bg-[#387E89]/10 font-semibold text-base md:text-lg transition-all">
+              <Button size="lg" variant="outline" className="rounded-full px-6 md:px-8 py-5 md:py-6 border-2 border-[#387E89] text-black hover:bg-[#387E89]/10 font-semibold text-base md:text-lg transition-all">
                 <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                 Watch Demo
               </Button>
@@ -418,8 +418,8 @@ export const CheerHeroSection = () => {
               value: 'HIPAA',
               label: 'Compliant'
             }].map((stat, i) => <div key={i} className="text-center lg:text-left">
-                  <p className="text-xl md:text-2xl lg:text-3xl font-bold text-[#143151]">{stat.value}</p>
-                  <p className="text-xs md:text-sm text-[#5192AE]">{stat.label}</p>
+                  <p className="text-xl md:text-2xl lg:text-3xl font-bold text-black">{stat.value}</p>
+                  <p className="text-xs md:text-sm text-black">{stat.label}</p>
                 </div>)}
             </div>
           </motion.div>
@@ -457,7 +457,7 @@ export const CheerHeroSection = () => {
 
             {/* View toggle buttons */}
             <div className="flex justify-center gap-1.5 md:gap-2 mt-4 md:mt-6">
-              {viewButtons.map(btn => <button key={btn.id} onClick={() => setActiveView(btn.id)} className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${activeView === btn.id ? 'bg-[#143151] text-white shadow-lg shadow-[#143151]/20' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+              {viewButtons.map(btn => <button key={btn.id} onClick={() => setActiveView(btn.id)} className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${activeView === btn.id ? 'bg-[#143151] text-white shadow-lg shadow-[#143151]/20' : 'bg-gray-100 text-black hover:bg-gray-200'}`}>
                   <btn.icon className="w-3 h-3 md:w-4 md:h-4" />
                   <span className="hidden sm:inline">{btn.label}</span>
                   <span className="sm:hidden">{btn.shortLabel}</span>

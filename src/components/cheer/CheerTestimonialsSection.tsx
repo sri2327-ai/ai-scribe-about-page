@@ -46,13 +46,13 @@ export const CheerTestimonialsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-[#387E89] text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#387E89]/10 text-black text-sm font-medium mb-4">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
             Trusted by Healthcare Professionals
           </h2>
-          <p className="text-lg text-[#5192AE]">
+          <p className="text-lg text-black">
             See what clinicians are saying about their experience with CHEER
           </p>
         </motion.div>
@@ -82,7 +82,7 @@ export const CheerTestimonialsSection = () => {
                 </div>
 
                 {/* Quote text */}
-                <p className="text-[#143151] leading-relaxed mb-6 italic">
+                <p className="text-black leading-relaxed mb-6 italic">
                   "{testimonial.quote}"
                 </p>
 
@@ -92,8 +92,8 @@ export const CheerTestimonialsSection = () => {
                     <span className="text-white font-bold text-sm">{testimonial.avatar}</span>
                   </div>
                   <div>
-                    <p className="font-bold text-[#143151]">{testimonial.author}</p>
-                    <p className="text-sm text-[#5192AE]">{testimonial.role}</p>
+                    <p className="font-bold text-black">{testimonial.author}</p>
+                    <p className="text-sm text-black">{testimonial.role}</p>
                   </div>
                 </div>
               </div>
@@ -109,11 +109,11 @@ export const CheerTestimonialsSection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-16 text-center"
         >
-          <p className="text-sm text-[#5192AE] mb-6">Trusted by leading healthcare organizations</p>
+          <p className="text-sm text-black mb-6">Trusted by leading healthcare organizations</p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
             {['Healthcare System A', 'Medical Group B', 'Clinic Network C', 'Health Partners D'].map((name, i) => (
               <div key={i} className="px-6 py-3 bg-white rounded-lg shadow-sm border border-gray-100">
-                <span className="font-semibold text-[#143151] text-sm">{name}</span>
+                <span className="font-semibold text-black text-sm">{name}</span>
               </div>
             ))}
           </div>
