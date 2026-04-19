@@ -1,16 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Video, 
-  Shield, 
-  Globe, 
-  Calendar, 
-  Palette,
-  Layers,
+import {
+  Video,
+  Users,
+  Pause,
+  Image as ImageIcon,
+  MonitorUp,
+  FileText,
+  History,
+  ClipboardList,
+  FileSignature,
+  CalendarCheck,
+  PhoneCall,
+  Bell,
+  Globe,
   Lock,
   Smartphone,
   Clock,
-  Users,
   MessageSquare,
   BarChart,
 } from 'lucide-react';
@@ -20,52 +26,21 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import hdConsultationImg from '@/assets/cheer-hd-consultation.jpg';
 
-// Bento grid features - varied sizes for visual interest
-const bentoFeatures = [
-  {
-    icon: Video,
-    title: 'HD Video Consultations',
-    description: 'Crystal-clear video calls with adaptive quality that adjusts to network conditions for natural conversations.',
-    span: 'md:col-span-2 md:row-span-2',
-    accent: 'from-[#143151]/5 to-[#387E89]/10',
-    featured: true,
-  },
-  {
-    icon: Shield,
-    title: 'HIPAA & GDPR Compliant',
-    description: 'End-to-end encryption with comprehensive audit trails.',
-    span: 'md:col-span-2',
-    accent: 'from-[#387E89]/5 to-[#5192AE]/10',
-  },
-  {
-    icon: Globe,
-    title: 'Browser-Based Access',
-    description: 'No downloads required. One-click join from any device.',
-    span: 'md:col-span-1',
-    accent: 'from-[#5192AE]/5 to-[#A5CCF3]/10',
-  },
-  {
-    icon: Calendar,
-    title: 'Smart Scheduling',
-    description: 'Automated reminders reduce no-shows by 40%.',
-    span: 'md:col-span-1',
-    accent: 'from-[#143151]/5 to-[#5192AE]/10',
-  },
-  {
-    icon: Palette,
-    title: 'Custom Waiting Rooms',
-    description: 'Brand your virtual waiting room with logos and patient education materials.',
-    span: 'md:col-span-2',
-    accent: 'from-[#387E89]/5 to-[#A5CCF3]/10',
-  },
-  {
-    icon: Layers,
-    title: 'S10.AI Integration',
-    description: 'Connects with CRUSH and BRAVO for a complete AI-powered workflow.',
-    span: 'md:col-span-2',
-    accent: 'from-[#143151]/5 to-[#387E89]/10',
-  },
+// Sub-feature lists for grouped tiles
+const advancedVideoItems = [
+  { icon: Users, label: 'Group Call' },
+  { icon: Pause, label: 'Pause' },
+  { icon: ImageIcon, label: 'Virtual Background' },
+  { icon: MonitorUp, label: 'Screen Share' },
+];
+
+const documentationItems = [
+  { icon: History, label: 'Session History' },
+  { icon: ClipboardList, label: 'SOAP & DAP Notes' },
+  { icon: FileText, label: 'Transcript' },
+  { icon: FileSignature, label: 'Teleconsent' },
 ];
 
 const carouselFeatures = [
@@ -113,35 +88,181 @@ export const CheerFeaturesSection = () => {
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[200px] gap-4 md:gap-5 max-w-6xl mx-auto mb-16 md:mb-20">
-          {bentoFeatures.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 ${feature.span}`}
-            >
-              {/* Gradient accent layer */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${feature.accent} opacity-60 group-hover:opacity-100 transition-opacity`} />
+        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[220px] gap-4 md:gap-5 max-w-6xl mx-auto mb-16 md:mb-20">
+          {/* 1. HD Video Consultations - featured with real image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5 }}
+            className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 md:col-span-2 md:row-span-2"
+          >
+            <img
+              src={hdConsultationImg}
+              alt="Clinician on an HD video consultation with a patient"
+              loading="lazy"
+              width={1024}
+              height={1024}
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {/* Bottom-up readability gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
 
-              <div className="relative h-full p-5 md:p-6 flex flex-col justify-between">
-                <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-5 h-5 text-black" strokeWidth={1.75} />
+            <div className="relative h-full p-5 md:p-6 flex flex-col justify-end">
+              <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit mb-3">
+                <Video className="w-5 h-5 text-black" strokeWidth={1.75} />
+              </div>
+              <h3 className="font-bold text-black mb-1.5 text-xl md:text-2xl">
+                HD Video Consultations
+              </h3>
+              <p className="text-black/80 leading-relaxed text-sm md:text-base max-w-md">
+                Crystal-clear video calls with adaptive quality that adjusts to network conditions for natural, face-to-face conversations.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* 2. Advanced video features */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 md:col-span-2 md:row-span-2"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#387E89]/5 to-[#5192AE]/10 opacity-60 group-hover:opacity-100 transition-opacity" />
+
+            <div className="relative h-full p-5 md:p-6 flex flex-col">
+              <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit mb-3">
+                <MonitorUp className="w-5 h-5 text-black" strokeWidth={1.75} />
+              </div>
+              <h3 className="font-bold text-black mb-1.5 text-xl md:text-2xl">
+                Advanced video features
+              </h3>
+              <p className="text-black/80 leading-relaxed text-sm md:text-base mb-4">
+                Powerful tools that keep sessions clear, focused, and engaging.
+              </p>
+
+              <div className="grid grid-cols-2 gap-2 mt-auto">
+                {advancedVideoItems.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-black/10"
+                  >
+                    <item.icon className="w-4 h-4 text-black flex-shrink-0" strokeWidth={1.75} />
+                    <span className="text-xs md:text-sm font-medium text-black truncate">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 3. AI Receptionist Scheduling */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 md:col-span-2"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/10 opacity-60 group-hover:opacity-100 transition-opacity" />
+
+            <div className="relative h-full p-5 md:p-6 flex flex-col justify-between">
+              <div className="flex items-start gap-3">
+                <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit">
+                  <PhoneCall className="w-5 h-5 text-black" strokeWidth={1.75} />
                 </div>
-
-                <div>
-                  <h3 className={`font-bold text-black mb-1.5 ${feature.featured ? 'text-xl md:text-2xl' : 'text-base md:text-lg'}`}>
-                    {feature.title}
-                  </h3>
-                  <p className={`text-black/80 leading-relaxed ${feature.featured ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
-                    {feature.description}
-                  </p>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="text-[10px] md:text-xs font-medium px-2 py-1 rounded-full bg-white border border-black/10 text-black">
+                    Powered by BRAVO
+                  </span>
                 </div>
               </div>
-            </motion.div>
-          ))}
+
+              <div>
+                <h3 className="font-bold text-black mb-1.5 text-base md:text-lg">
+                  AI Receptionist Scheduling
+                </h3>
+                <p className="text-black/80 leading-relaxed text-xs md:text-sm">
+                  BRAVO answers calls, books appointments and sends reminders 24/7—so your CHEER calendar fills itself while you focus on care.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-black/10">
+                  <CalendarCheck className="w-3.5 h-3.5 text-black" strokeWidth={1.75} />
+                  <span className="text-[11px] md:text-xs font-medium text-black">Auto-booking</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-black/10">
+                  <Bell className="w-3.5 h-3.5 text-black" strokeWidth={1.75} />
+                  <span className="text-[11px] md:text-xs font-medium text-black">Smart reminders</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 4. Browser-based access */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.24 }}
+            className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 md:col-span-2"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#5192AE]/5 to-[#A5CCF3]/10 opacity-60 group-hover:opacity-100 transition-opacity" />
+
+            <div className="relative h-full p-5 md:p-6 flex flex-col justify-between">
+              <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit">
+                <Globe className="w-5 h-5 text-black" strokeWidth={1.75} />
+              </div>
+              <div>
+                <h3 className="font-bold text-black mb-1.5 text-base md:text-lg">
+                  Browser-Based Access
+                </h3>
+                <p className="text-black/80 leading-relaxed text-xs md:text-sm">
+                  No downloads required. One-click join from any device, any browser, anywhere.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 5. Documentation made simple */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.32 }}
+            className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-black/30 hover:shadow-xl transition-all duration-300 md:col-span-4"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/10 opacity-60 group-hover:opacity-100 transition-opacity" />
+
+            <div className="relative h-full p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+              <div className="md:max-w-sm">
+                <div className="inline-flex p-2.5 rounded-xl bg-white border border-black/10 shadow-sm w-fit mb-3">
+                  <FileText className="w-5 h-5 text-black" strokeWidth={1.75} />
+                </div>
+                <h3 className="font-bold text-black mb-1.5 text-xl md:text-2xl">
+                  Documentation made simple
+                </h3>
+                <p className="text-black/80 leading-relaxed text-sm md:text-base">
+                  Accurate records and essential forms, ready when you need them.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 flex-1">
+                {documentationItems.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col items-start gap-2 p-3 md:p-4 rounded-xl bg-white border border-black/10 hover:border-black/30 transition-colors"
+                  >
+                    <div className="inline-flex p-2 rounded-lg bg-black/5">
+                      <item.icon className="w-4 h-4 text-black" strokeWidth={1.75} />
+                    </div>
+                    <span className="text-xs md:text-sm font-semibold text-black">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Carousel - more capabilities */}
