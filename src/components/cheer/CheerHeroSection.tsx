@@ -86,126 +86,232 @@ const PatientViewAnimation = () => {
     </motion.div>
   );
 };
-const ClinicianDashboardAnimation = () => <motion.div initial={{
-  opacity: 0
-}} animate={{
-  opacity: 1
-}} exit={{
-  opacity: 0
-}} className="h-full flex bg-gray-50 rounded-lg overflow-hidden">
-    {/* Main video area */}
-    <div className="flex-1 p-2 md:p-3">
-      <div className="h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#143151] to-[#387E89] relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white">
-            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/20 mx-auto mb-1 md:mb-2 flex items-center justify-center">
-              <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
-            </div>
-            <p className="font-semibold text-xs md:text-sm">Patient: John Doe</p>
-            <p className="text-[10px] md:text-xs text-white/70">Consultation in progress</p>
+// Live Consultation: AI Scribe + Interpreter + Send Patient Instructions
+const ClinicianDashboardAnimation = () => {
+  const transcriptLines = [
+    { speaker: 'Patient', text: "I've had this headache for three days now." },
+    { speaker: 'Dr. Johnson', text: 'Any nausea or sensitivity to light?' },
+    { speaker: 'Patient', text: 'Yes, bright lights make it worse.' },
+    { speaker: 'AI Note', text: 'Migraine pattern detected · suggesting workup.' },
+  ];
+  const [scribeLine, setScribeLine] = useState(0);
+  const [sentInstruction, setSentInstruction] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => setScribeLine(l => (l + 1) % transcriptLines.length), 2200);
+    return () => clearInterval(id);
+  }, []);
+  useEffect(() => {
+    const id = setInterval(() => setSentInstruction(s => !s), 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex bg-gray-50 rounded-lg overflow-hidden">
+      {/* Video tile */}
+      <div className="w-[42%] p-2 md:p-3">
+        <div className="h-full rounded-xl overflow-hidden relative bg-black">
+          <img src={patientImg} alt="Patient" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 30%' }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+          <div className="absolute top-2 left-2 flex items-center gap-1 bg-green-500/90 text-white px-1.5 py-0.5 rounded-full text-[9px] md:text-[10px]">
+            <span className="w-1 h-1 bg-white rounded-full animate-pulse" />
+            Connected
+          </div>
+          <div className="absolute bottom-2 left-2 text-white">
+            <p className="text-[10px] md:text-xs font-semibold">Michael Reynolds</p>
+            <p className="text-[8px] md:text-[10px] text-white/80">In consultation</p>
+          </div>
+          <div className="absolute top-2 right-2 w-12 md:w-16 aspect-video rounded overflow-hidden border border-white/40">
+            <img src={doctorSarahImg} alt="Dr." className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 18%' }} />
           </div>
         </div>
-        <div className="absolute top-2 md:top-3 left-2 md:left-3 flex items-center gap-1.5 md:gap-2 bg-green-500/90 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs">
-          <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
-          Connected
-        </div>
       </div>
-    </div>
-    
-    {/* Side panel */}
-    <div className="w-48 md:w-64 bg-white border-l border-gray-200 p-2 md:p-3 flex flex-col">
-      <div className="flex items-center gap-2 pb-2 md:pb-3 border-b border-gray-100">
-        <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#143151] flex items-center justify-center">
-          <span className="text-white text-[10px] md:text-xs font-bold">JD</span>
-        </div>
-        <div>
-          <p className="text-[10px] md:text-xs font-semibold text-gray-900">John Doe</p>
-          <p className="text-[8px] md:text-[10px] text-gray-500">Male, 45 yrs</p>
-        </div>
-      </div>
-      
-      <div className="flex-1 py-2 md:py-3 space-y-1.5 md:space-y-2 overflow-hidden">
-        <p className="text-[8px] md:text-[10px] font-semibold text-gray-500 uppercase">Quick Notes</p>
-        <div className="space-y-1 md:space-y-1.5">
-          {['Chief complaint: Headache', 'Duration: 3 days', 'Severity: Moderate'].map((note, i) => <div key={i} className="text-[8px] md:text-[10px] text-gray-600 bg-gray-50 px-1.5 md:px-2 py-1 md:py-1.5 rounded">
-              {note}
-            </div>)}
-        </div>
-      </div>
-      
-      <div className="pt-2 md:pt-3 border-t border-gray-100 flex gap-1.5 md:gap-2">
-        <button className="flex-1 text-[8px] md:text-[10px] bg-[#143151] text-white py-1.5 md:py-2 rounded-lg font-medium">
-          End Visit
-        </button>
-        <button className="flex-1 text-[8px] md:text-[10px] border border-gray-200 py-1.5 md:py-2 rounded-lg font-medium text-gray-700">
-          Add Note
-        </button>
-      </div>
-    </div>
-  </motion.div>;
-const ClinicianViewAnimation = () => <motion.div initial={{
-  opacity: 0
-}} animate={{
-  opacity: 1
-}} exit={{
-  opacity: 0
-}} className="h-full flex bg-white rounded-lg overflow-hidden">
-    {/* Sidebar */}
-    <div className="w-10 md:w-14 bg-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
-      <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/20 flex items-center justify-center">
-        <Activity className="w-3 h-3 md:w-4 md:h-4 text-white" />
-      </div>
-      {[Calendar, Users, FileText, Settings].map((Icon, i) => <button key={i} className={`w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center transition-colors ${i === 1 ? 'bg-white/20' : 'hover:bg-white/10'}`}>
-          <Icon className="w-3 h-3 md:w-4 md:h-4 text-white/80" />
-        </button>)}
-    </div>
-    
-    {/* Main content */}
-    <div className="flex-1 p-3 md:p-4">
-      <div className="flex items-center justify-between mb-3 md:mb-4">
-        <div>
-          <h3 className="text-xs md:text-sm font-bold text-[#143151]">Today's Schedule</h3>
-          <p className="text-[8px] md:text-[10px] text-gray-500">3 appointments remaining</p>
-        </div>
-        <button className="text-[8px] md:text-[10px] bg-[#387E89] text-white px-2 md:px-3 py-1 md:py-1.5 rounded-full font-medium">
-          + New
-        </button>
-      </div>
-      
-      <div className="space-y-1.5 md:space-y-2">
-        {[{
-        name: 'Sarah Miller',
-        time: '2:00 PM',
-        status: 'upcoming',
-        type: 'Follow-up'
-      }, {
-        name: 'James Wilson',
-        time: '2:30 PM',
-        status: 'waiting',
-        type: 'New Patient'
-      }, {
-        name: 'Emma Davis',
-        time: '3:00 PM',
-        status: 'upcoming',
-        type: 'Consultation'
-      }].map((apt, i) => <div key={i} className="flex items-center gap-2 md:gap-3 p-2 md:p-2.5 rounded-xl border border-gray-100 hover:border-[#387E89]/30 hover:bg-gray-50 transition-all cursor-pointer">
-            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
-              <span className="text-white text-[8px] md:text-[10px] font-bold">{apt.name.split(' ').map(n => n[0]).join('')}</span>
+
+      {/* Right: AI tools stack */}
+      <div className="flex-1 bg-white border-l border-gray-200 p-2 md:p-3 flex flex-col gap-2 md:gap-2.5 overflow-hidden">
+        {/* AI Scribe */}
+        <div className="rounded-lg border border-[#387E89]/20 bg-gradient-to-br from-[#387E89]/5 to-white p-2 md:p-2.5">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
+              <Sparkles className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" />
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[10px] md:text-xs font-semibold text-gray-900 truncate">{apt.name}</p>
-              <p className="text-[8px] md:text-[10px] text-gray-500">{apt.type}</p>
+            <p className="text-[9px] md:text-[11px] font-bold text-[#143151]">AI Scribe</p>
+            <span className="ml-auto text-[7px] md:text-[9px] text-[#387E89] flex items-center gap-1">
+              <motion.span className="w-1 h-1 bg-[#387E89] rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.2, repeat: Infinity }} />
+              Listening
+            </span>
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={scribeLine}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.3 }}
+              className="text-[8px] md:text-[10px] min-h-[24px]"
+            >
+              <span className="font-semibold text-[#143151]">{transcriptLines[scribeLine].speaker}: </span>
+              <span className="text-gray-700">{transcriptLines[scribeLine].text}</span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Interpreter */}
+        <div className="rounded-lg border border-gray-200 bg-white p-2 md:p-2.5">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-[#143151] flex items-center justify-center">
+              <Languages className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" />
             </div>
-            <div className="text-right">
-              <p className="text-[8px] md:text-[10px] font-medium text-gray-900">{apt.time}</p>
-              <span className={`text-[7px] md:text-[9px] px-1 md:px-1.5 py-0.5 rounded-full ${apt.status === 'waiting' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
-                {apt.status}
-              </span>
+            <p className="text-[9px] md:text-[11px] font-bold text-[#143151]">Interpreter</p>
+            <span className="ml-auto text-[7px] md:text-[9px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-600">EN → ES</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="flex items-end gap-0.5 h-3 md:h-4">
+              {[0, 1, 2, 3, 4].map(i => (
+                <motion.span
+                  key={i}
+                  className="w-0.5 bg-[#387E89] rounded-full"
+                  animate={{ height: ['20%', '90%', '40%', '70%', '30%'] }}
+                  transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.1, ease: 'easeInOut' }}
+                />
+              ))}
             </div>
-          </div>)}
+            <p className="text-[8px] md:text-[10px] text-gray-700 italic truncate">"Las luces brillantes lo empeoran."</p>
+          </div>
+        </div>
+
+        {/* Send Patient Instructions */}
+        <div className="rounded-lg border border-gray-200 bg-white p-2 md:p-2.5">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-[#5192AE] flex items-center justify-center">
+              <FileText className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" />
+            </div>
+            <p className="text-[9px] md:text-[11px] font-bold text-[#143151]">Send Patient Instructions</p>
+          </div>
+          <div className="text-[8px] md:text-[10px] text-gray-600 bg-gray-50 rounded px-1.5 py-1 mb-1.5">
+            • Hydrate · • Sumatriptan 50mg PRN · • Follow-up in 7 days
+          </div>
+          <motion.button
+            className="w-full text-[9px] md:text-[10px] py-1.5 rounded-md bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-medium flex items-center justify-center gap-1"
+            animate={sentInstruction ? { scale: [1, 0.97, 1] } : {}}
+          >
+            {sentInstruction ? (
+              <><Check className="w-3 h-3" /> Sent to patient</>
+            ) : (
+              <><Send className="w-3 h-3" /> Send instructions</>
+            )}
+          </motion.button>
+        </div>
       </div>
-    </div>
-  </motion.div>;
+    </motion.div>
+  );
+};
+
+// Dashboard: Send Quick Invite + Schedule
+const ClinicianViewAnimation = () => {
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1400);
+    }, 3200);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full flex bg-white rounded-lg overflow-hidden">
+      {/* Sidebar */}
+      <div className="w-10 md:w-14 bg-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
+        <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/20 flex items-center justify-center">
+          <Activity className="w-3 h-3 md:w-4 md:h-4 text-white" />
+        </div>
+        {[Calendar, Users, FileText, Settings].map((Icon, i) => (
+          <button key={i} className={`w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center ${i === 0 ? 'bg-white/20' : 'hover:bg-white/10'}`}>
+            <Icon className="w-3 h-3 md:w-4 md:h-4 text-white/80" />
+          </button>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className="flex-1 p-2.5 md:p-3 flex flex-col gap-2 md:gap-3 overflow-hidden">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-xs md:text-sm font-bold text-[#143151]">Dashboard</h3>
+            <p className="text-[8px] md:text-[10px] text-gray-500">Welcome back, Dr. Johnson</p>
+          </div>
+        </div>
+
+        {/* Quick Invite card */}
+        <div className="rounded-xl border border-[#387E89]/20 bg-gradient-to-br from-[#387E89]/5 via-white to-[#143151]/5 p-2.5 md:p-3">
+          <div className="flex items-center gap-1.5 mb-2">
+            <div className="w-5 h-5 md:w-6 md:h-6 rounded-md bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
+              <UserPlus className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" />
+            </div>
+            <p className="text-[10px] md:text-xs font-bold text-[#143151]">Send Quick Invite</p>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="flex-1 flex items-center gap-1 bg-white border border-gray-200 rounded-md px-1.5 py-1 md:py-1.5">
+              <Mail className="w-2.5 h-2.5 md:w-3 md:h-3 text-gray-400" />
+              <span className="text-[8px] md:text-[10px] text-gray-700 truncate">michael.r@email.com</span>
+            </div>
+            <motion.button
+              className="text-[8px] md:text-[10px] px-2 md:px-2.5 py-1 md:py-1.5 rounded-md bg-[#143151] text-white font-medium flex items-center gap-1"
+              animate={copied ? { scale: [1, 0.95, 1] } : {}}
+            >
+              {copied ? <><Check className="w-2.5 h-2.5" /> Sent</> : <><Send className="w-2.5 h-2.5" /> Invite</>}
+            </motion.button>
+          </div>
+          <div className="flex items-center gap-1 mt-1.5">
+            <Copy className="w-2.5 h-2.5 text-[#387E89]" />
+            <span className="text-[7px] md:text-[9px] text-[#387E89] truncate">cheer.health/join/8K2-9X4</span>
+          </div>
+        </div>
+
+        {/* Schedule card */}
+        <div className="rounded-xl border border-gray-200 bg-white flex-1 p-2.5 md:p-3 flex flex-col min-h-0">
+          <div className="flex items-center justify-between mb-1.5 md:mb-2">
+            <div className="flex items-center gap-1.5">
+              <div className="w-5 h-5 md:w-6 md:h-6 rounded-md bg-[#5192AE] flex items-center justify-center">
+                <CalendarPlus className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" />
+              </div>
+              <p className="text-[10px] md:text-xs font-bold text-[#143151]">Schedule</p>
+            </div>
+            <span className="text-[8px] md:text-[10px] text-gray-500">Today</span>
+          </div>
+          <div className="space-y-1 md:space-y-1.5 overflow-hidden">
+            {[
+              { name: 'Sarah Miller', time: '2:00 PM', type: 'Follow-up', status: 'upcoming' },
+              { name: 'James Wilson', time: '2:30 PM', type: 'New Patient', status: 'waiting' },
+              { name: 'Emma Davis', time: '3:00 PM', type: 'Consultation', status: 'upcoming' },
+            ].map((apt, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-1.5 md:gap-2 p-1.5 md:p-2 rounded-lg border border-gray-100"
+              >
+                <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
+                  <span className="text-white text-[7px] md:text-[9px] font-bold">{apt.name.split(' ').map(n => n[0]).join('')}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[9px] md:text-[11px] font-semibold text-gray-900 truncate">{apt.name}</p>
+                  <p className="text-[7px] md:text-[9px] text-gray-500">{apt.type}</p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="w-2.5 h-2.5 text-gray-400" />
+                  <span className="text-[8px] md:text-[10px] font-medium text-gray-900">{apt.time}</span>
+                </div>
+                <span className={`text-[7px] md:text-[9px] px-1 py-0.5 rounded-full ${apt.status === 'waiting' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                  {apt.status}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 export const CheerHeroSection = () => {
   const [activeView, setActiveView] = useState<ViewType>('patient');
   const renderAnimation = () => {
