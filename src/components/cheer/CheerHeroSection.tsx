@@ -255,7 +255,7 @@ const ClinicianViewAnimation = () => {
               <span className="text-[8px] md:text-[10px] text-black truncate">michael.r@email.com</span>
             </div>
             <motion.button
-              className="text-[8px] md:text-[10px] px-2 md:px-2.5 py-1 md:py-1.5 rounded-md bg-[#143151] text-white font-medium flex items-center gap-1"
+              className="text-[8px] md:text-[10px] px-2 md:px-2.5 py-1 md:py-1.5 rounded-md bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white font-medium flex items-center gap-1"
               animate={copied ? { scale: [1, 0.95, 1] } : {}}
             >
               {copied ? <><Check className="w-2.5 h-2.5" /> Sent</> : <><Send className="w-2.5 h-2.5" /> Invite</>}
