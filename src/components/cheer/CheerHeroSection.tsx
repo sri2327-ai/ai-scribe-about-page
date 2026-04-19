@@ -379,9 +379,9 @@ export const CheerHeroSection = () => {
                   className="relative group cursor-pointer text-black transition-all duration-300"
                 >
                   {item.letter}
-                  <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 bg-[#143151] text-white text-xs md:text-sm font-normal rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
+                  <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white text-xs md:text-sm font-normal rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
                     <span className="font-semibold">{item.letter}</span> – {item.meaning}
-                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#143151] rotate-45" />
+                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#387E89] rotate-45" />
                   </span>
                 </span>
               ))}
