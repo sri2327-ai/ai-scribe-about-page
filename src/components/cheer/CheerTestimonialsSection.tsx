@@ -87,14 +87,9 @@ export const CheerTestimonialsSection = () => {
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-3 pt-4 border-t border-black/5">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md flex-shrink-0">
-                  <span className="text-white font-bold text-xs">{testimonial.avatar}</span>
-                </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-black text-sm truncate">{testimonial.author}</p>
-                  <p className="text-xs text-black/60 truncate">{testimonial.role}</p>
-                </div>
+              <div className="pt-4 border-t border-black/5">
+                <p className="font-bold text-black text-sm">{testimonial.author}</p>
+                <p className="text-xs text-black/60">{testimonial.role}</p>
               </div>
             </motion.div>
           ))}
