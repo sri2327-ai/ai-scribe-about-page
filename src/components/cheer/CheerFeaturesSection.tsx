@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import hdConsultationImg from '@/assets/cheer-hd-consultation-2.jpg';
 import advancedVideoImg from '@/assets/cheer-advanced-video.jpg';
-import browserAccessImg from '@/assets/cheer-browser-access.png';
+import browserAccessImg from '@/assets/cheer-browser-access.jpg';
 
 const advancedVideoItems = [
   { icon: Users, label: 'Group Call' },
