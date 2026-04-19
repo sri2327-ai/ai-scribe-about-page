@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import hdConsultationImg from '@/assets/cheer-hd-consultation-2.jpg';
 import advancedVideoImg from '@/assets/cheer-advanced-video.jpg';
+import browserAccessImg from '@/assets/cheer-browser-access.jpg';
 
 const advancedVideoItems = [
   { icon: Users, label: 'Group Call' },
@@ -185,19 +186,42 @@ export const CheerFeaturesSection = () => {
             transition={{ duration: 0.5, delay: 0.18 }}
             className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white hover:shadow-xl transition-all duration-300 md:col-span-2 min-h-[150px]"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#5192AE]/5 to-[#A5CCF3]/10 opacity-60 group-hover:opacity-100 transition-opacity" />
-
-            <div className="relative h-full p-4 md:p-5 flex flex-col justify-between">
-              <div className="inline-flex p-2 rounded-lg bg-white border border-black/10 shadow-sm w-fit">
-                <Globe className="w-4 h-4 text-black" strokeWidth={1.75} />
+            <div className="relative h-full flex items-stretch">
+              {/* Image side */}
+              <div className="relative w-2/5 flex-shrink-0 bg-black overflow-hidden">
+                <img
+                  src={browserAccessImg}
+                  alt="Patient joining a telehealth video call from a smartphone browser"
+                  loading="lazy"
+                  width={1024}
+                  height={1024}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
-              <div>
-                <h3 className="font-bold text-black text-base md:text-lg mb-0.5">
-                  Browser-Based Access
-                </h3>
-                <p className="text-black/80 text-xs leading-snug">
-                  No downloads. One-click join from any device, any browser, anywhere.
-                </p>
+
+              {/* Content side */}
+              <div className="flex-1 p-4 md:p-5 flex flex-col justify-between">
+                <div className="inline-flex p-2 rounded-lg bg-white border border-black/10 shadow-sm w-fit">
+                  <Globe className="w-4 h-4 text-black" strokeWidth={1.75} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-black text-base md:text-lg mb-1">
+                    One link is all they need
+                  </h3>
+                  <p className="text-black/80 text-[11px] md:text-xs leading-snug mb-2">
+                    Patients join with a single link—no apps, no passwords, no friction.
+                  </p>
+                  <ul className="space-y-1">
+                    {['Browser-based', 'No download', 'No login', 'Any device'].map((item) => (
+                      <li key={item} className="flex items-center gap-1.5 text-[10px] md:text-[11px] text-black">
+                        <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-black/30">
+                          <span className="block w-1.5 h-1.5 rounded-full bg-black" />
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </motion.div>
