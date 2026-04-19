@@ -4,7 +4,7 @@ import { Video } from 'lucide-react';
 
 export const CheerAnywhereSection = () => {
   return (
-    <section className="bg-[#F5F5F2] py-20 sm:py-28 md:py-32 px-4">
+    <section className="bg-[#F5F5F2] py-12 sm:py-14 md:py-16 px-4">
       <div className="max-w-5xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

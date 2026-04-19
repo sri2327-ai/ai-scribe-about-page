@@ -346,7 +346,7 @@ export const CheerHeroSection = () => {
     shortLabel: 'Dashboard',
     icon: Monitor
   }];
-  return <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
+  return <section className="relative min-h-[auto] flex items-center overflow-hidden pt-20 md:pt-24 pb-10 md:pb-14">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#F5F9FF] via-white to-[#F5F9FF]">
         <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full bg-[#387E89]/5 blur-3xl" />
