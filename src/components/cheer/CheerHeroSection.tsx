@@ -33,11 +33,11 @@ const PatientViewAnimation = () => {
             animate={{ opacity: [0.85, 1, 0.9] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Scan line for video feel */}
+          {/* Soft ambient pulse for video feel */}
           <motion.div
-            className="absolute left-0 right-0 h-[2px] bg-white/10"
-            animate={{ top: ['0%', '100%'] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            className="absolute inset-0 bg-gradient-to-tr from-[#387E89]/10 via-transparent to-[#5192AE]/10 pointer-events-none"
+            animate={{ opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
           <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 text-white">
             <p className="font-semibold text-xs md:text-sm">Emily Carter</p>
