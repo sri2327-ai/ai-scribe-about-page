@@ -40,7 +40,7 @@ const PatientViewAnimation = () => {
             transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
           />
           <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 text-white">
-            <p className="font-semibold text-xs md:text-sm">Michael Reynolds</p>
+            <p className="font-semibold text-xs md:text-sm">Emily Carter</p>
             <p className="text-[10px] md:text-xs text-white/70">Patient · Home</p>
           </div>
           <div className="absolute top-2 md:top-4 left-2 md:left-4 flex items-center gap-1.5 md:gap-2 bg-red-500/90 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium">
@@ -117,7 +117,7 @@ const ClinicianDashboardAnimation = () => {
             Connected
           </div>
           <div className="absolute bottom-2 left-2 text-white">
-            <p className="text-[10px] md:text-xs font-semibold">Michael Reynolds</p>
+            <p className="text-[10px] md:text-xs font-semibold">Emily Carter</p>
             <p className="text-[8px] md:text-[10px] text-white/80">In consultation</p>
           </div>
           <div className="absolute top-2 right-2 w-12 md:w-16 aspect-video rounded overflow-hidden border border-white/40">
