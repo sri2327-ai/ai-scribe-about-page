@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { CheerHeroSection } from '@/components/cheer/CheerHeroSection';
 import { CheerAnywhereSection } from '@/components/cheer/CheerAnywhereSection';
 import { CheerFeaturesSection } from '@/components/cheer/CheerFeaturesSection';
+import { CheerWorkflowSection } from '@/components/cheer/CheerWorkflowSection';
 import { CheerWhyChooseSection } from '@/components/cheer/CheerWhyChooseSection';
 import { CheerTestimonialsSection } from '@/components/cheer/CheerTestimonialsSection';
 import Header from '@/components/Header';
@@ -25,6 +26,7 @@ const Cheer = () => {
         <CheerHeroSection />
         <CheerAnywhereSection />
         <CheerFeaturesSection />
+        <CheerWorkflowSection />
         <CheerTestimonialsSection />
         <CheerWhyChooseSection />
       </main>
