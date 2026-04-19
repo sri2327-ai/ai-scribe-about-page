@@ -4,7 +4,9 @@ import { CheerHeroSection } from '@/components/cheer/CheerHeroSection';
 import { CheerAnywhereSection } from '@/components/cheer/CheerAnywhereSection';
 import { CheerFeaturesSection } from '@/components/cheer/CheerFeaturesSection';
 import { CheerWorkflowSection } from '@/components/cheer/CheerWorkflowSection';
-import { CheerWhyChooseSection } from '@/components/cheer/CheerWhyChooseSection';
+import { CheerComplianceSection } from '@/components/cheer/CheerComplianceSection';
+import { CheerFAQSection } from '@/components/cheer/CheerFAQSection';
+import { CheerFinalCTASection } from '@/components/cheer/CheerFinalCTASection';
 import { CheerTestimonialsSection } from '@/components/cheer/CheerTestimonialsSection';
 import { CheerCallExperienceSection } from '@/components/cheer/CheerCallExperienceSection';
 import { CheerAddOnsSection } from '@/components/cheer/CheerAddOnsSection';
@@ -32,7 +34,9 @@ const Cheer = () => {
         <CheerTestimonialsSection />
         <CheerCallExperienceSection />
         <CheerAddOnsSection />
-        <CheerWhyChooseSection />
+        <CheerComplianceSection />
+        <CheerFAQSection />
+        <CheerFinalCTASection />
       </main>
 
       <Footer />
