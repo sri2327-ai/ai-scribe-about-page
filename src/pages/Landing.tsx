@@ -14,7 +14,7 @@ import ShareWithColleaguesCTA from '@/components/landing/ShareWithColleaguesCTA'
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { typography } from '@/lib/typography';
+import { typography, withTypography } from '@/lib/typography';
 import { PlayCircle } from 'lucide-react';
 import AnimatedHeader from '@/components/landing/AnimatedHeader';
 import { useExitIntent } from "@/hooks/useExitIntent";
