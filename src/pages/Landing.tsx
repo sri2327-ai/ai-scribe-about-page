@@ -2,7 +2,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { FourthSection } from '@/components/landing/FourthSection';
-import { X, Megaphone } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
@@ -14,7 +14,7 @@ import ShareWithColleaguesCTA from '@/components/landing/ShareWithColleaguesCTA'
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { typography } from '@/lib/typography';
+import { typography, withTypography } from '@/lib/typography';
 import { PlayCircle } from 'lucide-react';
 import AnimatedHeader from '@/components/landing/AnimatedHeader';
 import { useExitIntent } from "@/hooks/useExitIntent";
@@ -82,12 +82,13 @@ const Landing = () => {
   return <>
       {/* Announcement Banner */}
       {showAnnouncement && <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
-          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm md:text-base">
-            <Megaphone className="w-4 h-4 text-yellow-300" />
-            <span className="font-medium">
-              S10.AI launches its new Telehealth Platform
-            </span>
-            <a href="/cheer" className="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs font-medium transition-colors">
+          <div className={`${typography.spacing.container} flex items-center justify-center gap-3`}>
+            <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-300 shrink-0" aria-hidden="true" />
+            <p className={withTypography(typography.body.sm, "md:text-base font-medium tracking-tight m-0")}>
+              <span className="hidden sm:inline">Now Live: </span>
+              S10.AI Launches Its Next-Generation Telehealth Platform
+            </p>
+            <a href="/cheer" className={withTypography(typography.body.sm, "ml-1 bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1 rounded-full font-semibold transition-colors shrink-0")}>
               Learn More
             </a>
           </div>
