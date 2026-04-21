@@ -85,12 +85,7 @@ const Landing = () => {
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm md:text-base">
             <Megaphone className="w-4 h-4 text-yellow-300" />
             <span className="font-medium">
-              <span className="hidden sm:inline"> Introducing </span>
-              <a href="/cheer" className="underline underline-offset-2 hover:text-yellow-200 transition-colors font-semibold">
-                CHEER
-              </a>
-              <span className="hidden sm:inline"> — Our New Telehealth Platform!</span>
-              <span className="sm:hidden"> — New Telehealth Platform!</span>
+              S10.AI launches its new Telehealth Platform
             </span>
             <a href="/cheer" className="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs font-medium transition-colors">
               Learn More
