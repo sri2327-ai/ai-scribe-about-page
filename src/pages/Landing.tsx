@@ -83,7 +83,6 @@ const Landing = () => {
       {/* Announcement Banner */}
       {showAnnouncement && <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
           <div className={`${typography.spacing.container} flex items-center justify-center gap-3`}>
-            <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-300 shrink-0" aria-hidden="true" />
             <p className={withTypography(typography.body.sm, "md:text-base font-medium tracking-tight m-0")}>
               <span className="hidden sm:inline">Now Live: </span>
               S10.AI Launches Its Next-Generation Telehealth Platform
