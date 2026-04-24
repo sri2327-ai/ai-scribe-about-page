@@ -38,7 +38,7 @@ export const CheerFinalCTASection = () => {
               to="/contact"
               className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
-              Book your live demo
+              Join the waitlist
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
