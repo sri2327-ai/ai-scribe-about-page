@@ -84,8 +84,8 @@ const Landing = () => {
       {showAnnouncement && <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
           <div className={`${typography.spacing.container} flex items-center justify-center gap-3`}>
             <p className={withTypography(typography.body.sm, "md:text-base font-medium tracking-tight m-0")}>
-              <span className="hidden sm:inline">Now Live: </span>
-              S10.AI Launches Its Next-Generation Telehealth Platform
+              <span className="hidden sm:inline">Coming Soon: </span>
+              S10.AI's Next-Generation Telehealth Platform
             </p>
             <a href="/cheer" className={withTypography(typography.body.sm, "ml-1 bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1 rounded-full font-semibold transition-colors shrink-0")}>
               Learn More
