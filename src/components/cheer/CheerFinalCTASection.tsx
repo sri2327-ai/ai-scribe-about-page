@@ -34,19 +34,12 @@ export const CheerFinalCTASection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+            <span
+              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold text-base shadow-lg cursor-default"
             >
-              Join the waitlist
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white border border-black/10 text-black font-semibold text-base hover:border-[#387E89]/40 hover:text-[#387E89] transition-all duration-300"
-            >
-              Talk to sales
-            </Link>
+              Coming soon
+              <ArrowRight className="w-4 h-4" />
+            </span>
           </div>
 
           <p className="mt-6 text-xs text-black/50">
