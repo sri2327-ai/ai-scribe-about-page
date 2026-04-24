@@ -144,7 +144,6 @@ export const CheerWhyChooseSection = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button size="lg" className="rounded-full px-8 py-6 bg-white text-black hover:bg-gray-100 font-semibold shadow-xl transition-all hover:scale-105">
                       Coming soon
-                      <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                     
                   </div>
