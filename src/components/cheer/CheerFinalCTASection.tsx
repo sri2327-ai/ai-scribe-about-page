@@ -35,10 +35,9 @@ export const CheerFinalCTASection = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <span
-              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold text-base shadow-lg cursor-default"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold text-base shadow-lg cursor-default"
             >
               Coming soon
-              <ArrowRight className="w-4 h-4" />
             </span>
           </div>
 

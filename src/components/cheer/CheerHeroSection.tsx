@@ -399,7 +399,6 @@ export const CheerHeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button size="lg" className="rounded-full px-6 md:px-8 py-5 md:py-6 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#1a3d63] hover:to-[#438f9b] text-white font-semibold text-base md:text-lg shadow-xl shadow-[#143151]/20 transition-all hover:scale-105">
                 Coming soon
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
             </div>
 
