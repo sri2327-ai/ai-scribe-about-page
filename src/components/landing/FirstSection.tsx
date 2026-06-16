@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon, Stethoscope, User, Activity, ClipboardList, Bot, CreditCard, FlaskConical, PhoneMissed, Network, Layers, Puzzle, Globe } from "lucide-react";
+import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon, Stethoscope, User, Activity, ClipboardList, Bot, CreditCard, FlaskConical, PhoneMissed, Network, Layers, Puzzle, Globe, Headphones, Ban } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
