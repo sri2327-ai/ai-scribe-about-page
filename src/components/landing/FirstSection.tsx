@@ -1242,17 +1242,21 @@ export const FirstSection = () => {
   const isMobile = useIsMobile();
   
   const clinicianBenefits = [{
-    icon: <Clock className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "75% faster charting",
+    icon: <Database className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "Works with eClinicalWorks, athenahealth, Cerner + 100 more",
     color: "from-blue-500 to-blue-600"
   }, {
-    icon: <Database className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "Seamless EHR & 7,000+ App Integrations",
+    icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "HIPAA · ISO 27001 · GDPR · PIPEDA",
     color: "from-teal-500 to-teal-600"
   }, {
-    icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "HIPAA Compliant",
+    icon: <Headphones className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "24/7 real human support",
     color: "from-green-500 to-green-600"
+  }, {
+    icon: <Ban className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "No setup fees · No long-term contracts",
+    color: "from-amber-500 to-amber-600"
   }];
 
   // 4-step AI solution process
