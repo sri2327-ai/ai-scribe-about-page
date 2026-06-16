@@ -1579,14 +1579,19 @@ export const FirstSection = () => {
                   className="group w-full sm:w-auto rounded-full px-6 py-6 text-lg font-semibold border-2 border-[#387E89]/30 text-[#387E89] hover:bg-[#387E89]/5 hover:border-[#387E89] transition-all duration-300"
                 >
                   <Play className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                  Watch Demo
+                  Take a 3-min tour
                 </Button>
               </div>
               
-              <div className="text-sm text-gray-500 pt-4 text-center lg:text-left space-y-1">
-                <p className="font-medium">✓ Free 15-minute consultation</p>
-                <p>✓ Custom implementation plan</p>
-                <p>✓ No setup fees or long-term contracts</p>
+              <div className="text-sm pt-5 text-center lg:text-left flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 justify-center lg:justify-start">
+                <span className="inline-flex items-center gap-1.5 font-semibold text-[#00b67a]">
+                  <Star className="w-3.5 h-3.5 fill-[#00b67a] text-[#00b67a]" />
+                  Excellent on Trustpilot
+                </span>
+                <span className="hidden sm:block h-4 w-px bg-gray-300" aria-hidden="true" />
+                <span className="text-gray-600 italic">
+                  "Better than DeepScribe, DAX, and Freed — all in one system." <span className="not-italic font-medium text-gray-700">— Dr. Brad Wainer, DO</span>
+                </span>
               </div>
             </motion.div>
           </motion.div>
