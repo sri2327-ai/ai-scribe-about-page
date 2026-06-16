@@ -1549,7 +1549,7 @@ export const FirstSection = () => {
                       </motion.div>
                       
                       <span className="font-bold">
-                        Request A Demo
+                        Start free — 15-min consult
                       </span>
                       
                       <motion.div
