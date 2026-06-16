@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon, Stethoscope, User, Activity, ClipboardList, Bot, CreditCard, FlaskConical, PhoneMissed, Network, Layers, Puzzle, Globe } from "lucide-react";
+import { Clock, Database, Shield, FileText, Users, CheckCircle, TrendingUp, Star, Zap, ArrowRight, Play, Phone as PhoneIcon, Link as LinkIcon, Stethoscope, User, Activity, ClipboardList, Bot, CreditCard, FlaskConical, PhoneMissed, Network, Layers, Puzzle, Globe, Headphones, Ban } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -1242,17 +1242,21 @@ export const FirstSection = () => {
   const isMobile = useIsMobile();
   
   const clinicianBenefits = [{
-    icon: <Clock className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "75% faster charting",
+    icon: <Database className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "Works with eClinicalWorks, athenahealth, Cerner + 100 more",
     color: "from-blue-500 to-blue-600"
   }, {
-    icon: <Database className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "Seamless EHR & 7,000+ App Integrations",
+    icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "HIPAA · ISO 27001 · GDPR · PIPEDA",
     color: "from-teal-500 to-teal-600"
   }, {
-    icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "HIPAA Compliant",
+    icon: <Headphones className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "24/7 real human support",
     color: "from-green-500 to-green-600"
+  }, {
+    icon: <Ban className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "No setup fees · No long-term contracts",
+    color: "from-amber-500 to-amber-600"
   }];
 
   // 4-step AI solution process
@@ -1435,26 +1439,11 @@ export const FirstSection = () => {
               
               {/* Content */}
               <div className="relative z-10 flex flex-wrap items-center gap-2 sm:gap-3 w-full justify-center sm:justify-start">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold">
-                  <TrendingUp className="w-3.5 h-3.5 text-amber-600" aria-hidden="true" />
+                <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" aria-hidden="true" />
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
                   Trusted by 1,000+ providers
-                </span>
-
-                <span className="hidden md:block h-4 w-px bg-border/60" aria-hidden="true" />
-
-                <span className="inline-flex items-center gap-2 text-xs">
-                  <span className="font-semibold">Excellent</span>
-                  <span className="flex items-center gap-0.5" aria-hidden="true">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <span key={i} className="w-3 h-3 bg-emerald-500 text-white grid place-items-center rounded-[2px]">
-                        <Star className="w-2 h-2 fill-white text-white" />
-                      </span>
-                    ))}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Star className="w-3 h-3 text-emerald-600" aria-hidden="true" />
-                    <span className="text-[10px] sm:text-xs">Trustpilot</span>
-                  </span>
+                  <span className="text-gray-400">·</span>
+                  12.8M+ notes generated
                 </span>
               </div>
             </motion.div>
@@ -1465,19 +1454,23 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-black leading-[1.05] tracking-tight"
                 style={{ color: '#1a1a1a' }}
               >
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151]">
-                  The AI That Charts
-                </span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#387E89] via-[#5192AE] to-[#387E89]">
-                  & Staffs — So You
-                </span>
+                <span className="block">Your EHR doesn't need to change.</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE]">
-                  Don't Have To
+                  Your documentation already did.
                 </span>
               </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+              >
+                S10.AI is the only AI platform that works with <span className="font-semibold text-gray-800">any EHR — not just Epic</span>. Ambient scribing, automated coding, front-office AI, and specialty-specific notes. All in one system. No migration. No setup fees. Same-day activation.
+              </motion.p>
             </div>
             
             {/* Benefit pills - Enhanced design */}
@@ -1556,7 +1549,7 @@ export const FirstSection = () => {
                       </motion.div>
                       
                       <span className="font-bold">
-                        Request A Demo
+                        Start free — 15-min consult
                       </span>
                       
                       <motion.div
@@ -1586,14 +1579,19 @@ export const FirstSection = () => {
                   className="group w-full sm:w-auto rounded-full px-6 py-6 text-lg font-semibold border-2 border-[#387E89]/30 text-[#387E89] hover:bg-[#387E89]/5 hover:border-[#387E89] transition-all duration-300"
                 >
                   <Play className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                  Watch Demo
+                  Take a 3-min tour
                 </Button>
               </div>
               
-              <div className="text-sm text-gray-500 pt-4 text-center lg:text-left space-y-1">
-                <p className="font-medium">✓ Free 15-minute consultation</p>
-                <p>✓ Custom implementation plan</p>
-                <p>✓ No setup fees or long-term contracts</p>
+              <div className="text-sm pt-5 text-center lg:text-left flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 justify-center lg:justify-start">
+                <span className="inline-flex items-center gap-1.5 font-semibold text-[#00b67a]">
+                  <Star className="w-3.5 h-3.5 fill-[#00b67a] text-[#00b67a]" />
+                  Excellent on Trustpilot
+                </span>
+                <span className="hidden sm:block h-4 w-px bg-gray-300" aria-hidden="true" />
+                <span className="text-gray-600 italic">
+                  "Better than DeepScribe, DAX, and Freed — all in one system." <span className="not-italic font-medium text-gray-700">— Dr. Brad Wainer, DO</span>
+                </span>
               </div>
             </motion.div>
           </motion.div>
