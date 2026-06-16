@@ -1439,26 +1439,11 @@ export const FirstSection = () => {
               
               {/* Content */}
               <div className="relative z-10 flex flex-wrap items-center gap-2 sm:gap-3 w-full justify-center sm:justify-start">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold">
-                  <TrendingUp className="w-3.5 h-3.5 text-amber-600" aria-hidden="true" />
+                <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" aria-hidden="true" />
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
                   Trusted by 1,000+ providers
-                </span>
-
-                <span className="hidden md:block h-4 w-px bg-border/60" aria-hidden="true" />
-
-                <span className="inline-flex items-center gap-2 text-xs">
-                  <span className="font-semibold">Excellent</span>
-                  <span className="flex items-center gap-0.5" aria-hidden="true">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <span key={i} className="w-3 h-3 bg-emerald-500 text-white grid place-items-center rounded-[2px]">
-                        <Star className="w-2 h-2 fill-white text-white" />
-                      </span>
-                    ))}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Star className="w-3 h-3 text-emerald-600" aria-hidden="true" />
-                    <span className="text-[10px] sm:text-xs">Trustpilot</span>
-                  </span>
+                  <span className="text-gray-400">·</span>
+                  12.8M+ notes generated
                 </span>
               </div>
             </motion.div>
@@ -1469,19 +1454,23 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-black leading-[1.05] tracking-tight"
                 style={{ color: '#1a1a1a' }}
               >
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151]">
-                  The AI That Charts
-                </span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#387E89] via-[#5192AE] to-[#387E89]">
-                  & Staffs — So You
-                </span>
+                <span className="block">Your EHR doesn't need to change.</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE]">
-                  Don't Have To
+                  Your documentation already did.
                 </span>
               </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+              >
+                S10.AI is the only AI platform that works with <span className="font-semibold text-gray-800">any EHR — not just Epic</span>. Ambient scribing, automated coding, front-office AI, and specialty-specific notes. All in one system. No migration. No setup fees. Same-day activation.
+              </motion.p>
             </div>
             
             {/* Benefit pills - Enhanced design */}
