@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FirstSection } from '@/components/landing/FirstSection';
+import LandingHero from '@/components/landing/LandingHero';
 import { FourthSection } from '@/components/landing/FourthSection';
 import { X, Sparkles } from 'lucide-react';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
@@ -140,7 +140,7 @@ const Landing = () => {
           </Breadcrumb>
         </div>
 
-        <FirstSection />
+        <LandingHero />
         
         <Suspense fallback={<SectionLoader />}>
           <SecondSection />
