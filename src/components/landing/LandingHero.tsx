@@ -287,38 +287,40 @@ const LandingHero: React.FC = () => {
   const [active, setActive] = useState<TabKey>(1);
 
   return (
-    <section className="bg-white py-10 md:py-16 px-6 md:px-10 lg:px-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-start">
+    <section className="bg-white py-8 sm:py-10 md:py-16 px-4 sm:px-6 md:px-10 lg:px-16">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-14 items-start">
 
         {/* ── LEFT ── */}
-        <div className="flex flex-col gap-5">
-          <TrustPill />
+        <div className="flex flex-col gap-4 sm:gap-5">
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <TrustPill />
+          </div>
 
           <h1 className="font-extrabold tracking-tight"
-              style={{ color: TEXT_HEAD, fontSize: 'clamp(44px, 6vw, 64px)', lineHeight: 1.1 }}>
+              style={{ color: TEXT_HEAD, fontSize: 'clamp(32px, 7vw, 64px)', lineHeight: 1.1 }}>
             Less Admin.<br />
             <span style={{ color: BRAND }}>Less Charting.</span><br />
             More Time for Your Patient.
           </h1>
 
-          <p className="text-[16px] leading-[1.6]" style={{ color: TEXT_MUTED, maxWidth: 420 }}>
+          <p className="text-[15px] sm:text-[16px] leading-[1.6]" style={{ color: TEXT_MUTED, maxWidth: 420 }}>
             One AI platform covering your entire practice — from the first patient call to the final coded note.
             Any EHR. No setup fees.
           </p>
 
-          {/* Stat chips */}
-          <div className="flex flex-wrap gap-2">
+          {/* Stat chips — 2-col grid on mobile for clean wrap */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
             <StatChip icon={Clock}  text="75% faster charting" />
             <StatChip icon={Phone}  text="40% fewer no-shows" />
             <StatChip icon={Plug}   text="100+ EHRs & 7,000 apps" />
-            <StatChip icon={Shield} text="HIPAA · GDPR · ISO 27001" />
+            <StatChip icon={Shield} text="HIPAA · GDPR · ISO" />
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3 mt-2">
+          {/* CTAs — full width on mobile for big tap targets */}
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mt-2">
             <button
               onClick={() => (window.location.href = '/contact')}
-              className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-[15px] font-semibold text-white transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 sm:py-3 text-[15px] font-semibold text-white transition-colors min-h-[48px]"
               style={{ background: BRAND }}
               onMouseEnter={(e) => (e.currentTarget.style.background = BRAND_DARK)}
               onMouseLeave={(e) => (e.currentTarget.style.background = BRAND)}
@@ -327,7 +329,7 @@ const LandingHero: React.FC = () => {
               Request A Demo
             </button>
             <button
-              className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-[15px] font-semibold bg-white transition-colors hover:bg-slate-50"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 sm:py-3 text-[15px] font-semibold bg-white transition-colors hover:bg-slate-50 min-h-[48px]"
               style={{ border: '1.5px solid #CBD5E1', color: TEXT_BODY }}
             >
               <Play className="w-4 h-4" />
@@ -336,44 +338,53 @@ const LandingHero: React.FC = () => {
           </div>
 
           {/* Offer row */}
-          <div className="flex flex-wrap gap-4 text-[13px]" style={{ color: TEXT_MUTED }}>
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-[13px]" style={{ color: TEXT_MUTED }}>
             {['Free 15-min consultation','No setup fees','No long-term contracts'].map(o => (
               <span key={o} className="inline-flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5" style={{ color: '#10B981' }} />{o}
+                <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#10B981' }} />{o}
               </span>
             ))}
           </div>
         </div>
 
         {/* ── RIGHT — Demo panel ── */}
-        <div className="rounded-2xl overflow-hidden shadow-sm"
+        <div className="rounded-2xl overflow-hidden shadow-sm w-full"
              style={{ border: '1px solid #E2E8F0', background: PANEL_BG }}>
           {/* Header strip */}
-          <div className="px-5 py-2.5 text-center"
+          <div className="px-4 sm:px-5 py-2.5 text-center"
                style={{ background: '#0F172A' }}>
-            <p className="text-[13px] font-medium text-white tracking-[0.03em] m-0">
+            <p className="text-[12px] sm:text-[13px] font-medium text-white tracking-[0.03em] m-0">
               One AI Platform. Every Task Automated.
             </p>
           </div>
 
-          {/* Tab strip */}
-          <div className="bg-white flex" style={{ borderBottom: '1px solid #E2E8F0' }}>
+          {/* Tab strip — horizontally scrollable on mobile with snap + larger tap targets */}
+          <div
+            className="bg-white flex overflow-x-auto snap-x snap-mandatory sm:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            style={{ borderBottom: '1px solid #E2E8F0', WebkitOverflowScrolling: 'touch' }}
+            role="tablist"
+            aria-label="Product demos"
+          >
             {TABS.map(t => {
               const Icon = t.icon;
               const isActive = active === t.id;
               return (
                 <button
                   key={t.id}
+                  role="tab"
+                  aria-selected={isActive}
                   onClick={() => setActive(t.id)}
-                  className="flex-1 flex flex-col items-center justify-center gap-1 transition-colors"
+                  className="flex-shrink-0 sm:flex-1 flex flex-col items-center justify-center gap-1 transition-colors snap-start min-w-[88px] sm:min-w-0"
                   style={{
-                    padding: '10px 4px',
+                    padding: '12px 10px',
+                    minHeight: 56,
                     color: isActive ? BRAND : '#94A3B8',
                     borderBottom: isActive ? `2px solid ${BRAND}` : '2px solid transparent',
+                    background: isActive ? BRAND_SOFT : 'transparent',
                   }}
                 >
-                  <Icon className="w-[15px] h-[15px]" />
-                  <span className="text-[11px] font-medium leading-[1.3] text-center">{t.label}</span>
+                  <Icon className="w-[17px] h-[17px]" />
+                  <span className="text-[11.5px] font-semibold leading-[1.2] text-center whitespace-nowrap">{t.label}</span>
                 </button>
               );
             })}
